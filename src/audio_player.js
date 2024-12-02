@@ -2,8 +2,8 @@
 
 class AudioPlayer extends PieceContainer {
 
-    constructor(nSlots, segmentDuration, sampleRate) {
-        super(nSlots)
+    constructor(nSlots, segmentDuration, sampleRate, testMode) {
+        super(nSlots, testMode)
         this.slotDuration = segmentDuration / nSlots
         this.sampleRate = sampleRate
 
@@ -12,7 +12,7 @@ class AudioPlayer extends PieceContainer {
         this.zeroArray = Array(slotArrayLen).fill(0)
     }
 
-    play(testMode) {
+    play() {
         // Play the content of the player, pausing at slots with no pieces.
 
         let buffer = [[], []]
@@ -28,13 +28,17 @@ class AudioPlayer extends PieceContainer {
             }
         }
 
-        if (!testMode) {
-
+        if (!this.testMode) {
         } else {
             // Return played data for testing.
             return buffer
         }
 
+    }
+
+    startGUI() {
+        // Gather all the divs that belong to the audio player.
+        super.startGUI('audio-player')
     }
 
 }

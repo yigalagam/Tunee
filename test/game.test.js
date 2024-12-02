@@ -1,8 +1,8 @@
-describe('Audio Player Test', () =>  {
+describe('Game Test', () =>  {
     
     beforeEach(() => {
         const segment = new Segment('small.wav', true)
-        this.game = new Game(segment, 11, 16)
+        this.game = new Game(segment, 11, 16, true)
     });
     
     it('Constructor', () => {

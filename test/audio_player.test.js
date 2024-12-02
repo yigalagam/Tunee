@@ -3,7 +3,7 @@ describe('Audio Player Test', () =>  {
     beforeEach(() => {
         this.segment = new Segment('small.wav', true)
         this.pieces = this.segment.divide(9)
-        this.audioPlayer = new AudioPlayer(9, this.segment.duration, this.segment.sampleRate)
+        this.audioPlayer = new AudioPlayer(9, this.segment.duration, this.segment.sampleRate, true)
     });
     
     it('Constructor', () => {

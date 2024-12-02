@@ -2,13 +2,12 @@
 
 class Board extends PieceContainer {
 
-    constructor(nSlots) {
-        super(nSlots)
+    constructor(nSlots, testMode) {
+        super(nSlots, testMode)
     }
 
     loadPieces(pieces) {
         // Load a set of pieces into the board.
-        
         this.reset()
         
         const nPieces = pieces.length
@@ -23,34 +22,21 @@ class Board extends PieceContainer {
         for (let [i, loc] of pieceLocations.entries()) {
             this.slots[loc] = pieces[i]
         }
+
+        this.startGUI()
     }
 
-    getOccupiedSlots() {
-        const occupiedSlots = []
-        for (let i = 0; i < this.nSlots; i++) {
-            if (this.isSlotOccupied(i)) {
-                occupiedSlots.push(i)
-            }
-        }
-        return occupiedSlots
-    }
-
-    getFreeSlots() {
-        const occupiedSlots = this.getOccupiedSlots()
-        const freeSlots = []
-        for (let i = 0; i < this.nSlots; i++) {
-            if (!occupiedSlots.includes(i)) {
-                freeSlots.push(i)
-            }
-        }
-        return freeSlots
-    }
-
-    play(slotIndex, testMode) {
+    play(slotIndex) {
         // Play the audio in the piece contained in a slot.
         if (!this.isSlotOccupied(slotIndex)) {
             throw new Error('No piece to play in slot ' + slotIndex)
         }
-        return this.slots[slotIndex].play(testMode)
+        return this.slots[slotIndex].play(this.testMode)
     }
+
+    startGUI() {
+        // Gather all the divs that belong to the board.
+        super.startGUI('board')
+    }
+
 }
