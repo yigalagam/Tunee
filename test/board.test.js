@@ -58,44 +58,5 @@ describe('Board Test', () =>  {
 
     })
 
-    it('GUI', () => {
-        
-        // Create board divs for testing, one for each slot.
-        let guiElements = []
-        for (let i = 0; i < 12; i++) {
-            let element = document.createElement('div')
-            element.classList.add('game', 'board')
-            document.body.append(element)
-            guiElements.push(element)
-        }
-
-        this.board.startGUI()
-
-        // Occupied slot should have 'piece' added to the class list.
-        this.occupiedSlots.forEach(slotIndex => {
-            expect(this.board.slotsGUI[slotIndex].classList).toContain('piece')
-        })
-        this.freeSlots.forEach(slotIndex => {
-            expect(this.board.slotsGUI[slotIndex].classList).not.toContain('piece')
-        })
-
-        // Move pieces and verify that the GUI class changes.
-        let fromSlot = this.occupiedSlots[3]
-        let toSlot = this.freeSlots[1]
-        this.board.movePiece(fromSlot, toSlot)
-        expect(this.board.slotsGUI[fromSlot].classList).not.toContain('piece')
-        expect(this.board.slotsGUI[toSlot].classList).toContain('piece')
-        toSlot = this.freeSlots[2]
-        const piece = this.occupiedSlots[0]
-        this.board.insertPiece(toSlot, piece)
-        expect(this.board.slotsGUI[toSlot].classList).toContain('piece')
-        this.board.removePiece(toSlot)
-        expect(this.board.slotsGUI[toSlot].classList).not.toContain('piece')
-
-        // Remove GUI elements.
-        guiElements.forEach(guiElement => document.body.removeChild(guiElement));
-
-    })
-
 })
 

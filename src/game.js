@@ -24,7 +24,7 @@ class Game {
         // Start or restart a game with pieces scattered randomly on the board.
         this.board.loadPieces(this.solution)
         this.audioPlayer.reset()
-        this.startGUI
+        this.startGUI()
     }
 
     movePiece(origin, originIndex, dest, destIndex) {

@@ -74,7 +74,7 @@ class PieceContainer {
     }
 
     startGUI(component) {
-        this.slotsGUI = document.getElementsByClassName('game', component)
+        this.slotsGUI = Array.from(document.getElementsByClassName('game ' + component))
         
         // The GUI has to match the back end.
         if (this.slotsGUI.length  > 0 && (this.slotsGUI.length != this.nSlots)) {

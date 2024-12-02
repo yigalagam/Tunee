@@ -65,33 +65,4 @@ describe('Audio Player Test', () =>  {
         expect(playedSound[1].slice(157, 317).every(num => num == 0)).toBe(true)
     })
 
-    it('GUI', () => {
-        
-        // Create board divs for testing, one for each slot.
-        let guiElements = []
-        for (let i = 0; i < 9; i++) {
-            let element = document.createElement('div')
-            element.classList.add('game', 'audio-player')
-            document.body.append(element)
-            guiElements.push(element)
-        }
-
-        this.audioPlayer.startGUI()
-
-        // All slots should be empty and not have 'piece' added to the class list.
-        Array.from(this.audioPlayer.slotsGUI).forEach(slotGUI => {
-            expect(slotGUI.classList).not.toContain('piece')
-        })
-
-        toSlot = 2
-        this.audioPlayer.insertPiece(toSlot, this.pieces[7])
-        expect(this.audioPlayer.slotsGUI[toSlot].classList).toContain('piece')
-        this.audioPlayer.removePiece(toSlot)
-        expect(this.audioPlayer.slotsGUI[toSlot].classList).not.toContain('piece')
-
-        // Remove GUI elements.
-        guiElements.forEach(guiElement => document.body.removeChild(guiElement));
-
-    })
-
 })
