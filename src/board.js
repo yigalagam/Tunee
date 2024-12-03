@@ -16,9 +16,11 @@ class Board extends PieceContainer {
         }
 
         // Randomly populate slots with pieces.
-        let pieceLocations = [...Array(this.nSlots)].map((_, i) => i);
-        pieceLocations.sort(() => Math.random() - 0.5);
-        pieceLocations = pieceLocations.slice(0, nPieces)
+        const pieceLocations = Array.from({ length: this.nSlots }, (_, i) => i);
+        for (let i = pieceLocations.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [pieceLocations[i], pieceLocations[j]] = [pieceLocations[j], pieceLocations[i]];
+        }
         for (let [i, loc] of pieceLocations.entries()) {
             this.slots[loc] = pieces[i]
         }
