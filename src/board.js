@@ -26,14 +26,6 @@ class Board extends PieceContainer {
         this.startGUI()
     }
 
-    play(slotIndex) {
-        // Play the audio in the piece contained in a slot.
-        if (!this.isSlotOccupied(slotIndex)) {
-            throw new Error('No piece to play in slot ' + slotIndex)
-        }
-        return this.slots[slotIndex].play(this.testMode)
-    }
-
     startGUI() {
         // Gather all the divs that belong to the board.
         super.startGUI('board')

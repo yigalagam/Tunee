@@ -1,0 +1,29 @@
+.game {
+    border: 1px solid;
+}
+
+.board {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.audio-player {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.board-slot {
+    border: 1px solid;
+    box-sizing: border-box;
+    background-color: red;
+}
+
+.audio-player-slot {
+    border: 1px solid;
+    box-sizing: border-box;
+    background-color: blue;
+}
+
+.piece {
+    background-color: green;
+}

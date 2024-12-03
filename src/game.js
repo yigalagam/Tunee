@@ -1,7 +1,7 @@
 class Game {
     
-    constructor(segment, nPieces, boardSize, testMode) {
-        // Initialize a game from an audio segment.
+    constructor(wavFile, nPieces, boardSize, testMode) {
+        // Initialize a game from an audio file.
 
         if (boardSize < nPieces) {
             throw new Error('Board size must be at least the number of pieces')
@@ -11,13 +11,28 @@ class Game {
         this.testMode = testMode
 
         // Parse the input segment. The solution is stored as an array of pieces.
-        this.segment = segment
-        this.solution = segment.divide(nPieces)
+        this.segment = new Segment(wavFile, testMode)
+        this.solution = this.segment.divide(nPieces)
         
         // Containers for pieces: game board and the audio player.
         this.board = new Board(boardSize, this.testMode)
-        this.audioPlayer = new AudioPlayer(nPieces, segment.duration, segment.sampleRate, this.testMode)
+        this.audioPlayer = new AudioPlayer(nPieces, this.segment.duration, this.segment.sampleRate, this.testMode)
 
+        // Properties used to handle moving pieces.
+        this.slotBeingMovedFrom = ''
+        this.slotBeingMoved = null
+    }
+
+    getObjectFromComponentName(component) {
+        let obj
+        if (component == 'board') {
+            obj = this.board
+        } else if (component == 'audio-player') {
+            obj = this.audioPlayer
+        } else {
+            throw new Error("Component must be 'board' or 'audio-player', not " + component)
+        }
+        return obj
     }
 
     start() {
@@ -33,20 +48,9 @@ class Game {
         // Parse origin and destination (could be the same).
         origin = origin.toLowerCase()
         dest = dest.toLowerCase()
-        if (origin == 'board') {
-            origin = this.board
-        } else if (origin == 'player') {
-            origin = this.audioPlayer
-        } else {
-            throw new Error("Origin must be 'board' or 'player'")
-        }
-        if (dest == 'board') {
-            dest = this.board
-        } else if (dest == 'player') {
-            dest = this.audioPlayer
-        } else {
-            throw new Error("Destination must be 'board' or 'player'")
-        }
+
+        origin = this.getObjectFromComponentName(origin)
+        dest = this.getObjectFromComponentName(dest)
 
         if ((origin == dest) && (originIndex == destIndex)) {
             throw new Error('Origin and destination cannot be the same')
@@ -76,6 +80,23 @@ class Game {
         this.gui = document.getElementsByClassName('game')
         this.board.startGUI(this.gui)
         this.audioPlayer.startGUI(this.gui)
+    }
+
+    slotClick(component, index) {
+        let obj = this.getObjectFromComponentName(component)
+        obj.playPiece(index)
+    }
+
+
+    slotDrag(component, index) {
+        // Callback function when a piece is getting dragged.
+        this.slotBeingMovedFrom = component
+        this.slotBeingMovedIndex = index
+    }
+
+    slotDrop(component, index) {
+        // Callback function when a piece is getting dropped.
+        this.movePiece(this.slotBeingMovedFrom, this.slotBeingMovedIndex, component, index)
     }
 
 }

@@ -10,8 +10,8 @@ class Piece {
 
     play(testMode=false) {
         if (!testMode) {
-        } else {
-            return this.sound   
+            console.log(this.sound)
         }
+        return this.sound   
     }
 }

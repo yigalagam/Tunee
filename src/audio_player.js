@@ -12,7 +12,7 @@ class AudioPlayer extends PieceContainer {
         this.zeroArray = Array(slotArrayLen).fill(0)
     }
 
-    play() {
+    playSegment() {
         // Play the content of the player, pausing at slots with no pieces.
 
         let buffer = [[], []]

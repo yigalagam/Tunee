@@ -27,10 +27,10 @@ describe('Board Test', () =>  {
             expect(sound).toBe(piece.play(true))
         })
 
-        // Trying to play from empty slots should throw an error.
+        // Trying to play from empty slots should not do anything.
         for (let slotIndex = 0; slotIndex < this.board.nSlots; slotIndex ++) {
             if (!this.occupiedSlots.includes(slotIndex)) {
-                expect(() => { this.board.play(slotIndex, true) }).toThrowError('No piece to play in slot ' + slotIndex)
+                expect(this.board.play(slotIndex, true)).toBe(null)
             }
         }
 

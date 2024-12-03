@@ -73,9 +73,18 @@ class PieceContainer {
         return piece
     }
 
+    play(slotIndex) {
+        if (this.slots[slotIndex] != null) {
+            // Play piece in slot.
+            return this.slots[slotIndex].play()
+        }
+        // Empty slot.
+        return null
+    }
+
     startGUI(component) {
-        this.slotsGUI = Array.from(document.getElementsByClassName('game ' + component))
-        
+        this.slotsGUI = Array.from(document.getElementsByClassName(component + '-slot'))
+
         // The GUI has to match the back end.
         if (this.slotsGUI.length  > 0 && (this.slotsGUI.length != this.nSlots)) {
             throw new Error(component + ': Number of slot GUI elements (' + this.slotsGUI.length + ') does not match the number of slots (' + this.nSlots + ')')
@@ -93,14 +102,17 @@ class PieceContainer {
         const occupiedSlots = this.getOccupiedSlots()
         const freeSlots = this.getFreeSlots()
         
-        // Set piece class for occupied slots.
+        // Set piece class for occupied slots and make it draggable so it can be moved.
         occupiedSlots.forEach(slotIndex => {
             this.slotsGUI[slotIndex].classList.add('piece')
+            this.slotsGUI[slotIndex].draggable = true
+
         })
 
         // Remove piece class from unoccupied slots.
         freeSlots.forEach(slotIndex => {
             this.slotsGUI[slotIndex].classList.remove('piece')
+            this.slotsGUI[slotIndex].draggable = false
         })
     }
 

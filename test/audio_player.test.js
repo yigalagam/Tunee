@@ -41,6 +41,20 @@ describe('Audio Player Test', () =>  {
     })
 
     it('Play', () => {
+
+        this.audioPlayer.insertPiece(3, this.pieces[4])
+        
+        // AudioPlayer.play() in test mode should return the sound from the correcponding piece object.
+        let piece = audioPlayer.slots[3]
+        expect(this.audioPlayer.play(3)).toBe(piece.play(true))
+
+        // Trying to play from empty slots should not do anything.
+        expect(this.audioPlayer.play(1)).toBe(null)
+        expect(this.audioPlayer.play(2)).toBe(null)
+        expect(this.audioPlayer.play(7)).toBe(null)
+    })
+    
+    it('Play Segment', () => {
         this.audioPlayer.insertPiece(2, this.pieces[7])
         this.audioPlayer.insertPiece(3, this.pieces[0])
         this.audioPlayer.insertPiece(8, this.pieces[2])
@@ -48,7 +62,7 @@ describe('Audio Player Test', () =>  {
 
         // In test mode, the played sound is returned as a 2-channel array.
         // The last piece is 37 samples instead of 40, therefor slot 1 only has 37 samples.
-        const playedSound = this.audioPlayer.play(true)
+        const playedSound = this.audioPlayer.playSegment(true)
         expect(playedSound[0].slice(40, 77)).toEqual(this.pieces[8].sound[0])
         expect(playedSound[1].slice(40, 77)).toEqual(this.pieces[8].sound[1])
         expect(playedSound[0].slice(77, 117)).toEqual(this.pieces[7].sound[0])

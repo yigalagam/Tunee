@@ -1,12 +1,11 @@
 describe('Game Test', () =>  {
     
     beforeEach(() => {
-        const segment = new Segment('small.wav', true)
-        this.game = new Game(segment, 11, 16, true)
+        this.game = new Game('small.wav', 11, 16, true)
     });
     
     it('Constructor', () => {
-        expect(game.solution.length).toBe(11)
+        expect(this.game.solution.length).toBe(11)
 
         // Before the game begins, all board slots should be empty.
         expect(this.game.board.nSlots, 16)
@@ -42,7 +41,7 @@ describe('Game Test', () =>  {
         // From board to player.
         fromSlot = toSlot
         toSlot = 1
-        moved = this.game.movePiece('board', fromSlot, 'player', toSlot)
+        moved = this.game.movePiece('board', fromSlot, 'audio-player', toSlot)
         expect(moved).toBe(true)
         expect(this.game.board.isSlotOccupied(fromSlot)).toBe(false)
         expect(this.game.audioPlayer.isSlotOccupied(toSlot)).toBe(true)
@@ -50,7 +49,7 @@ describe('Game Test', () =>  {
         // From occupied to unoccupied audio player slot.
         fromSlot = toSlot
         toSlot = 7
-        moved = this.game.movePiece('player', fromSlot, 'player', toSlot)
+        moved = this.game.movePiece('audio-player', fromSlot, 'audio-player', toSlot)
         expect(moved).toBe(true)
         expect(this.game.audioPlayer.isSlotOccupied(fromSlot)).toBe(false)
         expect(this.game.audioPlayer.isSlotOccupied(toSlot)).toBe(true)
@@ -58,7 +57,7 @@ describe('Game Test', () =>  {
         // Move piece back from player to board.
         fromSlot = toSlot
         toSlot = freeBoardSlots[0]
-        moved = this.game.movePiece('player', fromSlot, 'board', toSlot)
+        moved = this.game.movePiece('audio-player', fromSlot, 'board', toSlot)
         expect(moved).toBe(true)
         expect(this.game.audioPlayer.isSlotOccupied(fromSlot)).toBe(false)
         expect(this.game.board.isSlotOccupied(toSlot)).toBe(true)
@@ -76,7 +75,7 @@ describe('Game Test', () =>  {
 
         // Illegal move into an occupied slot in audio player.
         toSlot = 3
-        this.game.movePiece('board', fromSlot, 'player', toSlot)
+        this.game.movePiece('board', fromSlot, 'audio-player', toSlot)
         toPiece = this.game.audioPlayer.slots[toSlot]
         fromSlot = occupiedBoardSlots[6]
         fromPiece = this.game.board.slots[fromSlot]
@@ -95,7 +94,7 @@ describe('Game Test', () =>  {
         // Illegal move from free slot in audio player.
         fromSlot = 6
         toSlot = 8
-        moved = this.game.movePiece('player', fromSlot, 'player', toSlot)
+        moved = this.game.movePiece('audio-player', fromSlot, 'audio-player', toSlot)
         expect(moved).toBe(false)
         expect(this.game.audioPlayer.isSlotOccupied(fromSlot)).toBe(false)
         expect(this.game.audioPlayer.isSlotOccupied(toSlot)).toBe(false)
@@ -113,18 +112,18 @@ describe('Game Test', () =>  {
 
         // Switch two pieces so that the solution is incomplete.
         const freeBoardSlots = this.game.board.getFreeSlots()
-        moved = this.game.movePiece('Player', 4, 'Board', freeBoardSlots[0])
+        moved = this.game.movePiece('audio-player', 4, 'Board', freeBoardSlots[0])
         // Not solved when one audio player slot is empty.
         expect(this.game.isSolved()).toBe(false)
-        this.game.movePiece('Player', 3, 'Player', 4)
-        this.game.movePiece('Board', freeBoardSlots[0], 'Player', 3)
+        this.game.movePiece('audio-player', 3, 'audio-player', 4)
+        this.game.movePiece('Board', freeBoardSlots[0], 'audio-player', 3)
         // Not solved because audio player slots 3 and 4 and flipped.
         expect(this.game.isSolved()).toBe(false)
         
         // Move back to the right configuration.
-        this.game.movePiece('Player', 4, 'Board', freeBoardSlots[0])
-        this.game.movePiece('Player', 3, 'Player', 4)
-        this.game.movePiece('Board', freeBoardSlots[0], 'Player', 3)
+        this.game.movePiece('audio-Player', 4, 'Board', freeBoardSlots[0])
+        this.game.movePiece('audio-player', 3, 'audio-player', 4)
+        this.game.movePiece('Board', freeBoardSlots[0], 'audio-player', 3)
         expect(this.game.isSolved()).toBe(true)
 
     })
@@ -136,13 +135,13 @@ describe('Game Test', () =>  {
         let element
         for (let i = 0; i < 16; i++) {
             element = document.createElement('div')
-            element.classList.add('game', 'board')
+            element.classList.add('board-slot')
             document.body.append(element)
             guiElements.push(element)
         }
         for (let i = 0; i < 11; i++) {
             element = document.createElement('div')
-            element.classList.add('game', 'audio-player')
+            element.classList.add('audio-player-slot')
             document.body.append(element)
             guiElements.push(element)
         }
@@ -174,19 +173,19 @@ describe('Game Test', () =>  {
         
         fromSlot = occupiedSlots[6]
         toSlot = 10
-        this.game.movePiece('board', fromSlot, 'player', toSlot)
+        this.game.movePiece('board', fromSlot, 'audio-player', toSlot)
         expect(this.game.board.slotsGUI[fromSlot].classList).not.toContain('piece')
         expect(this.game.audioPlayer.slotsGUI[toSlot].classList).toContain('piece')
 
         fromSlot = toSlot
         toSlot = 5
-        this.game.movePiece('player', fromSlot, 'player', toSlot)
+        this.game.movePiece('audio-player', fromSlot, 'audio-player', toSlot)
         expect(this.game.audioPlayer.slotsGUI[fromSlot].classList).not.toContain('piece')
         expect(this.game.audioPlayer.slotsGUI[toSlot].classList).toContain('piece')
 
         fromSlot = toSlot
         toSlot = freeBoardSlots[3]
-        this.game.movePiece('player', fromSlot, 'board', toSlot)
+        this.game.movePiece('audio-player', fromSlot, 'board', toSlot)
         expect(this.game.audioPlayer.slotsGUI[fromSlot].classList).not.toContain('piece')
         expect(this.game.board.slotsGUI[toSlot].classList).toContain('piece')
 
