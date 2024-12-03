@@ -84,7 +84,7 @@ class Game {
 
     slotClick(component, index) {
         let obj = this.getObjectFromComponentName(component)
-        obj.playPiece(index)
+        obj.play(index)
     }
 
 
