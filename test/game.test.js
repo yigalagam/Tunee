@@ -79,7 +79,7 @@ describe('Game Test', () =>  {
         toPiece = this.game.audioPlayer.slots[toSlot]
         fromSlot = occupiedBoardSlots[6]
         fromPiece = this.game.board.slots[fromSlot]
-        moved = this.game.movePiece('board', fromSlot, 'board', toSlot)
+        moved = this.game.movePiece('board', fromSlot, 'audio-player', toSlot)
         expect(moved).toBe(false)
         expect(this.game.board.slots[fromSlot]).toBe(fromPiece)
         expect(this.game.audioPlayer.slots[toSlot]).toBe(toPiece)
@@ -163,13 +163,17 @@ describe('Game Test', () =>  {
             expect(slotGUI.classList).not.toContain('piece')
         })
 
-        // Move pieces and verify that the GUI class changes.
+        // Move pieces and verify that the GUI components change accordingly.
         
         let fromSlot = occupiedSlots[3]
         let toSlot = freeBoardSlots[1]
         this.game.movePiece('board', fromSlot, 'board', toSlot)
         expect(this.game.board.slotsGUI[fromSlot].classList).not.toContain('piece')
+        expect(this.game.board.slotsGUI[fromSlot].ondragover).not.toBe(null)
+        expect(this.game.board.slotsGUI[fromSlot].draggable).toBe(false)
         expect(this.game.board.slotsGUI[toSlot].classList).toContain('piece')
+        expect(this.game.board.slotsGUI[toSlot].ondragover).toBe(null)
+        expect(this.game.board.slotsGUI[toSlot].draggable).toBe(true)
         
         fromSlot = occupiedSlots[6]
         toSlot = 10
@@ -181,7 +185,11 @@ describe('Game Test', () =>  {
         toSlot = 5
         this.game.movePiece('audio-player', fromSlot, 'audio-player', toSlot)
         expect(this.game.audioPlayer.slotsGUI[fromSlot].classList).not.toContain('piece')
+        expect(this.game.audioPlayer.slotsGUI[fromSlot].ondragover).not.toBe(null)
+        expect(this.game.audioPlayer.slotsGUI[fromSlot].draggable).toBe(false)
         expect(this.game.audioPlayer.slotsGUI[toSlot].classList).toContain('piece')
+        expect(this.game.audioPlayer.slotsGUI[toSlot].ondragover).toBe(null)
+        expect(this.game.audioPlayer.slotsGUI[toSlot].draggable).toBe(true)
 
         fromSlot = toSlot
         toSlot = freeBoardSlots[3]
