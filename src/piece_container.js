@@ -102,18 +102,23 @@ class PieceContainer {
         const occupiedSlots = this.getOccupiedSlots()
         const freeSlots = this.getFreeSlots()
         
-        // Set piece class for occupied slots and make it draggable so it can be moved.
         occupiedSlots.forEach(slotIndex => {
+            // Set piece class for occupied slots and make it draggable so it can be moved.
             this.slotsGUI[slotIndex].classList.add('piece')
             this.slotsGUI[slotIndex].draggable = true
-            this.slotsGUI[slotIndex].droppa
-
+            // Prevent dropping pieces in an occupied slot.
+            this.slotsGUI[slotIndex].ondragover = null
         })
 
-        // Remove piece class from unoccupied slots.
         freeSlots.forEach(slotIndex => {
+            // Remove piece class from unoccupied slots.
             this.slotsGUI[slotIndex].classList.remove('piece')
             this.slotsGUI[slotIndex].draggable = false
+            // This listener is needed to allow dropping pieces in this slot.
+            this.slotsGUI[slotIndex].ondragover = (event) => {
+                event.stopPropagation()
+                event.preventDefault()
+            }
         })
     }
 
