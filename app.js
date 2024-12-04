@@ -2,7 +2,7 @@
 const nBoardRows = 3
 const nBoardCols = 12
 const nPieces  = 10
-const slotSizePx = 30
+const slotSizePx = 50
 
 // Start a game object from an audio file.
 nBoardSlots = nBoardRows * nBoardCols
@@ -45,16 +45,20 @@ function getSlotElement(component, id) {
 
     // Set up drag and drop listeners for moving pieces.
     element.ondragstart = (event) => {
-        game.slotDrag(component, element.id)
         event.stopPropagation()
+        game.slotDrag(component, element)
     }
     element.ondragover = (event) => {
         // This listener is needed to allow dropping in a slot.
+        event.stopPropagation()
         event.preventDefault()
     }
+    element.ondragend = () => {
+        console.log('Drag end')
+        game.slotDragEnd()
+    }
     element.ondrop = () => {
-        game.slotDrop(component, element.id)
-        element.isDragging = false
+        game.slotDrop(component, element)
     }
 
     return element

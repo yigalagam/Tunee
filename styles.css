@@ -27,3 +27,7 @@
 .piece {
     background-color: green;
 }
+
+.piece-dragged {
+    background-color: gray;
+}

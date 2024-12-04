@@ -11,7 +11,8 @@ describe('Audio Player Test', () =>  {
         expect(this.audioPlayer.slotDuration).toBeCloseTo(0.035, 3)
 
         // Verify length of "silent" array for unoccupied slots.
-        expect(this.audioPlayer.zeroArray.length).toBe(40)
+        expect(this.audioPlayer.silentPiece.sound[0].length).toBe(40)
+        expect(this.audioPlayer.silentPiece.sound[1].length).toBe(40)
     })
 
     it('Insert, remove and move pieces', () => {
@@ -63,20 +64,17 @@ describe('Audio Player Test', () =>  {
         // In test mode, the played sound is returned as a 2-channel array.
         // The last piece is 37 samples instead of 40, therefor slot 1 only has 37 samples.
         const playedSound = this.audioPlayer.playSegment(true)
-        expect(playedSound[0].slice(40, 77)).toEqual(this.pieces[8].sound[0])
-        expect(playedSound[1].slice(40, 77)).toEqual(this.pieces[8].sound[1])
-        expect(playedSound[0].slice(77, 117)).toEqual(this.pieces[7].sound[0])
-        expect(playedSound[1].slice(77, 117)).toEqual(this.pieces[7].sound[1])
-        expect(playedSound[0].slice(117, 157)).toEqual(this.pieces[0].sound[0])
-        expect(playedSound[1].slice(117, 157)).toEqual(this.pieces[0].sound[1])
-        expect(playedSound[0].slice(317, 357)).toEqual(this.pieces[2].sound[0])
-        expect(playedSound[1].slice(317, 357)).toEqual(this.pieces[2].sound[1])
+        expect(playedSound[1]).toEqual(this.pieces[8].sound)
+        expect(playedSound[2]).toEqual(this.pieces[7].sound)
+        expect(playedSound[3]).toEqual(this.pieces[0].sound)        
+        expect(playedSound[8]).toEqual(this.pieces[2].sound)        
 
         // All the unoccupied slots should play zero in both channels.
-        expect(playedSound[0].slice(0, 40).every(num => num == 0)).toBe(true)
-        expect(playedSound[1].slice(0, 40).every(num => num == 0)).toBe(true)
-        expect(playedSound[0].slice(157, 317).every(num => num == 0)).toBe(true)
-        expect(playedSound[1].slice(157, 317).every(num => num == 0)).toBe(true)
+        expect(playedSound[0][0].every(num => num == 0)).toBe(true)
+        expect(playedSound[4][1].every(num => num == 0)).toBe(true)
+        expect(playedSound[5][0].every(num => num == 0)).toBe(true)
+        expect(playedSound[6][1].every(num => num == 0)).toBe(true)
+        expect(playedSound[7][0].every(num => num == 0)).toBe(true)
     })
 
 })

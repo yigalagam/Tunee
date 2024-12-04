@@ -106,6 +106,7 @@ class PieceContainer {
         occupiedSlots.forEach(slotIndex => {
             this.slotsGUI[slotIndex].classList.add('piece')
             this.slotsGUI[slotIndex].draggable = true
+            this.slotsGUI[slotIndex].droppa
 
         })
 

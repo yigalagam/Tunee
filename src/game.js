@@ -20,7 +20,7 @@ class Game {
 
         // Properties used to handle moving pieces.
         this.slotBeingMovedFrom = ''
-        this.slotBeingMoved = null
+        this.slotBeingMovedElement = null
     }
 
     getObjectFromComponentName(component) {
@@ -53,7 +53,7 @@ class Game {
         dest = this.getObjectFromComponentName(dest)
 
         if ((origin == dest) && (originIndex == destIndex)) {
-            throw new Error('Origin and destination cannot be the same')
+            return false
         }
 
         // If a legal move (slot with a piece to a slot without a piece) return true, otherwise false.
@@ -88,15 +88,21 @@ class Game {
     }
 
 
-    slotDrag(component, index) {
+    slotDrag(component, element) {
         // Callback function when a piece is getting dragged.
         this.slotBeingMovedFrom = component
-        this.slotBeingMovedIndex = index
+        this.slotBeingMovedElement = element
+        element.classList.add('piece-dragged')
     }
 
-    slotDrop(component, index) {
+    slotDragEnd() {
+        // Change the apperance of the dragged slot back to normal.
+        this.slotBeingMovedElement.classList.remove('piece-dragged')
+    }
+
+    slotDrop(component, element) {
         // Callback function when a piece is getting dropped.
-        this.movePiece(this.slotBeingMovedFrom, this.slotBeingMovedIndex, component, index)
+        this.movePiece(this.slotBeingMovedFrom, this.slotBeingMovedElement.id, component, element.id)
     }
 
 }
