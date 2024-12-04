@@ -4,6 +4,8 @@ const nBoardCols = 12
 const nPieces  = 10
 const slotSizePx = 50
 
+const debugMode = true
+
 // Start a game object from an audio file.
 nBoardSlots = nBoardRows * nBoardCols
 const game = new Game('small.wav', nPieces, nBoardSlots, true)
@@ -34,7 +36,7 @@ for (let i = 0; i < nPieces; i++) {
 
 // Generate a div element for board or audio player.
 function getSlotElement(component, id) {
-    const element = document.createElement('div')
+    let element = document.createElement('div')
     element.classList.add(component + '-slot')
     element.id = id
     element.style.width = slotSizePx + 'px'
@@ -45,19 +47,22 @@ function getSlotElement(component, id) {
 
     // Set up drag and drop listeners for moving pieces.
     element.ondragstart = (event) => {
+        if (debugMode) {
+            console.log('Drag start: ' + component + ', ' + element.id)
+        }
         event.stopPropagation()
         game.slotDrag(component, element)
     }
-    element.ondragover = (event) => {
-        // This listener is needed to allow dropping in a slot.
-        event.stopPropagation()
-        event.preventDefault()
-    }
     element.ondragend = () => {
-        console.log('Drag end')
+        if (debugMode) {
+            console.log('Drag end: ' + component + ', ' + element.id)
+        }
         game.slotDragEnd()
     }
     element.ondrop = () => {
+        if (debugMode) {
+            console.log('Drop: ' + component + ', ' + element.id)
+        }
         game.slotDrop(component, element)
     }
 
