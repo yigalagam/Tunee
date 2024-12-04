@@ -2,8 +2,8 @@
 
 class AudioPlayer extends PieceContainer {
 
-    constructor(nSlots, segmentDuration, sampleRate, testMode) {
-        super(nSlots, testMode)
+    constructor(nSlots, segmentDuration, sampleRate, testMode, debugMode) {
+        super(nSlots, testMode, debugMode)
         this.slotDuration = segmentDuration / nSlots
         this.sampleRate = sampleRate
 
@@ -22,6 +22,10 @@ class AudioPlayer extends PieceContainer {
                 soundOut.push(this.slots[slotIndex].play())
             } else {
                 soundOut.push(this.silentPiece.play())            }
+        }
+        if (this.debugMode) {
+            console.log('Playing segment')
+            console.log(soundOut)
         }
         return soundOut
     }

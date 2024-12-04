@@ -2,8 +2,8 @@
 
 class Board extends PieceContainer {
 
-    constructor(nSlots, testMode) {
-        super(nSlots, testMode)
+    constructor(nSlots, testMode, debugMode) {
+        super(nSlots, testMode, debugMode)
     }
 
     loadPieces(pieces) {

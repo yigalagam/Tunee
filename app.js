@@ -1,22 +1,19 @@
 // Parameters for setting up the game.
 const nBoardRows = 3
 const nBoardCols = 12
-const nPieces  = 10
+const nPieces  = 2
 const slotSizePx = 50
 
 const debugMode = true
 
 // Start a game object from an audio file.
 nBoardSlots = nBoardRows * nBoardCols
-const game = new Game('small.wav', nPieces, nBoardSlots, true)
+const game = new Game(nPieces, nBoardSlots, true, debugMode)
 
 // Set up game container.
 const gameDiv = document.querySelector('.game')
 gameDiv.style.width = slotSizePx * nBoardCols + 'px'
 gameDiv.style.height = slotSizePx * (nBoardRows + 1) + 'px'
-gameDiv.onClick = () => {
-    alert('Game click')
-}
 
 // Create board divs.
 const boardDiv = document.querySelector('.board')
@@ -34,14 +31,38 @@ for (let i = 0; i < nPieces; i++) {
     audioPlayerDiv.appendChild(getSlotElement('audio-player', i))
 }
 
+// Audio player "play" button.
+const playDiv = document.createElement('div')
+playDiv.classList.add('audio-player-play')
+playDiv.style.width = slotSizePx + 'px'
+playDiv.style.height = slotSizePx + 'px'
+playDiv.onclick = () => {
+    if (debugMode) {
+        console.log('Play button clicked')
+    }
+    game.playClick()
+}
+audioPlayerDiv.appendChild(playDiv)
+
+// Button to start the game.
+const startButton = document.querySelector('.start-button')
+startButton.onclick = () => {
+    startGame()
+}
+
 // Generate a div element for board or audio player.
 function getSlotElement(component, id) {
-    let element = document.createElement('div')
+    const element = document.createElement('div')
     element.classList.add(component + '-slot')
     element.id = id
     element.style.width = slotSizePx + 'px'
     element.style.height = slotSizePx + 'px'
+    element.draggable = false
+    
     element.onclick = () => {
+        if (debugMode) {
+            console.log('Play: ' + component + ', ' + element.id)
+        }
         game.slotClick(component, element.id)
     }
 
@@ -69,4 +90,6 @@ function getSlotElement(component, id) {
     return element
 }
 
-game.start()
+function startGame() {
+    game.start('small.wav')
+}

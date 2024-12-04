@@ -24,6 +24,12 @@
     background-color: blue;
 }
 
+.audio-player-play {
+    border: 1px solid;
+    box-sizing: border-box;
+    background-color: orange;
+}
+
 .piece {
     background-color: green;
 }

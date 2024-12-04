@@ -2,12 +2,13 @@
 
 class PieceContainer {
     
-    constructor(nSlots, testMode) {
+    constructor(nSlots, testMode, debugMode=false) {
         // Initialize with all empty slots.
         this.nSlots = nSlots
         this.slots = new Array(nSlots).fill(null);
         this.slotsGUI = []
         this.testMode = testMode
+        this.debugMode = debugMode
     }
 
     reset() {
@@ -91,6 +92,13 @@ class PieceContainer {
         }
 
         this.updateGUI()
+    }
+
+    endGUI(component) {
+        this.slotsGUI = Array.from(document.getElementsByClassName(component + '-slot'))
+        this.slotsGUI.forEach (slotGUI => {
+            slotGUI.draggable = false
+        })
     }
 
     updateGUI() {

@@ -1,15 +1,27 @@
 describe('Game Test', () =>  {
     
     beforeEach(() => {
-        this.game = new Game('small.wav', 11, 16, true)
+        this.game = new Game(11, 16, true)
     });
     
     it('Constructor', () => {
-        expect(this.game.solution.length).toBe(11)
+        // No audio loaded yet.
+        expect(this.game.segment).toBe(null)
+        expect(this.game.solution).toBe(null)
+        expect(this.game.audioPlayer).toBe(null)
 
         // Before the game begins, all board slots should be empty.
         expect(this.game.board.nSlots, 16)
         this.game.board.slots.forEach(slot => expect(slot).toBe(null))
+    })
+
+    it('Start', () => {
+        // Start a new game from loaded segment.
+        this.game.start('small.wav')
+
+        expect(this.game.solution.length).toBe(11)
+
+        expect(this.game.board.getOccupiedSlots().length).toBe(11)
 
         // All audio player slots should be empty until the user moves a piece.
         expect(this.game.audioPlayer.nSlots, 11)
@@ -17,16 +29,8 @@ describe('Game Test', () =>  {
 
     })
 
-    it('Start', () => {
-        // Start a new game from loaded segment.
-        this.game.start()
-        expect(this.game.board.getOccupiedSlots().length).toBe(11)
-        // Nothing yet moved into audio player.
-        this.game.audioPlayer.slots.forEach(slot => expect(slot).toBe(null))
-    })
-
     it('Move pieces', () => {
-        this.game.start()
+        this.game.start('small.wav')
         const occupiedBoardSlots = this.game.board.getOccupiedSlots()
         const freeBoardSlots = this.game.board.getFreeSlots()
 
@@ -103,6 +107,8 @@ describe('Game Test', () =>  {
 
     it('Check solution', () => {
 
+        this.game.start('small.wav')
+
         // Empty player.
         expect(this.game.isSolved()).toBe(false)
 
@@ -146,7 +152,7 @@ describe('Game Test', () =>  {
             guiElements.push(element)
         }
 
-        this.game.start()
+        this.game.start('small.wav')
 
         // Occupied board slot should have 'piece' added to the class list.
         const occupiedSlots = this.game.board.getOccupiedSlots()
