@@ -28,6 +28,7 @@ class Game {
     start(wavFile) {
         this.segment = new Segment(wavFile, this.testMode, this.debugMode)
         this.solution = this.segment.divide(this.nPieces)
+        this.board.reset()
         this.board.loadPieces(this.solution)
         this.board.startGUI()
         this.audioPlayer = new AudioPlayer(this.nPieces, this.segment.duration, this.segment.sampleRate, this.testMode, this.debugMode)
