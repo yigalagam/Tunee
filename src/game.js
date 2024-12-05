@@ -26,7 +26,7 @@ class Game {
     }
 
     start(wavFile) {
-        this.segment = new Segment(wavFile, this.testMode)
+        this.segment = new Segment(wavFile, this.testMode, this.debugMode)
         this.solution = this.segment.divide(this.nPieces)
         this.board.loadPieces(this.solution)
         this.board.startGUI()
@@ -103,7 +103,9 @@ class Game {
 
     playClick() {
         // Click on audio player "play" button.
-        this.audioPlayer.playSegment()
+        if (this.audioPlayer != null) {
+            this.audioPlayer.playSegment()
+        }
     }
 
     slotDrag(component, element) {

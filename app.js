@@ -8,7 +8,7 @@ const debugMode = true
 
 // Start a game object from an audio file.
 nBoardSlots = nBoardRows * nBoardCols
-const game = new Game(nPieces, nBoardSlots, true, debugMode)
+const game = new Game(nPieces, nBoardSlots, false, debugMode)
 
 // Set up game container.
 const gameDiv = document.querySelector('.game')
@@ -91,5 +91,5 @@ function getSlotElement(component, id) {
 }
 
 function startGame() {
-    game.start('small.wav')
+    game.start('bart.wav')
 }

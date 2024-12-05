@@ -13,15 +13,41 @@ class AudioPlayer extends PieceContainer {
         this.silentPiece = new Piece(zeroSound, this.sampleRate, -1)
     }
 
-    playSegment() {
+    static isPlaying = false
+    
+    async playSegment(slotIndex = 0) {
         // Play the content of the player, pausing at slots with no pieces.
 
+        if (!this.testMode) {
+            if (slotIndex >= this.nSlots) {
+                return
+            }
+
+            if (!AudioPlayer.isPlaying) {
+                AudioPlayer.isPlaying = true
+                let pieceToPlay
+                if (this.isSlotOccupied(slotIndex)) {
+                    pieceToPlay = this.slots[slotIndex]
+                } else {
+                    pieceToPlay = this.silentPiece
+                }
+                pieceToPlay.play()
+
+                pieceToPlay.audioSource.onended = () => {
+                    AudioPlayer.isPlaying = false
+                    this.playSegment(slotIndex + 1)
+                }
+            }
+        }
+
+        // Return the concatenated sound data.
         const soundOut = []
         for (let slotIndex = 0; slotIndex < this.nSlots; slotIndex++) {
             if (this.isSlotOccupied(slotIndex)) {
-                soundOut.push(this.slots[slotIndex].play())
+                soundOut.push(this.slots[slotIndex].sound)
             } else {
-                soundOut.push(this.silentPiece.play())            }
+                soundOut.push(this.silentPiece.sound)
+            }
         }
         if (this.debugMode) {
             console.log('Playing segment')

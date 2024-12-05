@@ -1,14 +1,14 @@
 class Segment {
     
-    constructor(wavFile, testMode) {
-
-        // Load wav file into audio buffer.
-        if (testMode) {
-            const testData = loadTestData(wavFile)
-            this.sound = testData[0]
-            this.sampleRate = testData[1]
-            this.duration = this.sound[0].length / this.sampleRate
+    constructor(wavFile, debugMode=false) {
+        if (debugMode) {
+            console.log('Loading ' + wavFile)
         }
+
+        const audioData = loadAudioData(wavFile)
+        this.sound = audioData[0]
+        this.sampleRate = audioData[1]
+        this.duration = this.sound[0].length / this.sampleRate
     }
 
     divide(nPieces) {
