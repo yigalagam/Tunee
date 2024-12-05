@@ -55,7 +55,7 @@ describe('Audio Player Test', () =>  {
         expect(this.audioPlayer.play(7)).toBe(null)
     })
     
-    it('Play Segment', () => {
+    it('Play Segment', async () => {
         this.audioPlayer.insertPiece(2, this.pieces[7])
         this.audioPlayer.insertPiece(3, this.pieces[0])
         this.audioPlayer.insertPiece(8, this.pieces[2])
@@ -63,7 +63,7 @@ describe('Audio Player Test', () =>  {
 
         // In test mode, the played sound is returned as a 2-channel array.
         // The last piece is 37 samples instead of 40, therefor slot 1 only has 37 samples.
-        const playedSound = this.audioPlayer.playSegment(true)
+        const playedSound = await this.audioPlayer.playSegment()
         expect(playedSound[1]).toEqual(this.pieces[8].sound)
         expect(playedSound[2]).toEqual(this.pieces[7].sound)
         expect(playedSound[3]).toEqual(this.pieces[0].sound)        

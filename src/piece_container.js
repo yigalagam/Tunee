@@ -77,7 +77,17 @@ class PieceContainer {
     play(slotIndex) {
         if (this.slots[slotIndex] != null) {
             // Play piece in slot.
-            return this.slots[slotIndex].play()
+            const playedSound = this.slots[slotIndex].play()
+            if (!this.testMode) {
+                this.slotsGUI[slotIndex].classList.add('piece-playing')
+                this.slots[slotIndex].audioSource.onended = () => {
+                    if (this.debugMode) {
+                        console.log('Piece in slot ' + slotIndex + ' finished playing')
+                    }
+                    this.slotsGUI[slotIndex].classList.remove('piece-playing')
+                }
+            }
+            return playedSound
         }
         // Empty slot.
         return null

@@ -1,6 +1,6 @@
 class Segment {
     
-    constructor(wavFile, debugMode=false) {
+    constructor(wavFile, testMode, debugMode=false) {
         if (debugMode) {
             console.log('Loading ' + wavFile)
         }
@@ -9,6 +9,7 @@ class Segment {
         this.sound = audioData[0]
         this.sampleRate = audioData[1]
         this.duration = this.sound[0].length / this.sampleRate
+        this.testMode = testMode
     }
 
     divide(nPieces) {
@@ -26,7 +27,7 @@ class Segment {
         let index = 0
         for (let i = 0; i < nSamples; i += chunkSize) {
             const sound = [this.sound[0].slice(i, i + chunkSize), this.sound[1].slice(i, i + chunkSize)]
-            pieces.push(new Piece(sound, this.sampleRate, indices[index]))
+            pieces.push(new Piece(sound, this.sampleRate, indices[index], this.testMode))
             index++
         }
         return pieces

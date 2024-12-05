@@ -2,7 +2,7 @@
 
 class AudioPlayer extends PieceContainer {
 
-    constructor(nSlots, segmentDuration, sampleRate, testMode, debugMode) {
+    constructor(nSlots, segmentDuration, sampleRate, testMode, debugMode=false) {
         super(nSlots, testMode, debugMode)
         this.slotDuration = segmentDuration / nSlots
         this.sampleRate = sampleRate
@@ -10,7 +10,7 @@ class AudioPlayer extends PieceContainer {
         // Create a "silent" piece to play empty slots.
         const slotArrayLen = Math.round(this.slotDuration * this.sampleRate)
         const zeroSound = [Array(slotArrayLen).fill(0), Array(slotArrayLen).fill(0)]
-        this.silentPiece = new Piece(zeroSound, this.sampleRate, -1)
+        this.silentPiece = new Piece(zeroSound, this.sampleRate, -1, this.testMode)
     }
 
     static isPlaying = false
@@ -34,26 +34,26 @@ class AudioPlayer extends PieceContainer {
                 pieceToPlay.play()
 
                 pieceToPlay.audioSource.onended = () => {
+                    console.log('Slot ' + slotIndex + ' finished playing')
                     AudioPlayer.isPlaying = false
                     this.playSegment(slotIndex + 1)
                 }
             }
-        }
 
-        // Return the concatenated sound data.
-        const soundOut = []
-        for (let slotIndex = 0; slotIndex < this.nSlots; slotIndex++) {
-            if (this.isSlotOccupied(slotIndex)) {
-                soundOut.push(this.slots[slotIndex].sound)
-            } else {
-                soundOut.push(this.silentPiece.sound)
+        } else {            
+            // In test mode, just return the concatenated sound data.
+            const soundOut = []
+            let pieceToPlay
+            for (let testSlotIndex = 0; testSlotIndex < this.nSlots; testSlotIndex++) {
+                if (this.isSlotOccupied(testSlotIndex)) {
+                    pieceToPlay = this.slots[testSlotIndex]
+                } else {
+                    pieceToPlay = this.silentPiece
+                }
+                soundOut.push(pieceToPlay.play())
             }
+            return soundOut
         }
-        if (this.debugMode) {
-            console.log('Playing segment')
-            console.log(soundOut)
-        }
-        return soundOut
     }
 
     startGUI() {
