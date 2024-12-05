@@ -34,6 +34,10 @@
     background-color: green;
 }
 
+.piece-playing {
+    border: 4px solid;
+}
+
 .piece-dragged {
     background-color: gray;
 }

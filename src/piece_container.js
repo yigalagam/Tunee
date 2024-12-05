@@ -104,8 +104,7 @@ class PieceContainer {
         this.updateGUI()
     }
 
-    endGUI(component) {
-        this.slotsGUI = Array.from(document.getElementsByClassName(component + '-slot'))
+    endGUI() {
         this.slotsGUI.forEach (slotGUI => {
             slotGUI.draggable = false
         })

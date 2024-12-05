@@ -28,6 +28,7 @@ class AudioPlayer extends PieceContainer {
                 let pieceToPlay
                 if (this.isSlotOccupied(slotIndex)) {
                     pieceToPlay = this.slots[slotIndex]
+                    this.slotsGUI[slotIndex].classList.add('piece-playing')
                 } else {
                     pieceToPlay = this.silentPiece
                 }
@@ -35,6 +36,7 @@ class AudioPlayer extends PieceContainer {
 
                 pieceToPlay.audioSource.onended = () => {
                     console.log('Slot ' + slotIndex + ' finished playing')
+                    this.slotsGUI[slotIndex].classList.remove('piece-playing')
                     AudioPlayer.isPlaying = false
                     this.playSegment(slotIndex + 1)
                 }

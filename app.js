@@ -1,7 +1,7 @@
 // Parameters for setting up the game.
 const nBoardRows = 3
 const nBoardCols = 12
-const nPieces  = 2
+const nPieces  = 4
 const slotSizePx = 50
 
 const debugMode = true
