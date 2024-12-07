@@ -75,9 +75,9 @@ function getSlotElement(component, id) {
     
     element.onclick = () => {
         if (debugMode) {
-            console.log('Play: ' + component + ', ' + element.id)
+            console.log('Play: ' + component + ', ' + Number(element.id))
         }
-        game.slotClick(component, element.id)
+        game.slotClick(component, Number(element.id))
     }
 
     // Set up drag and drop listeners for moving pieces.

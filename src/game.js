@@ -105,7 +105,7 @@ class Game {
     playClick() {
         // Click on audio player "play" button.
         if (this.audioPlayer != null) {
-            this.audioPlayer.playSegment()
+            this.audioPlayer.playAllSlots(true)
         }
     }
 
@@ -130,7 +130,7 @@ class Game {
         // Check if puzzle is solved.
         if (this.isSolved()) {
             this.end()
-            this.audioPlayer.playSegment()
+            this.audioPlayer.playAllSlots()
         }
     }
 

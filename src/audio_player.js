@@ -15,18 +15,42 @@ class AudioPlayer extends PieceContainer {
 
     static isPlaying = false
     
-    async playSegment(slotIndex = 0) {
-        // Play the content of the player, pausing at slots with no pieces.
+    play(slotIndex) {
+        // Play the content of a player from a slot to the nearest gap.
+        if (this.slots[slotIndex] != null) {
+            let endSlotIndex = slotIndex + 1
+            while ((this.slots[endSlotIndex] != null) && (endSlotIndex < this.nSlots)) {
+                endSlotIndex++
+            }
+            return this.playSegment(slotIndex, endSlotIndex - 1, false)
+        }
+        // Empty slot.
+        return null
+    }
+    
+    playAllSlots(buttonPressed=false) {
+        // Play all slots in the player.
+        return this.playSegment(0, this.nSlots - 1, buttonPressed)
+    }
+
+    async playSegment(slotIndex, endSlot, buttonPressed=false) {
+        // Play the content of the player between two slot indexes, pausing at slots with no pieces.
 
         if (!this.testMode) {
-            if (slotIndex >= this.nSlots) {
-                this.playButton.classList.remove('audio-player-play-active')
-                this.playButton.classList.add('audio-player-play')
+            console.log('slotIndex: ' + slotIndex)
+            console.log('endSlot: ' + endSlot)
+            if (slotIndex > endSlot) {
+                if (buttonPressed) {
+                    this.playButton.classList.remove('audio-player-play-active')
+                    this.playButton.classList.add('audio-player-play')
+                }
                 return
             }
 
-            this.playButton.classList.remove('audio-player-play')
-            this.playButton.classList.add('audio-player-play-active')
+            if (buttonPressed) {
+                this.playButton.classList.remove('audio-player-play')
+                this.playButton.classList.add('audio-player-play-active')
+            }
             if (!AudioPlayer.isPlaying) {
                 AudioPlayer.isPlaying = true
                 let pieceToPlay
@@ -44,7 +68,7 @@ class AudioPlayer extends PieceContainer {
                     this.slotsGUI[slotIndex].classList.remove('piece-playing')
                     this.slotsGUI[slotIndex].classList.remove('piece-playing-empty-slot')
                     AudioPlayer.isPlaying = false
-                    this.playSegment(slotIndex + 1)
+                    this.playSegment(slotIndex + 1, endSlot, buttonPressed)
                 }
             }
 
@@ -52,7 +76,7 @@ class AudioPlayer extends PieceContainer {
             // In test mode, just return the concatenated sound data.
             const soundOut = []
             let pieceToPlay
-            for (let testSlotIndex = 0; testSlotIndex < this.nSlots; testSlotIndex++) {
+            for (let testSlotIndex = slotIndex; testSlotIndex <= endSlot; testSlotIndex++) {
                 if (this.isSlotOccupied(testSlotIndex)) {
                     pieceToPlay = this.slots[testSlotIndex]
                 } else {
