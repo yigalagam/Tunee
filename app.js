@@ -2,7 +2,8 @@
 const nBoardRows = 3
 const nBoardCols = 12
 const nPieces  = 4
-const slotSizePx = 50
+const slotSizePx = 75
+const playButtonSizePx = 75
 
 const debugMode = true
 
@@ -12,20 +13,20 @@ const game = new Game(nPieces, nBoardSlots, false, debugMode)
 
 // Set up game container.
 const gameDiv = document.querySelector('.game')
-gameDiv.style.width = slotSizePx * nBoardCols + 'px'
-gameDiv.style.height = slotSizePx * (nBoardRows + 1) + 'px'
+const boardWidth = slotSizePx * nBoardCols
+gameDiv.style.width = ((slotSizePx) * nBoardCols + 2) +'px'
 
 // Create board divs.
 const boardDiv = document.querySelector('.board')
-boardDiv.style.width = slotSizePx * nBoardCols + 'px'
-boardDiv.style.height = (slotSizePx * nBoardRows) + 'px'
+boardDiv.style.width = boardWidth
+boardDiv.style.height = (slotSizePx * nBoardRows + 2) + 'px'
 for (let i = 0; i < nBoardSlots; i++) {
     boardDiv.appendChild(getSlotElement('board', i))
 }
 
 // Create audio player divs.
 const audioPlayerDiv = document.querySelector('.audio-player')
-audioPlayerDiv.style.width = slotSizePx * nBoardCols + 'px'
+audioPlayerDiv.style.width = (slotSizePx * nPieces + playButtonSizePx) + 'px'
 audioPlayerDiv.style.height = slotSizePx + 'px'
 for (let i = 0; i < nPieces; i++) {
     audioPlayerDiv.appendChild(getSlotElement('audio-player', i))
@@ -34,8 +35,8 @@ for (let i = 0; i < nPieces; i++) {
 // Audio player "play" button.
 const playDiv = document.createElement('div')
 playDiv.classList.add('audio-player-play')
-playDiv.style.width = slotSizePx + 'px'
-playDiv.style.height = slotSizePx + 'px'
+playDiv.style.width = playButtonSizePx + 'px'
+playDiv.style.height = playButtonSizePx + 'px'
 playDiv.onclick = () => {
     if (debugMode) {
         console.log('Play button clicked')
@@ -50,13 +51,26 @@ startButton.onclick = () => {
     startGame()
 }
 
+// Image for dragging operations.
+const dragImage = new Image();
+dragImage.src = 'images/piece_dragging.png';
+dragImage.style.width = slotSizePx + 'px'
+dragImage.style.height = slotSizePx + 'px'
+const dragDiv = document.createElement('div')
+dragDiv.appendChild(dragImage)
+// The dragging element has to be in the document body, but we don't want it to show permanently, so positioning it off the page.
+dragDiv.style.position = 'absolute'
+dragDiv.style.top = (-slotSizePx * 2) + 'px'
+dragDiv.style.left = (-slotSizePx * 2) + 'px'
+document.body.appendChild(dragDiv)
+
 // Generate a div element for board or audio player.
 function getSlotElement(component, id) {
     const element = document.createElement('div')
     element.classList.add(component + '-slot')
     element.id = id
-    element.style.width = slotSizePx + 'px'
-    element.style.height = slotSizePx + 'px'
+    element.style.width = (slotSizePx) + 'px'
+    element.style.height = (slotSizePx) + 'px'
     element.draggable = false
     
     element.onclick = () => {
@@ -72,6 +86,7 @@ function getSlotElement(component, id) {
             console.log('Drag start: ' + component + ', ' + element.id)
         }
         event.stopPropagation()
+        event.dataTransfer.setDragImage(dragDiv, slotSizePx / 2, slotSizePx / 2)
         game.slotDrag(component, element)
     }
     element.ondragend = () => {

@@ -20,9 +20,13 @@ class AudioPlayer extends PieceContainer {
 
         if (!this.testMode) {
             if (slotIndex >= this.nSlots) {
+                this.playButton.classList.remove('audio-player-play-active')
+                this.playButton.classList.add('audio-player-play')
                 return
             }
 
+            this.playButton.classList.remove('audio-player-play')
+            this.playButton.classList.add('audio-player-play-active')
             if (!AudioPlayer.isPlaying) {
                 AudioPlayer.isPlaying = true
                 let pieceToPlay
@@ -31,12 +35,14 @@ class AudioPlayer extends PieceContainer {
                     this.slotsGUI[slotIndex].classList.add('piece-playing')
                 } else {
                     pieceToPlay = this.silentPiece
+                    this.slotsGUI[slotIndex].classList.add('piece-playing-empty-slot')
                 }
                 pieceToPlay.play()
 
                 pieceToPlay.audioSource.onended = () => {
                     console.log('Slot ' + slotIndex + ' finished playing')
                     this.slotsGUI[slotIndex].classList.remove('piece-playing')
+                    this.slotsGUI[slotIndex].classList.remove('piece-playing-empty-slot')
                     AudioPlayer.isPlaying = false
                     this.playSegment(slotIndex + 1)
                 }
@@ -61,6 +67,7 @@ class AudioPlayer extends PieceContainer {
     startGUI() {
         // Gather all the divs that belong to the audio player.
         super.startGUI('audio-player')
+        this.playButton = document.querySelector('.audio-player-play')
     }
 
 }

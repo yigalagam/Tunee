@@ -122,6 +122,7 @@ class PieceContainer {
         occupiedSlots.forEach(slotIndex => {
             // Set piece class for occupied slots and make it draggable so it can be moved.
             this.slotsGUI[slotIndex].classList.add('piece')
+            this.slotsGUI[slotIndex].src = '../images/piece.png'
             this.slotsGUI[slotIndex].draggable = true
             // Prevent dropping pieces in an occupied slot.
             this.slotsGUI[slotIndex].ondragover = null
@@ -130,6 +131,7 @@ class PieceContainer {
         freeSlots.forEach(slotIndex => {
             // Remove piece class from unoccupied slots.
             this.slotsGUI[slotIndex].classList.remove('piece')
+            this.slotsGUI[slotIndex].src = ''
             this.slotsGUI[slotIndex].draggable = false
             // This listener is needed to allow dropping pieces in this slot.
             this.slotsGUI[slotIndex].ondragover = (event) => {
