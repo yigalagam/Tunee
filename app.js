@@ -1,9 +1,10 @@
 // Parameters for setting up the game.
 const nBoardRows = 3
 const nBoardCols = 12
-const nPieces  = 4
-const slotSizePx = 75
-const playButtonSizePx = 75
+const nPieces  = 5
+const baseSize = 25
+const slotSizePx = 3 * baseSize
+const playButtonSizePx = 3 * baseSize
 
 const debugMode = true
 
@@ -47,6 +48,7 @@ audioPlayerDiv.appendChild(playDiv)
 
 // Button to start the game.
 const startButton = document.querySelector('.start-button')
+startButton.style.marginTop = baseSize + 'px'
 startButton.onclick = () => {
     startGame()
 }
