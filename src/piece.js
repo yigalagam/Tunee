@@ -41,8 +41,6 @@ class Piece {
             // Connect the source to the context's destination.
             this.audioSource.connect(Piece.audioContext.destination)
             this.audioSource.start()
-
-            console.log(this.sound)
         }
         return this.sound   
     }

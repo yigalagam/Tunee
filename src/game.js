@@ -7,6 +7,7 @@ class Game {
         this.nPieces = nPieces
         this.testMode = testMode
         this.debugMode = debugMode
+        this.gameEnded = false
 
         // Segment object to be populated when loading an audio file.
         this.segment = null
@@ -27,10 +28,12 @@ class Game {
         this.board.reset()
         this.board.loadPieces(this.solution)
         this.board.startGUI()
+        this.gameEnded = false
     }
 
     end() {
         this.endGUI()
+        this.gameEnded = true
     }
 
     movePiece(originIndex, destIndex) {
@@ -83,26 +86,25 @@ class Game {
 
     slotDrag(slotElement) {
         // Callback function when a piece is getting dragged.
-        slotElement.classList.add('piece-dragged')
         this.slotBeingMovedElement = slotElement
     }
 
     slotDragEnd() {
          // Change the apperance of the dragged slot back to normal.
-         this.slotBeingMovedElement.classList.remove('piece-dragged')
    }
 
     slotDrop(slotElement) {
-        // Change the apperance of the dragged slot back to normal.
-        this.slotBeingMovedElement.classList.remove('piece-dragged')
         // Callback function when a piece is getting dropped.
-        this.movePiece(Number(this.slotBeingMovedElement.id), Number(slotElement.id))
 
-        // Check if puzzle is solved.
-        if (this.isSolved()) {
-            this.end()
-            const firstIndex = this.board.findPiece(this.solution[0])
-            this.board.playSequence(firstIndex)
+        if (!this.gameEnded) {
+            this.movePiece(Number(this.slotBeingMovedElement.id), Number(slotElement.id))
+
+            // Check if puzzle is solved.
+            if (this.isSolved()) {
+                const firstIndex = this.board.findPiece(this.solution[0])
+                this.board.playSequence(firstIndex)
+                this.end()
+            }
         }
     }
 

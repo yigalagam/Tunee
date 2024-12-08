@@ -201,9 +201,14 @@ class Board {
     }
 
     endGUI() {
-        this.slotsGUI.forEach (slotGUI => {
+        let slotGUI
+        for (let slotIndex = 0; slotIndex < this.nSlots; slotIndex++) {
+            slotGUI = this.slotsGUI[slotIndex]
+            if (this.debugMode) {
+                console.log('Ending GUI for slot ' + slotIndex)
+            }
             slotGUI.draggable = false
-        })
+        }
     }
 
     updateGUI() {

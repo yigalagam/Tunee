@@ -13,28 +13,8 @@
     background-size: cover;
 }
 
-.audio-player {
-    display: flex;
-    flex-wrap: wrap;
-    background-color: blue;
-    background-image: url('../images/audio_player.png');
-    background-size: cover;
-}
-
-
-.audio-player-slot {
-    box-sizing: border-box;
-    background-image: url('../images/audio_player_slot.png');
-    background-size: cover;
-}
-
-.audio-player-play {
-    background-image: url('../images/audio_player_play.png');
-    background-size: cover;
-}
-
-.audio-player-play-active {
-    background-image: url('../images/audio_player_play_active.png');
+.start-button {
+    background-image: url('../images/start.png');
     background-size: cover;
 }
 
@@ -44,18 +24,12 @@
 }
 
 .piece {
-    border-radius: 50%;
     background-image: url('../images/piece.png');
     background-size: cover;
 }
 
 .piece-playing {
     background-image: url('../images/piece_playing.png');
-    background-size: cover;
-}
-
-.piece-playing-empty-slot {
-    background-image: url('../images/audio_player_slot_playing.png');
     background-size: cover;
 }
 
