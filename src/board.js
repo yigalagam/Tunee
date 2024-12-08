@@ -90,7 +90,7 @@ class Board {
         // Play the content of a player from a slot to the nearest gap or to the right edge of the board.
         if (this.slots[slotIndex] != null) {
             let endSlotIndex = slotIndex + 1
-            while ((this.slots[endSlotIndex] != null) && (endSlotIndex % this.width != this.width - 1)) {
+            while ((this.slots[endSlotIndex] != null) && (endSlotIndex % this.width != 0)) {
                 endSlotIndex++
             }
             return this.playMultipleSlots(slotIndex, endSlotIndex - 1, false)

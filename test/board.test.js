@@ -44,8 +44,17 @@ describe('Board Test', () =>  {
 
         // Should return the sound from two consecutive pieces.        
         piece = testBoard.slots[5]
-        const piece2 = testBoard.slots[6]
+        let piece2 = testBoard.slots[6]
         playedSound = await testBoard.playSequence(5)
+        refSound = [await piece.play(true), await piece2.play(true)]
+        expect(playedSound).toEqual(refSound)
+
+        // Verify that playing ends at right edge of the board (doesn't play into slot 5 in the 2nd row).
+        testBoard.insertPiece(3, this.pieces[0])
+        testBoard.insertPiece(4, this.pieces[1])
+        piece = testBoard.slots[3]
+        piece2 = testBoard.slots[4]
+        playedSound = await testBoard.playSequence(3)
         refSound = [await piece.play(true), await piece2.play(true)]
         expect(playedSound).toEqual(refSound)
 
