@@ -2,10 +2,7 @@ class Game {
     
     constructor(nPieces, boardSize, testMode, debugMode=false) {
         // Initialize a game from an audio file.
-
-        if (boardSize < nPieces) {
-            throw new Error('Board size must be at least the number of pieces')
-        }
+        // boardSize: [# rows, # columns].
 
         this.nPieces = nPieces
         this.testMode = testMode
@@ -15,10 +12,9 @@ class Game {
         this.segment = null
         this.solution = null
 
-        // Containers for pieces: game board and the audio player.
-        // Player will be fully initialized when loading an audio file.
-        this.board = new Board(boardSize, this.testMode, this.debugMode)
-        this.audioPlayer = null
+        // Game board where all the pieces are laid out.
+        this.boardSize = boardSize
+        this.board = new Board(boardSize[0], boardSize[1], this.testMode, this.debugMode)
 
         // Properties used to handle moving pieces.
         this.slotBeingMovedFrom = ''
@@ -31,56 +27,41 @@ class Game {
         this.board.reset()
         this.board.loadPieces(this.solution)
         this.board.startGUI()
-        this.audioPlayer = new AudioPlayer(this.nPieces, this.segment.duration, this.segment.sampleRate, this.testMode, this.debugMode)
-        this.audioPlayer.reset()
-        this.audioPlayer.startGUI()
-    }
-    
-
-    getObjectFromComponentName(component) {
-        let obj
-        if (component == 'board') {
-            obj = this.board
-        } else if (component == 'audio-player') {
-            obj = this.audioPlayer
-        } else {
-            throw new Error("Component must be 'board' or 'audio-player', not " + component)
-        }
-        return obj
     }
 
     end() {
         this.endGUI()
     }
 
-    movePiece(originStr, originIndex, destStr, destIndex) {
-        // Move a piece between any two slots on the board or inside the audio player.
-
-        // Parse origin and destination (could be the same).
-        originStr = originStr.toLowerCase()
-        destStr = destStr.toLowerCase()
-
-        const origin = this.getObjectFromComponentName(originStr)
-        const dest = this.getObjectFromComponentName(destStr)
+    movePiece(originIndex, destIndex) {
+        // Move a piece between any two slots on the board.
 
         // If a legal move (slot with a piece to a slot without a piece) return true, otherwise false.
-        if (origin.isSlotOccupied(originIndex) && !dest.isSlotOccupied(destIndex)) {
-            const piece = origin.removePiece(originIndex)
-            dest.insertPiece(destIndex, piece)
+        if (this.board.isSlotOccupied(originIndex) && !this.board.isSlotOccupied(destIndex)) {
+            this.board.movePiece(originIndex, destIndex)
             if (this.debugMode) {
-                console.log('Moved from ' + originStr + ' ' + originIndex + ' to ' + destStr + ' ' + destIndex)
+                console.log('Moved from slot ' + originIndex + ' to slot ' + destIndex)
             }
             return true
         }
-        console.log('Unable to move from ' + originStr + ' ' + originIndex + ' to ' + destStr + ' ' + destIndex)
+        console.log('Unable to move from slot ' + originIndex + ' to slot ' + destIndex)
         return false
     }
 
     isSolved() {
-        // Check if the pieces in the audio player form the full solution in the right order.
+        // Check if the pieces are arranged on the board in the right order to play the segment.
+        
+        // Find the location of the first piece of the solution.
+        const firstIndex = this.board.findPiece(this.solution[0])
 
-        for (let i = 0; i < this.audioPlayer.nSlots; i++) {
-            if (this.audioPlayer.slots[i] != this.solution[i]) {
+        // The solution has to be arranged in a single row.
+        if (firstIndex % this.boardSize[1] > this.boardSize[1] - this.nPieces) {
+            return false
+        } 
+
+        // Check if the other slots match the solution.
+        for (let i = firstIndex; i < firstIndex + this.nPieces; i++) {
+            if (this.board.slots[i] != this.solution[i - firstIndex]) {
                 if (this.debugMode) {
                     console.log('Solution check: not solved')
                 }
@@ -93,27 +74,17 @@ class Game {
 
     endGUI() {
         this.board.endGUI()
-        this.audioPlayer.endGUI()
     }
 
-    slotClick(component, index) {
+    slotClick(slotIndex) {
         // Click on a puzzle piece.
-        let obj = this.getObjectFromComponentName(component)
-        obj.play(index)
+        board.playSequence(slotIndex)
     }
 
-    playClick() {
-        // Click on audio player "play" button.
-        if (this.audioPlayer != null) {
-            this.audioPlayer.playAllSlots(true)
-        }
-    }
-
-    slotDrag(component, element) {
+    slotDrag(slotElement) {
         // Callback function when a piece is getting dragged.
-        this.slotBeingMovedFrom = component
-        this.slotBeingMovedElement = element
-        element.classList.add('piece-dragged')
+        slotElement.classList.add('piece-dragged')
+        this.slotBeingMovedElement = slotElement
     }
 
     slotDragEnd() {
@@ -121,16 +92,17 @@ class Game {
          this.slotBeingMovedElement.classList.remove('piece-dragged')
    }
 
-    slotDrop(component, element) {
+    slotDrop(slotElement) {
         // Change the apperance of the dragged slot back to normal.
         this.slotBeingMovedElement.classList.remove('piece-dragged')
         // Callback function when a piece is getting dropped.
-        this.movePiece(this.slotBeingMovedFrom, this.slotBeingMovedElement.id, component, element.id)
+        this.movePiece(Number(this.slotBeingMovedElement.id), Number(slotElement.id))
 
         // Check if puzzle is solved.
         if (this.isSolved()) {
             this.end()
-            this.audioPlayer.playAllSlots()
+            const firstIndex = this.board.findPiece(solution[0])
+            this.board.playSequence(firstIndex)
         }
     }
 

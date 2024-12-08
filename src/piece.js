@@ -2,6 +2,7 @@ class Piece {
 
     constructor(sound, sampleRate, index, testMode) {
         // Initialize puzzle piece with sound data.
+        
         this.sound = sound
         this.sampleRate = sampleRate
         this.index = index

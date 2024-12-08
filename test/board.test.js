@@ -1,16 +1,20 @@
 describe('Board Test', () =>  {
     
     beforeEach(() => {
-        this.board = new Board(12, true)
+        this.board = new Board(3, 4, true)
         this.segment = new Segment('small.wav', true)
         this.pieces = this.segment.divide(4)
         this.board.loadPieces(this.pieces)
         this.occupiedSlots = this.board.getOccupiedSlots()
         this.freeSlots = this.board.getFreeSlots()
     });
-    
-    it('Load pieces', () => {
 
+    it('Constructor', () => {
+        const narrowBoard = new Board(5, 3, true)
+        expect(() => { narrowBoard.loadPieces(this.pieces) }).toThrowError('Board is not wide enough for 4 pieces')
+    })
+
+    it('Load pieces', () => {
         expect(this.board.nSlots).toBe(12)
         
         // We cannot verify the piece locations directly because JS does not allow setting the random seed.
@@ -18,11 +22,44 @@ describe('Board Test', () =>  {
         expect(this.occupiedSlots.length).toBe(4)
     })
 
-    it('Play', () => {
+    it('Play sequence', async () => {
+        // Play from a slot to the nearest gap.
 
-        // Board.play() in test mode should return the sound from the correcponding piece object.
+        testBoard = new Board(3, 5, true)
+        testBoard.insertPiece(0, this.pieces[3])
+        testBoard.insertPiece(5, this.pieces[2])
+        testBoard.insertPiece(6, this.pieces[0])
+        testBoard.insertPiece(8, this.pieces[1])
+        
+        // Shoule return the sound from a single piece.
+        let piece, playedSound, refSound
+        piece = testBoard.slots[0]
+        playedSound = await testBoard.playSequence(0)
+        refSound = [await piece.play(true)]
+        expect(playedSound).toEqual(refSound)
+        piece = testBoard.slots[8]
+        playedSound = await testBoard.playSequence(8)
+        refSound = [await piece.play(true)]
+        expect(playedSound).toEqual(refSound)
+
+        // Should return the sound from two consecutive pieces.        
+        piece = testBoard.slots[5]
+        const piece2 = testBoard.slots[6]
+        playedSound = await testBoard.playSequence(5)
+        refSound = [await piece.play(true), await piece2.play(true)]
+        expect(playedSound).toEqual(refSound)
+
+        // Trying to play from empty slots should not do anything.
+        expect(testBoard.playSequence(1)).toBe(null)
+        expect(testBoard.playSequence(2)).toBe(null)
+        expect(testBoard.playSequence(7)).toBe(null)
+    })
+    
+    it('Play piece', () => {
+
+        // Should return the sound from a single piece object.
         this.occupiedSlots.forEach(slotIndex => {
-            const sound = board.play(slotIndex, true)
+            const sound = board.playPiece(slotIndex, true)
             let piece = board.slots[slotIndex]
             expect(sound).toBe(piece.play(true))
         })
@@ -30,7 +67,7 @@ describe('Board Test', () =>  {
         // Trying to play from empty slots should not do anything.
         for (let slotIndex = 0; slotIndex < this.board.nSlots; slotIndex ++) {
             if (!this.occupiedSlots.includes(slotIndex)) {
-                expect(this.board.play(slotIndex, true)).toBe(null)
+                expect(this.board.playPiece(slotIndex, true)).toBe(null)
             }
         }
 
