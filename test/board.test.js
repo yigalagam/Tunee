@@ -22,6 +22,26 @@ describe('Board Test', () =>  {
         expect(this.occupiedSlots.length).toBe(4)
     })
 
+    it ('Get maximum number of adjacent pieces', () => {
+        // Helper for ensuring pieces are sufficiently scattered on the board.
+        
+        const piece = this.pieces[2]
+
+        this.board.slots = [piece, piece, piece, piece, null, null, null, null, null, null, null, null]
+        expect(this.board.getMaxAdjacentCount()).toBe(4)
+
+        // 3 in first row, 1 in second row.
+        this.board.slots = [null, piece, piece, piece, piece, null, null, null, null, null, null, null]
+        expect(this.board.getMaxAdjacentCount()).toBe(3)
+
+        // 1 in first row, 4 in second row, 1 in third row.
+        this.board.slots = [null, null, null, piece, piece, piece, piece, piece, piece, null, null, null]
+        expect(this.board.getMaxAdjacentCount()).toBe(4)        
+
+        this.board.slots = [null, null, null, piece, piece, piece, null, piece, piece, piece, null, piece]
+        expect(this.board.getMaxAdjacentCount()).toBe(2)
+    })
+
     it('Play sequence', async () => {
         // Play sound between the nearest gaps around a slot.
 

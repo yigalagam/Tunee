@@ -22,24 +22,65 @@ class Board {
     
     loadPieces(pieces) {
         // Load a set of pieces into the board.
-        this.reset()
         
         const nPieces = pieces.length
         if (this.width < nPieces) {
             throw new Error('Board is not wide enough for ' + nPieces + ' pieces')
         }
 
-        // Randomly populate slots with pieces.
-        const pieceLocations = Array.from({ length: this.nSlots }, (_, i) => i);
-        for (let i = pieceLocations.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [pieceLocations[i], pieceLocations[j]] = [pieceLocations[j], pieceLocations[i]];
+        if (this.nSlots < 2* nPieces) {
+            throw new Error('Board does not have enough space for ' + nPieces + ' pieces')
         }
-        for (let [i, loc] of pieceLocations.entries()) {
-            this.slots[loc] = pieces[i]
+        
+        let ready = false
+        while (!ready) {
+            this.reset()
+            
+            // Randomly populate slots with pieces.
+            const pieceLocations = Array.from({ length: this.nSlots }, (_, i) => i);
+            for (let i = pieceLocations.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pieceLocations[i], pieceLocations[j]] = [pieceLocations[j], pieceLocations[i]];
+            }
+            for (let [i, loc] of pieceLocations.entries()) {
+                this.slots[loc] = pieces[i]
+            }
+
+            // Make sure there are at most two adjacent populated slots.
+            const maxAdjacentCount = this.getMaxAdjacentCount()
+            if (maxAdjacentCount <= 2) {
+                ready = true
+            } else if (this.debugMode) {
+                console.log('Maximum of ' + maxAdjacentCount + ' adjacent pieces, reassigning slots')
+            }
         }
 
         this.startGUI()
+
+    }
+
+    getMaxAdjacentCount() {
+        // Helper to ensure sufficient scatter of pieces.
+        let adjacentCount = 0
+        let maxAdjacentCount = 1
+        let slot
+        for (let slotIndex = 0; slotIndex < this.nSlots; slotIndex++) {
+            slot = this.slots[slotIndex]
+            if (slot != null) {
+                if (slotIndex % this.width == 0) {
+                    // New row.
+                    adjacentCount = 1
+                } else {
+                    adjacentCount++
+                    if (adjacentCount > maxAdjacentCount) {
+                        maxAdjacentCount = adjacentCount
+                    }
+                }
+            } else {
+                adjacentCount = 0
+            }
+        }
+        return maxAdjacentCount
     }
 
     isSlotOccupied(slotIndex) {
