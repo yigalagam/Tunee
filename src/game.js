@@ -78,7 +78,7 @@ class Game {
 
     slotClick(slotIndex) {
         // Click on a puzzle piece.
-        board.playSequence(slotIndex)
+        this.board.playSequence(slotIndex)
     }
 
     slotDrag(slotElement) {
@@ -101,7 +101,7 @@ class Game {
         // Check if puzzle is solved.
         if (this.isSolved()) {
             this.end()
-            const firstIndex = this.board.findPiece(solution[0])
+            const firstIndex = this.board.findPiece(this.solution[0])
             this.board.playSequence(firstIndex)
         }
     }

@@ -68,8 +68,8 @@ class Board {
     }
     
     playPiece(slotIndex) {
+        // Play a single piece in slot.
         if (this.slots[slotIndex] != null) {
-            // Play single piece in slot.
             const playedSound = this.slots[slotIndex].play()
             if (!this.testMode) {
                 this.slotsGUI[slotIndex].classList.add('piece-playing')
@@ -109,7 +109,7 @@ class Board {
                return
             }
 
-            if (!AudioPlayer.isPlaying) {
+            if (!Board.isPlaying) {
                 Board.isPlaying = true
                 let pieceToPlay
                 if (this.isSlotOccupied(slotIndex)) {
@@ -126,7 +126,7 @@ class Board {
                     this.slotsGUI[slotIndex].classList.remove('piece-playing')
                     this.slotsGUI[slotIndex].classList.remove('piece-playing-empty-slot')
                     Board.isPlaying = false
-                    this.playMultipleSlots(slotIndex + 1, endSlot, buttonPressed)
+                    this.playMultipleSlots(slotIndex + 1, endSlot)
                 }
             }
 
