@@ -87,46 +87,54 @@ class Board {
     }
 
     playSequence(slotIndex) {
-        // Play the content of a player from a slot to the nearest gap or to the right edge of the board.
+        // Play the content of a player from the nearest gap or the from left edge of the board to the nearest gap or to the right edge of the board.
+        
         if (this.slots[slotIndex] != null) {
+             // Search left.
+                 let startSlotIndex = slotIndex - 1
+                 while ((this.slots[startSlotIndex] != null) && (startSlotIndex % this.width != this.width - 1)) {
+                    startSlotIndex--
+             }
+ 
+            // search right.
             let endSlotIndex = slotIndex + 1
             while ((this.slots[endSlotIndex] != null) && (endSlotIndex % this.width != 0)) {
                 endSlotIndex++
             }
-            return this.playMultipleSlots(slotIndex, endSlotIndex - 1, false)
+
+            return this.playMultipleSlots(startSlotIndex + 1, endSlotIndex - 1, false)
         }
         // Empty slot.
         return null
     }
     
-    async playMultipleSlots(slotIndex, endSlot) {
+    async playMultipleSlots(startSlot, endSlot) {
         // Play the content of the player between two slot indexes, pausing at slots with no pieces.
 
         if (!this.testMode) {
-            console.log('slotIndex: ' + slotIndex)
-            console.log('endSlot: ' + endSlot)
-            if (slotIndex > endSlot) {
+            console.log('Playing from slot : ' + startSlot + ' to ' + endSlot)
+            if (startSlot > endSlot) {
                return
             }
 
             if (!Board.isPlaying) {
                 Board.isPlaying = true
                 let pieceToPlay
-                if (this.isSlotOccupied(slotIndex)) {
-                    pieceToPlay = this.slots[slotIndex]
-                    this.slotsGUI[slotIndex].classList.add('piece-playing')
+                if (this.isSlotOccupied(startSlot)) {
+                    pieceToPlay = this.slots[startSlot]
+                    this.slotsGUI[startSlot].classList.add('piece-playing')
                 } else {
                     pieceToPlay = this.silentPiece
-                    this.slotsGUI[slotIndex].classList.add('piece-playing-empty-slot')
+                    this.slotsGUI[startSlot].classList.add('piece-playing-empty-slot')
                 }
                 pieceToPlay.play()
 
                 pieceToPlay.audioSource.onended = () => {
-                    console.log('Slot ' + slotIndex + ' finished playing')
-                    this.slotsGUI[slotIndex].classList.remove('piece-playing')
-                    this.slotsGUI[slotIndex].classList.remove('piece-playing-empty-slot')
+                    console.log('Slot ' + startSlot + ' finished playing')
+                    this.slotsGUI[startSlot].classList.remove('piece-playing')
+                    this.slotsGUI[startSlot].classList.remove('piece-playing-empty-slot')
                     Board.isPlaying = false
-                    this.playMultipleSlots(slotIndex + 1, endSlot)
+                    this.playMultipleSlots(startSlot + 1, endSlot)
                 }
             }
 
@@ -134,7 +142,7 @@ class Board {
             // In test mode, just return the concatenated sound data.
             const soundOut = []
             let pieceToPlay
-            for (let testSlotIndex = slotIndex; testSlotIndex <= endSlot; testSlotIndex++) {
+            for (let testSlotIndex = startSlot; testSlotIndex <= endSlot; testSlotIndex++) {
                 if (this.isSlotOccupied(testSlotIndex)) {
                     pieceToPlay = this.slots[testSlotIndex]
                 } else {
