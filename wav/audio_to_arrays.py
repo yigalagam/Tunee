@@ -17,7 +17,7 @@ def audio_to_arrays(audio_file, output_file):
         sound = two_channels
 
     with open(output_file, 'w') as fid:
-        fid.write('return [[')
+        fid.write('return [[[]')
         for i, value in enumerate(sound[:, 0]):
             fid.write(str(value))
             if i < dims[0] - 1:
@@ -27,7 +27,7 @@ def audio_to_arrays(audio_file, output_file):
             fid.write(str(value))
             if i < dims[0] - 1:
                 fid.write(',')
-        fid.write(']],\n')
+        fid.write(']], ')
         fid.write(str(sample_rate) + ']\n')
 
 

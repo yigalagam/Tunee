@@ -90,5 +90,5 @@ startButton.onclick = () => {
 }
 
 function startGame() {
-    game.start('coltrane.wav')
+    game.start('tame_impala.wav')
 }
