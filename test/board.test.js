@@ -70,22 +70,18 @@ describe('Board Test', () =>  {
         expect(playedSound).toEqual(refSound)
 
         // Verify that playing ends at right edge of the board (doesn't play into slot 5 in the 2nd row).
-        // Slot 3 should play even though we're clicking on slot 4.
         testBoard.insertPiece(3, this.pieces[0])
         testBoard.insertPiece(4, this.pieces[1])
         piece = testBoard.slots[3]
         piece2 = testBoard.slots[4]
+        playedSound = await testBoard.playSequence(3)
+        refSound = [await piece.play(true), await piece2.play(true)]
+        expect(playedSound).toEqual(refSound)
+
+        // If we click on slot 4, slot 3 should not play, even though they are adjacent.
         playedSound = await testBoard.playSequence(4)
-        refSound = [await piece.play(true), await piece2.play(true)]
+        refSound = [await piece2.play(true)]
         expect(playedSound).toEqual(refSound)
-
-        // With the same setup, verify that playing ends on the left side of the board.
-        piece = testBoard.slots[5]
-        piece2 = testBoard.slots[6]
-        playedSound = await testBoard.playSequence(5)
-        refSound = [await piece.play(true), await piece2.play(true)]
-        expect(playedSound).toEqual(refSound)
-
 
         // Trying to play from empty slots should not do anything.
         expect(testBoard.playSequence(1)).toBe(null)
@@ -93,24 +89,6 @@ describe('Board Test', () =>  {
         expect(testBoard.playSequence(7)).toBe(null)
     })
     
-    it('Play piece', () => {
-
-        // Should return the sound from a single piece object.
-        this.occupiedSlots.forEach(slotIndex => {
-            const sound = board.playPiece(slotIndex, true)
-            let piece = board.slots[slotIndex]
-            expect(sound).toBe(piece.play(true))
-        })
-
-        // Trying to play from empty slots should not do anything.
-        for (let slotIndex = 0; slotIndex < this.board.nSlots; slotIndex ++) {
-            if (!this.occupiedSlots.includes(slotIndex)) {
-                expect(this.board.playPiece(slotIndex, true)).toBe(null)
-            }
-        }
-
-    })
-
     it('Move pieces', () => {
 
         // Move piece from 2nd occupied slot to 3rd free slot.

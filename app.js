@@ -1,7 +1,7 @@
 // Parameters for setting up the game.
-const nBoardRows = 3
+const nBoardRows = 5
 const nBoardCols = 12
-const nPieces  = 3
+const nPieces  = 10
 const baseSize = 25
 const slotSizePx = 3 * baseSize
 const playButtonSizePx = 3 * baseSize
@@ -37,10 +37,6 @@ dragDiv.style.position = 'absolute'
 dragDiv.style.top = (-slotSizePx * 2) + 'px'
 dragDiv.style.left = (-slotSizePx * 2) + 'px'
 document.body.appendChild(dragDiv)
-
-function startGame() {
-    game.start('bart.wav')
-}
 
 // Generate a div element for board slots.
 function getBoardSlotDiv(id) {
@@ -91,4 +87,8 @@ startButton.style.width = (baseSize * 3) + 'px'
 startButton.style.height = (baseSize * 3) + 'px'
 startButton.onclick = () => {
     startGame()
+}
+
+function startGame() {
+    game.start('coltrane.wav')
 }

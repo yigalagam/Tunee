@@ -8,7 +8,6 @@ class Segment {
         const audioData = loadAudioData(wavFile)
         this.sound = audioData[0]
         this.sampleRate = audioData[1]
-        this.duration = this.sound[0].length / this.sampleRate
         this.testMode = testMode
     }
 

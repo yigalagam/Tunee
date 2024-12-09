@@ -2,8 +2,6 @@
 
 class Board {
 
-    static isPlaying = false
-
     constructor(nRows, nCols, testMode, debugMode=false) {
         // Initialize with all empty slots.
         this.width = nCols
@@ -13,6 +11,9 @@ class Board {
         this.testMode = testMode
         this.debugMode = debugMode
     }
+
+    static playing = false
+    static playingInterrupted = false
 
     reset() {
         this.slots = new Array(this.nSlots).fill(null)
@@ -107,45 +108,32 @@ class Board {
         }
         return freeSlots
     }
-    
-    playPiece(slotIndex) {
-        // Play a single piece in slot.
-        if (this.slots[slotIndex] != null) {
-            const playedSound = this.slots[slotIndex].play()
-            if (!this.testMode) {
-                this.slotsGUI[slotIndex].classList.add('piece-playing')
-                this.slots[slotIndex].audioSource.onended = () => {
-                    if (this.debugMode) {
-                        console.log('Piece in slot ' + slotIndex + ' finished playing')
-                    }
-                    this.slotsGUI[slotIndex].classList.remove('piece-playing')
-                }
-            }
-            return playedSound
-        }
-        // Empty slot.
-        return null
-    }
 
     playSequence(slotIndex) {
-        // Play the content of a player from the nearest gap or the from left edge of the board to the nearest gap or to the right edge of the board.
+        // Play the content of a player from a slot to the nearest gap or to the right edge of the board.
         
+        // Any click on a piece or on an empty slot should stop the audio playing.
+        if (Board.playing) {
+            console.log('Interrupting audio')
+            Board.playing = false
+            Board.playingInterrupted = true
+            return
+        }
+
         if (this.slots[slotIndex] != null) {
-             // Search left.
-                 let startSlotIndex = slotIndex - 1
-                 while ((this.slots[startSlotIndex] != null) && (startSlotIndex % this.width != this.width - 1)) {
-                    startSlotIndex--
-             }
- 
-            // search right.
+            // search for additional occupied slots on the right.
             let endSlotIndex = slotIndex + 1
             while ((this.slots[endSlotIndex] != null) && (endSlotIndex % this.width != 0)) {
                 endSlotIndex++
             }
-
-            return this.playMultipleSlots(startSlotIndex + 1, endSlotIndex - 1, false)
+            if (this.debugMode) {
+                console.log('Playing from slot : ' + slotIndex + ' to ' + (endSlotIndex - 1))
+            }
+            return this.playMultipleSlots(slotIndex, endSlotIndex - 1, false)
         }
+
         // Empty slot.
+        console.log('Click on empty slot: ' + slotIndex)
         return null
     }
     
@@ -153,30 +141,29 @@ class Board {
         // Play the content of the player between two slot indexes, pausing at slots with no pieces.
 
         if (!this.testMode) {
-            console.log('Playing from slot : ' + startSlot + ' to ' + endSlot)
+
             if (startSlot > endSlot) {
-               return
+                Board.playing = false
+                Board.playingInterrupted = false
+                return
             }
 
-            if (!Board.isPlaying) {
-                Board.isPlaying = true
-                let pieceToPlay
-                if (this.isSlotOccupied(startSlot)) {
-                    pieceToPlay = this.slots[startSlot]
-                    this.slotsGUI[startSlot].classList.add('piece-playing')
-                } else {
-                    pieceToPlay = this.silentPiece
-                    this.slotsGUI[startSlot].classList.add('piece-playing-empty-slot')
-                }
-                pieceToPlay.play()
-
-                pieceToPlay.audioSource.onended = () => {
+            if (!Board.playingInterrupted) {
+                Board.playing = true
+                this.slots[startSlot].play()
+                this.slotsGUI[startSlot].classList.add('piece-playing')
+                this.slots[startSlot].audioSource.onended = () => {
                     console.log('Slot ' + startSlot + ' finished playing')
                     this.slotsGUI[startSlot].classList.remove('piece-playing')
-                    this.slotsGUI[startSlot].classList.remove('piece-playing-empty-slot')
-                    Board.isPlaying = false
-                    this.playMultipleSlots(startSlot + 1, endSlot)
+                    if (!Board.playingInterrupted) {
+                        this.playMultipleSlots(startSlot + 1, endSlot)
+                    } else {
+                        Board.playingInterrupted = false
+                    }
                 }
+            } else {
+                Board.playing = false
+                Board.playingInterrupted = false
             }
 
         } else {            
