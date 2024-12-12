@@ -87,11 +87,19 @@ class Game {
     slotDrag(slotElement) {
         // Callback function when a piece is getting dragged.
         this.slotBeingMovedElement = slotElement
+        slotElement.classList.add('piece-dragged')
+        if (this.board.playing) {
+            if (this.debugMode) {
+                console.log('Slot moving, interrupting audio')
+            }
+            this.board.stopPlaying()
+        }
     }
 
     slotDragEnd() {
-         // Change the apperance of the dragged slot back to normal.
-   }
+        console.log(this.slotBeingMovedElement)
+        this.slotBeingMovedElement.classList.remove('piece-dragged')
+    }
 
     slotDrop(slotElement) {
         // Callback function when a piece is getting dropped.

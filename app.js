@@ -70,6 +70,7 @@ function getBoardSlotDiv(id) {
         event.preventDefault()
         game.slotDragEnd()
     }
+    
     div.ondrop = () => {
         if (debugMode) {
             console.log('Drop: slot ' + div.id)
@@ -90,5 +91,5 @@ startButton.onclick = () => {
 }
 
 function startGame() {
-    game.start('tame_impala.wav')
+    game.start('coltrane.wav')
 }

@@ -10,10 +10,12 @@ class Board {
         this.slotsGUI = []
         this.testMode = testMode
         this.debugMode = debugMode
-    }
 
-    static playing = false
-    static playingInterrupted = false
+        // Properties to control audio conflicts.
+        this.playing = false
+        this.playingInterrupted = false
+
+    }
 
     reset() {
         this.slots = new Array(this.nSlots).fill(null)
@@ -113,10 +115,8 @@ class Board {
         // Play the content of a player from a slot to the nearest gap or to the right edge of the board.
         
         // Any click on a piece or on an empty slot should stop the audio playing.
-        if (Board.playing) {
-            console.log('Interrupting audio')
-            Board.playing = false
-            Board.playingInterrupted = true
+        if (this.playing) {
+            this.stopPlaying()
             return
         }
 
@@ -143,27 +143,27 @@ class Board {
         if (!this.testMode) {
 
             if (startSlot > endSlot) {
-                Board.playing = false
-                Board.playingInterrupted = false
+                this.playing = false
+                this.playingInterrupted = false
                 return
             }
 
-            if (!Board.playingInterrupted) {
-                Board.playing = true
+            if (!this.playingInterrupted) {
+                this.playing = true
                 this.slots[startSlot].play()
                 this.slotsGUI[startSlot].classList.add('piece-playing')
                 this.slots[startSlot].audioSource.onended = () => {
                     console.log('Slot ' + startSlot + ' finished playing')
                     this.slotsGUI[startSlot].classList.remove('piece-playing')
-                    if (!Board.playingInterrupted) {
+                    if (!this.playingInterrupted) {
                         this.playMultipleSlots(startSlot + 1, endSlot)
                     } else {
-                        Board.playingInterrupted = false
+                        this.playingInterrupted = false
                     }
                 }
             } else {
-                Board.playing = false
-                Board.playingInterrupted = false
+                this.playing = false
+                this.playingInterrupted = false
             }
 
         } else {            
@@ -179,6 +179,16 @@ class Board {
                 soundOut.push(pieceToPlay.play())
             }
             return soundOut
+        }
+    }
+
+    stopPlaying() {
+        if (this.playing) {
+            if (this.debugMode) {
+                console.log('Interrupting audio')
+            }
+            this.playing = false
+            this.playingInterrupted = true
         }
     }
 
