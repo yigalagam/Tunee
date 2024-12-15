@@ -27,6 +27,11 @@ class Board {
         // Load a set of pieces into the board.
         
         const nPieces = pieces.length
+        
+        if (this.debugMode) {
+            console.log('Loading ' + nPieces + ' pieces')
+        }
+        
         if (this.width < nPieces) {
             throw new Error('Board is not wide enough for ' + nPieces + ' pieces')
         }
@@ -257,6 +262,10 @@ class Board {
         }
     }
 
+    pauseGUI() {
+        
+    }
+
     updateGUI() {
         if (Array.from(this.slotsGUI).every(slotGUI => slotGUI == null)) {
             // No GUI, will be the case in some testing situations.
@@ -269,7 +278,6 @@ class Board {
         occupiedSlots.forEach(slotIndex => {
             // Set piece class for occupied slots and make it draggable so it can be moved.
             this.slotsGUI[slotIndex].classList.add('piece')
-            this.slotsGUI[slotIndex].src = '../images/piece.png'
             this.slotsGUI[slotIndex].draggable = true
             // Prevent dropping pieces in an occupied slot.
             this.slotsGUI[slotIndex].ondragover = null
@@ -278,7 +286,6 @@ class Board {
         freeSlots.forEach(slotIndex => {
             // Remove piece class from unoccupied slots.
             this.slotsGUI[slotIndex].classList.remove('piece')
-            this.slotsGUI[slotIndex].src = ''
             this.slotsGUI[slotIndex].draggable = false
             // This listener is needed to allow dropping pieces in this slot.
             this.slotsGUI[slotIndex].ondragover = (event) => {

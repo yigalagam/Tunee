@@ -4,6 +4,8 @@ class Game {
         // Initialize a game from an audio file.
         // boardSize: [# rows, # columns].
 
+        this.name = '############'
+
         this.nPieces = nPieces
         this.testMode = testMode
         this.debugMode = debugMode
@@ -17,6 +19,8 @@ class Game {
         this.boardSize = boardSize
         this.board = new Board(boardSize[0], boardSize[1], this.testMode, this.debugMode)
 
+        this.timer = new Timer()
+
         // Properties used to handle moving pieces.
         this.slotBeingMovedFrom = ''
         this.slotBeingMovedElement = null
@@ -27,8 +31,11 @@ class Game {
         this.solution = this.segment.divide(this.nPieces)
         this.board.reset()
         this.board.loadPieces(this.solution)
-        this.board.startGUI()
         this.gameEnded = false
+        this.startGUI()
+
+        // Start running the timer.
+        this.timer.start()
     }
 
     end() {
@@ -75,8 +82,22 @@ class Game {
         return true
     }
 
+    // ***** GUI Management ***** //
+
+    startGUI() {
+        this.board.startGUI()
+        this.timer.startGUI()
+        this.actionButton = document.querySelectorAll('.action-button')[0]
+        this.actionButton.innerHTML = ''
+        this.actionButton.style.backgroundImage = "url('../images/game_on.png')"
+        this.actionButton.onclick = null
+    
+    }
+
     endGUI() {
         this.board.endGUI()
+        this.timer.stop()
+        this.actionButtonShare()
     }
 
     slotClick(slotIndex) {
@@ -97,7 +118,6 @@ class Game {
     }
 
     slotDragEnd() {
-        console.log(this.slotBeingMovedElement)
         this.slotBeingMovedElement.classList.remove('piece-dragged')
     }
 
@@ -114,6 +134,33 @@ class Game {
                 this.end()
             }
         }
+    }
+
+    // ***** Sharing Results ***** //
+
+    actionButtonShare() {
+        this.actionButton.style.backgroundImage = "url('../images/yellow.png')"
+        console.log(this.actionButton)
+        this.actionButton.innerHTML = 'Share'
+        this.actionButton.onclick = () => {
+            this.generateResult()
+            this.actionButtonCopied()
+        }
+    }
+
+    actionButtonCopied() {
+        // Sharable result is in clipboard, Show message for a short time.
+        this.actionButton.innerHTML = 'Copied'
+        this.actionButton.onclick = null
+        setTimeout(() => {
+            this.actionButtonShare()
+        }, 3000)
+    }
+
+    generateResult() {
+        const timeString = this.timer.getTimeString()
+        const clipboardText = String.fromCodePoint(0x1F3B5) + '   Solved ' + this.name + ' in ' + timeString + '!   ' + String.fromCodePoint(0x1F3B5)
+        navigator.clipboard.writeText(clipboardText)
     }
 
 }

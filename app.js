@@ -1,10 +1,11 @@
 // Parameters for setting up the game.
 const nBoardRows = 5
 const nBoardCols = 12
-const nPieces  = 10
+const nPieces  = 3
 const baseSize = 25
 const slotSizePx = 3 * baseSize
-const playButtonSizePx = 3 * baseSize
+const font = 'Helvetica'
+const fontSize = 1.35
 
 const debugMode = true
 
@@ -13,17 +14,28 @@ nBoardSlots = nBoardRows * nBoardCols
 const game = new Game(nPieces, [nBoardRows, nBoardCols], false, debugMode)
 
 // Set up game container.
-const gameDiv = document.querySelector('.game')
+const gameDiv = document.createElement('div')
 const boardWidth = slotSizePx * nBoardCols
 gameDiv.style.width = ((slotSizePx) * nBoardCols + 2) +'px'
+gameDiv.style.margin = '0 auto'
+gameDiv.style.display = 'grid'
+gameDiv.style.justifyItems = 'center'
+gameDiv.style.alignItems = 'center'
+document.body.appendChild(gameDiv)
 
 // Create board divs.
-const boardDiv = document.querySelector('.board')
+const boardDiv = document.createElement('div')
+boardDiv.style.backgroundImage = "url('../images/gray.png')"
+boardDiv.style.backgroundSize = 'cover'
+boardDiv.style.border = '1px solid'
 boardDiv.style.width = boardWidth
 boardDiv.style.height = (slotSizePx * nBoardRows + 2) + 'px'
+boardDiv.style.display = 'flex'
+boardDiv.style.flexWrap = 'wrap'
 for (let i = 0; i < nBoardSlots; i++) {
     boardDiv.appendChild(getBoardSlotDiv(i))
 }
+gameDiv.appendChild(boardDiv)
 
 // Image for dragging operations.
 const dragImage = new Image();
@@ -45,6 +57,8 @@ function getBoardSlotDiv(id) {
     div.id = id
     div.style.width = (slotSizePx) + 'px'
     div.style.height = (slotSizePx) + 'px'
+    div.style.border = 'dotted 0.25px'
+    div.style.boxSizing = 'border-box'
     div.draggable = false
     
     div.onclick = () => {
@@ -61,6 +75,7 @@ function getBoardSlotDiv(id) {
         }
         event.stopPropagation()
         event.dataTransfer.setDragImage(dragDiv, slotSizePx / 2, slotSizePx / 2)
+        event.dataTransfer.effectAllowed = 'move'
         game.slotDrag(div)
     }
     div.ondragend = (event) => {
@@ -81,14 +96,59 @@ function getBoardSlotDiv(id) {
     return div
 }
 
-// Button to start the game.
-const startButton = document.querySelector('.start-button')
-startButton.style.marginTop = baseSize + 'px'
-startButton.style.width = (baseSize * 3) + 'px'
-startButton.style.height = (baseSize * 3) + 'px'
-startButton.onclick = () => {
+// Button to start the game and share after you win.
+const actionButton = document.createElement('div')
+actionButton.classList.add('action-button')
+actionButton.style.backgroundImage = "url('../images/yellow.png')"
+actionButton.style.backgroundSize = 'cover'
+actionButton.style.border = '3px solid'
+actionButton.style.width = (baseSize * 3) + 'px'
+actionButton.style.height = (baseSize * 3) + 'px'
+actionButton.style.marginTop = baseSize + 'px'
+actionButton.innerHTML = 'Start'
+actionButton.style.fontFamily = font
+actionButton.style.fontSize = fontSize + 'em'
+actionButton.style.fontWeight = 'bold'
+actionButton.style.display = 'flex'
+actionButton.style.alignItems = 'center'
+actionButton.style.justifyContent = 'center'
+actionButton.style.userSelect = 'none'
+actionButton.onclick = () => {
     startGame()
 }
+
+// Set up timer display.
+const timer = document.createElement('div')
+timer.classList.add('timer')
+timer.style.backgroundImage = "url('../images/yellow.png')"
+timer.style.backgroundSize = 'cover'
+timer.style.border = '3px solid'
+timer.style.width = (baseSize * 6) + 'px'
+timer.style.height = (baseSize * 3) + 'px'
+timer.style.marginTop = baseSize + 'px'
+timer.innerHTML = '00:00:00'
+timer.style.fontFamily = font
+timer.style.fontSize = fontSize + 'em'
+timer.style.fontWeight = 'bold'
+timer.style.display = 'flex'
+timer.style.alignItems = 'center'
+timer.style.justifyContent = 'center'
+timer.style.userSelect = 'none'
+
+// Area containing the game controls (anything outside the board).
+const controlDiv = document.createElement('div')
+controlDiv.style.width = (baseSize * 20) + 'px'
+controlDiv.style.height = (baseSize * 5) + 'px'
+controlDiv.style.backgroundImage = "url('../images/gray.png')"
+controlDiv.style.border = '1px solid'
+controlDiv.style.marginTop = baseSize + 'px'
+controlDiv.style.marginLeft = 'auto'
+controlDiv.style.marginRight = 'auto'
+controlDiv.style.display = 'flex'
+controlDiv.style.justifyContent = 'space-around'
+controlDiv.appendChild(actionButton)
+controlDiv.appendChild(timer)
+document.body.appendChild(controlDiv)
 
 function startGame() {
     game.start('coltrane.wav')
