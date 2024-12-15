@@ -1,9 +1,39 @@
 describe('Game Test', () =>  {
     
     beforeEach(() => {
+
+        // Create board divs for testing, one for each slot.
+        this.slotDivs = []
+        let element
+        for (let i = 0; i < 42; i++) {
+            element = document.createElement('div')
+            element.classList.add('board-slot')
+            document.body.append(element)
+            this.slotDivs.push(element)
+        }
+        
+        // Create timer div for testing.
+        this.timerDiv = document.createElement('div')
+        this.timerDiv.classList.add('timer')
+        document.body.append(this.timerDiv)
+
+        // Create action button (start, share) for testing.
+        this.actionButtonDiv = document.createElement('div')
+        this.actionButtonDiv.className = 'action-button'
+        document.body.append(this.actionButtonDiv)
+
+        // Start a new game from a Game object.
         this.game = new Game(11, [3, 14], true)
-    });
-    
+    })
+
+    afterEach(() => {
+        this.slotDivs.forEach(slotDiv => {
+            slotDiv.remove()
+        })
+        this.timerDiv.remove()
+        this.actionButtonDiv.remove()
+    })
+
     it('Constructor', () => {
         // No audio loaded yet.
         expect(this.game.segment).toBe(null)
@@ -93,16 +123,6 @@ describe('Game Test', () =>  {
     })
 
     it('GUI', () => {
-        
-        // Create board divs for testing, one for each slot.
-        let guiElements = []
-        let element
-        for (let i = 0; i < 42; i++) {
-            element = document.createElement('div')
-            element.classList.add('board-slot')
-            document.body.append(element)
-            guiElements.push(element)
-        }
 
         this.game.start('small.wav')
 
@@ -126,9 +146,6 @@ describe('Game Test', () =>  {
         expect(this.game.board.slotsGUI[toSlot].classList).toContain('piece')
         expect(this.game.board.slotsGUI[toSlot].ondragover).toBe(null)
         expect(this.game.board.slotsGUI[toSlot].draggable).toBe(true)
-        
-        // Remove GUI elements.
-        guiElements.forEach(guiElement => document.body.removeChild(guiElement));
     })
 
 })

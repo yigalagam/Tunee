@@ -1,8 +1,9 @@
 class Timer {
 
-    constructor(debugMode=false) {
+    constructor(testMode=false, debugMode=false) {
         this.seconds = 0
         this.timerGUI = null
+        this.testMode = testMode
         this.debugMode = debugMode
     }
 

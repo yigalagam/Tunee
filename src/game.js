@@ -19,7 +19,7 @@ class Game {
         this.boardSize = boardSize
         this.board = new Board(boardSize[0], boardSize[1], this.testMode, this.debugMode)
 
-        this.timer = new Timer()
+        this.timer = new Timer(this.testMode, this.debugMode)
 
         // Properties used to handle moving pieces.
         this.slotBeingMovedFrom = ''
