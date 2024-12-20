@@ -125,27 +125,33 @@ describe('Game Test', () =>  {
     it('GUI', () => {
 
         this.game.start('small.wav')
+        
+        boardSlots = this.game.board.slotsGUI
 
-        // Occupied board slot should have 'piece' added to the class list.
+        // Occupied board slots should have 'piece' added to the class list, be draggable, and not respond to drop events.
         const occupiedSlots = this.game.board.getOccupiedSlots()
         const freeBoardSlots = this.game.board.getFreeSlots()
         occupiedSlots.forEach(slotIndex => {
-            expect(this.game.board.slotsGUI[slotIndex].classList).toContain('piece')
+            expect(boardSlots[slotIndex].classList).toContain('piece')
+            expect(boardSlots[slotIndex].draggable).toBe(true)
+            expect(boardSlots[slotIndex].ondragover).toBe(null)
         })
         freeBoardSlots.forEach(slotIndex => {
-            expect(this.game.board.slotsGUI[slotIndex].classList).not.toContain('piece')
+            expect(boardSlots[slotIndex].classList).not.toContain('piece')
+            expect(boardSlots[slotIndex].draggable).toBe(false)
+            expect(boardSlots[slotIndex].ondragover).not.toBe(null)
         })
 
         // Move pieces and verify that the GUI components change accordingly.
         let fromSlot = occupiedSlots[3]
         let toSlot = freeBoardSlots[18]
         this.game.movePiece(fromSlot, toSlot)
-        expect(this.game.board.slotsGUI[fromSlot].classList).not.toContain('piece')
-        expect(this.game.board.slotsGUI[fromSlot].ondragover).not.toBe(null)
-        expect(this.game.board.slotsGUI[fromSlot].draggable).toBe(false)
-        expect(this.game.board.slotsGUI[toSlot].classList).toContain('piece')
-        expect(this.game.board.slotsGUI[toSlot].ondragover).toBe(null)
-        expect(this.game.board.slotsGUI[toSlot].draggable).toBe(true)
+        expect(boardSlots[fromSlot].classList).not.toContain('piece')
+        expect(boardSlots[fromSlot].ondragover).not.toBe(null)
+        expect(boardSlots[fromSlot].draggable).toBe(false)
+        expect(boardSlots[toSlot].classList).toContain('piece')
+        expect(boardSlots[toSlot].ondragover).toBe(null)
+        expect(boardSlots[toSlot].draggable).toBe(true)
     })
 
 })
