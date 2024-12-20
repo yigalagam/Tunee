@@ -1,11 +1,12 @@
 class Game {
     
-    constructor(nPieces, boardSize, testMode, debugMode=false) {
+    constructor(guiManager, nPieces, boardSize, testMode, debugMode=false) {
         // Initialize a game from an audio file.
         // boardSize: [# rows, # columns].
 
         this.name = '############'
 
+        this.guiManager = guiManager
         this.nPieces = nPieces
         this.testMode = testMode
         this.debugMode = debugMode
@@ -19,7 +20,7 @@ class Game {
         this.boardSize = boardSize
         this.board = new Board(boardSize[0], boardSize[1], this.testMode, this.debugMode)
 
-        this.timer = new Timer(this.testMode, this.debugMode)
+        this.timer = new Timer(this.guiManager, this.testMode, this.debugMode)
 
         // Properties used to handle moving pieces.
         this.slotBeingMovedFrom = ''
@@ -87,11 +88,11 @@ class Game {
     startGUI() {
         this.board.startGUI()
         this.timer.startGUI()
-        this.actionButton = document.querySelectorAll('.action-button')[0]
-        this.actionButton.innerHTML = ''
-        this.actionButton.style.backgroundImage = "url('../images/game_on.png')"
-        this.actionButton.onclick = null
-    
+        if (!this.testMode) {
+            this.guiManager.setActionButtonText('')
+            this.guiManager.setActionButtonImage("url('../images/game_on.png')")
+            this.guiManager.setActionButtonClick(null)
+        }
     }
 
     endGUI() {

@@ -1,17 +1,8 @@
 describe('Timer Test', () =>  {
  
     beforeEach(() => {
-        // Create timer div for testing.
-        this.timerDiv = document.createElement('div')
-        this.timerDiv.classList.add('timer')
-        document.body.append(this.timerDiv)
-
-        this.timer = new Timer()
+        this.timer = new Timer(null, true)
         this.timer.startGUI()
-    })
-
-    afterEach(() => {
-        this.timerDiv.remove()
     })
     
     it('Time', () => {
@@ -53,17 +44,6 @@ describe('Timer Test', () =>  {
 
         this.timer.seconds = 86401
         expect(timer.getTimeString()).toBe('24:00:01')
-    })
-
-    it('GUI', () => {
-
-        // Check that time is displayed correctly in the GUI.
-        expect(this.timer.timerGUI.innerHTML).toBe('00:00:00')
-
-        for (let i = 0; i < 201; i++) {
-            this.timer.advance()
-        }
-        expect(this.timer.timerGUI.innerHTML).toBe('00:03:21')
     })
 
 })

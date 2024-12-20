@@ -21,7 +21,7 @@ class gui {
         this.dragImage = this.getDragImage()
     }
 
-    // Create the main game container.
+    // *** Main game container ***
     getGameDiv() {
         this.gameDiv = document.createElement('div')
         this.gameDiv.style.margin = '0 auto'
@@ -36,7 +36,8 @@ class gui {
         return this.gameDiv
     }
 
-    // Create a board with divs for slots.
+    // *** Game board  with slots for puzzle pieces ***
+
     getBoardDiv() {
         const boardDiv = document.createElement('div')
         boardDiv.style.backgroundColor = lightGray
@@ -52,8 +53,9 @@ class gui {
         return boardDiv
     }
 
-    // Generate a div element for board slots.
     getBoardSlotDiv(id) {
+        // Generate a div element for board slots.
+        
         const div = document.createElement('div')
         div.classList.add('board-slot')
         div.id = id
@@ -112,7 +114,8 @@ class gui {
         return dragDiv
     }
 
-    // Button to start the game and share after you win.
+    // *** Button to start the game and share after you win ***
+    
     getActionButton() {
         this.actionButton = document.createElement('div')
         this.actionButton.classList.add('action-button')
@@ -122,7 +125,6 @@ class gui {
         this.actionButton.style.width = (baseSize * 3) + 'px'
         this.actionButton.style.height = (baseSize * 3) + 'px'
         this.actionButton.style.marginTop = baseSize + 'px'
-        this.actionButton.innerHTML = 'Start'
         this.actionButton.style.fontFamily = font
         this.actionButton.style.fontSize = fontSize + 'em'
         this.actionButton.style.fontWeight = 'bold'
@@ -134,8 +136,21 @@ class gui {
         return this.actionButton
     }
 
+    setActionButtonClick(func) {
+        this.actionButton.onclick = func
+    }
+
+    setActionButtonImage(imgStr) {
+        this.actionButton.style.backgroundImage = imgStr
+    }
+
+    setActionButtonText(textStr) {
+        this.actionButton.innerHTML = textStr
+    }
+
+    // *** Timer display ***
+
     getTimer() {
-        // Set up timer display.
         this.timer = document.createElement('div')
         this.timer.classList.add('timer')
         this.timer.style.backgroundColor = yellow
@@ -156,8 +171,13 @@ class gui {
         return this.timer
     }
 
+    showTime(timeStr) {
+        this.timer.innerHTML = timeStr
+    }
+
+    // *** Area containing the game controls (anything outside the board) ***
+
     getControlDiv() {
-        // Area containing the game controls (anything outside the board).
         const controlDiv = document.createElement('div')
         controlDiv.style.width = (baseSize * 20) + 'px'
         controlDiv.style.height = (baseSize * 5) + 'px'
@@ -172,10 +192,6 @@ class gui {
         controlDiv.appendChild(this.getActionButton())
         controlDiv.appendChild(this.getTimer())
         return controlDiv
-    }
-
-    setActionButtonClick(func) {
-        this.actionButton.onclick = func
     }
 
 }    

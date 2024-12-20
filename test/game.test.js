@@ -14,24 +14,16 @@ describe('Game Test', () =>  {
         
         // Create timer div for testing.
         this.timerDiv = document.createElement('div')
-        this.timerDiv.classList.add('timer')
         document.body.append(this.timerDiv)
 
-        // Create action button (start, share) for testing.
-        this.actionButtonDiv = document.createElement('div')
-        this.actionButtonDiv.className = 'action-button'
-        document.body.append(this.actionButtonDiv)
-
         // Start a new game from a Game object.
-        this.game = new Game(11, [3, 14], true)
+        this.game = new Game(null, 11, [3, 14], true)
     })
 
     afterEach(() => {
         this.slotDivs.forEach(slotDiv => {
             slotDiv.remove()
         })
-        this.timerDiv.remove()
-        this.actionButtonDiv.remove()
     })
 
     it('Constructor', () => {

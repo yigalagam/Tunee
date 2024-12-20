@@ -1,6 +1,7 @@
 class Timer {
 
-    constructor(testMode=false, debugMode=false) {
+    constructor(guiManager, testMode=false, debugMode=false) {
+        this.guiManager = guiManager
         this.seconds = 0
         this.timerGUI = null
         this.trigger = null
@@ -36,8 +37,10 @@ class Timer {
     }
 
     displayTime() {
-        // Convert number of seconds to an hh:mm:ss string.
-        this.timerGUI.innerHTML = this.getTimeString()
+        if (!this.testMode) {
+            // Convert number of seconds to an hh:mm:ss string.
+            this.guiManager.showTime(this.getTimeString())
+        }
     }
 
     getTimeString() {
