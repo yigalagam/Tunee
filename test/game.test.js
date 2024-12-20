@@ -103,7 +103,7 @@ describe('Game Test', () =>  {
 
         this.game.start('small.wav')
         
-        boardSlots = this.game.board.slotsGUI
+        boardSlots = this.guiManager.boardSlots
 
         // Occupied board slots should have 'piece' added to the class list, be draggable, and not respond to drop events.
         const occupiedSlots = this.game.board.getOccupiedSlots()

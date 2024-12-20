@@ -4,11 +4,14 @@ class Board {
 
     constructor(guiManager, nRows, nCols, testMode, debugMode=false) {
         
+        this.nSlots = nRows * nCols
+        if (guiManager.boardSlots.length != this.nSlots) {
+            throw new Error(component + ': Number of slot GUI elements (' + this.slotsGUI.length + ') does not match the number of slots (' + this.nSlots + ')')
+        }
         this.guiManager = guiManager
-        
+
         // Initialize with all empty slots.
         this.width = nCols
-        this.nSlots = nRows * nCols
         this.slots = new Array(this.nSlots).fill(null);
         this.slotsGUI = []
         this.testMode = testMode
@@ -22,7 +25,7 @@ class Board {
 
     reset() {
         this.slots = new Array(this.nSlots).fill(null)
-        this.startGUI()
+        this.updateGUI()
     }
     
     loadPieces(pieces) {
@@ -65,7 +68,7 @@ class Board {
             }
         }
 
-        this.startGUI()
+        this.updateGUI()
 
     }
 
@@ -158,10 +161,10 @@ class Board {
             if (!this.playingInterrupted) {
                 this.playing = true
                 this.slots[startSlot].play()
-                this.slotsGUI[startSlot].classList.add('piece-playing')
+                this.guiManager.setSlotPiecePlaying(startSlot)
                 this.slots[startSlot].audioSource.onended = () => {
                     console.log('Slot ' + startSlot + ' finished playing')
-                    this.slotsGUI[startSlot].classList.remove('piece-playing')
+                    this.guiManager.setSlotPieceNotPlaying(startSlot)
                     if (!this.playingInterrupted) {
                         this.playMultipleSlots(startSlot + 1, endSlot)
                     } else {
@@ -243,58 +246,17 @@ class Board {
         return -1
     }
 
-    startGUI() {
-        this.slotsGUI = this.guiManager.boardSlots
-
-        // The GUI has to match the back end.
-        if ((this.slotsGUI.length  > 0) && (this.slotsGUI.length != this.nSlots)) {
-            throw new Error(component + ': Number of slot GUI elements (' + this.slotsGUI.length + ') does not match the number of slots (' + this.nSlots + ')')
-        }
-
-        this.updateGUI()
-    }
-
-    endGUI() {
-        let slotGUI
-        for (let slotIndex = 0; slotIndex < this.nSlots; slotIndex++) {
-            slotGUI = this.slotsGUI[slotIndex]
-            if (this.debugMode) {
-                console.log('Ending GUI for slot ' + slotIndex)
-            }
-            slotGUI.draggable = false
-        }
-    }
-
-    pauseGUI() {
-        
-    }
-
     updateGUI() {
-        if (Array.from(this.slotsGUI).every(slotGUI => slotGUI == null)) {
-            // No GUI, will be the case in some testing situations.
-            return
-        }
 
         const occupiedSlots = this.getOccupiedSlots()
         const freeSlots = this.getFreeSlots()
         
         occupiedSlots.forEach(slotIndex => {
-            // Set piece class for occupied slots and make it draggable so it can be moved.
-            this.slotsGUI[slotIndex].classList.add('piece')
-            this.slotsGUI[slotIndex].draggable = true
-            // Prevent dropping pieces in an occupied slot.
-            this.slotsGUI[slotIndex].ondragover = null
+            this.guiManager.setSlotPiece(slotIndex)
         })
 
         freeSlots.forEach(slotIndex => {
-            // Remove piece class from unoccupied slots.
-            this.slotsGUI[slotIndex].classList.remove('piece')
-            this.slotsGUI[slotIndex].draggable = false
-            // This listener is needed to allow dropping pieces in this slot.
-            this.slotsGUI[slotIndex].ondragover = (event) => {
-                event.stopPropagation()
-                event.preventDefault()
-            }
+            this.guiManager.setSlotEmpty(slotIndex)
         })
     }
 

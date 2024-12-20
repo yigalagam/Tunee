@@ -15,8 +15,7 @@ describe('Board Test', () =>  {
     })
 
     it('Constructor', () => {
-        const narrowBoard = new Board(null, 5, 3, true)
-        expect(() => { narrowBoard.loadPieces(this.pieces) }).toThrowError('Board is not wide enough for 4 pieces')
+        expect(() => { this.board.loadPieces(this.pieces.concat(this.pieces)) }).toThrowError('Board is not wide enough for 8 pieces')
     })
 
     it('Load pieces', () => {

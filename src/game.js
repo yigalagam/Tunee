@@ -87,15 +87,13 @@ class Game {
     // ***** GUI Management ***** //
 
     startGUI() {
-        this.board.startGUI()
+        this.board.updateGUI()
         this.timer.startGUI()
-        this.guiManager.setActionButtonText('')
-        this.guiManager.setActionButtonImage("url('../images/game_on.png')")
-        this.guiManager.setActionButtonClick(null)
+        this.guiManager.setActionButtonGameOn()
     }
 
     endGUI() {
-        this.board.endGUI()
+        this.guiManager.inactivateBoard()
         this.timer.stop()
         this.actionButtonShare()
     }
@@ -108,17 +106,18 @@ class Game {
     slotDrag(slotElement) {
         // Callback function when a piece is getting dragged.
         this.slotBeingMovedElement = slotElement
-        slotElement.classList.add('piece-dragged')
+        this.guiManager.setSlotPieceDragged(Number(slotElement.id))
         if (this.board.playing) {
             if (this.debugMode) {
-                console.log('Slot moving, interrupting audio')
+                console.log('Slot ' + slotElement.id + ' moving, interrupting audio')
             }
             this.board.stopPlaying()
         }
     }
 
     slotDragEnd() {
-        this.slotBeingMovedElement.classList.remove('piece-dragged')
+        this.guiManager.setSlotPieceDropped(Number(this.slotBeingMovedElement.id))
+        this.slotBeingMovedElement = null
     }
 
     slotDrop(slotElement) {

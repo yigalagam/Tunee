@@ -4,7 +4,7 @@ const nPieces  = 3
 const debugMode = true
 
 // Start a game object from an audio file.
-const guiManager = new GUIManager(nBoardRows, nBoardCols)
+const guiManager = new GUIManager(nBoardRows, nBoardCols, false, debugMode)
 const game = new Game(guiManager, nPieces, [nBoardRows, nBoardCols], false, debugMode)
 
 // Set up game container.

@@ -11,7 +11,7 @@ const borderRadius = '10px'
 
 class GUIManager {
 
-    constructor(nBoardRows, nBoardCols) {
+    constructor(nBoardRows, nBoardCols, testMode, debugMode) {
         this.nBoardRows = nBoardRows
         this.nBoardCols = nBoardCols
         
@@ -22,6 +22,9 @@ class GUIManager {
         this.dragImage = this.getDragImage()
 
         this.gameDiv = this.getGameDiv()
+
+        this.testMode = testMode
+        this.debugMode = debugMode
     }
 
     close() {
@@ -112,7 +115,7 @@ class GUIManager {
 
     getDragImage() {
         const dragImage = new Image();
-        dragImage.src = 'images/piece_dragged.png';
+        dragImage.src = '../images/piece_dragged.png';
         dragImage.style.width = slotSizePx + 'px'
         dragImage.style.height = slotSizePx + 'px'
         const dragDiv = document.createElement('div')
@@ -122,6 +125,56 @@ class GUIManager {
         dragDiv.style.top = (-slotSizePx * 2) + 'px'
         dragDiv.style.left = (-slotSizePx * 2) + 'px'
         return dragDiv
+    }
+
+    setSlotPiece(slotIndex) {
+        // Slot occupied by a puzzle piece.
+        // Show the piece and make it draggable so it can be moved.
+
+        this.boardSlots[slotIndex].classList.add('piece')
+        this.boardSlots[slotIndex].draggable = true
+        // Prevent dropping pieces in an occupied slot.
+        this.boardSlots[slotIndex].ondragover = null
+    }
+
+    setSlotEmpty(slotIndex) {
+        // Empty slot without a puzzle piece.
+        this.boardSlots[slotIndex].classList.remove('piece')
+        this.boardSlots[slotIndex].draggable = false
+        // This listener is needed to allow dropping pieces in this slot.
+        this.boardSlots[slotIndex].ondragover = (event) => {
+            event.stopPropagation()
+            event.preventDefault()
+        }
+    }
+
+    setSlotPieceDragged(slotIndex) {
+        this.boardSlots[slotIndex].classList.add('piece-dragged')
+    }
+
+    setSlotPieceDropped(slotIndex) {
+        this.boardSlots[slotIndex].classList.remove('piece-dragged')
+    }
+
+    setSlotPiecePlaying(slotIndex) {
+        // Slot currently playing, has a different appearance than other slots.
+        this.boardSlots[slotIndex].classList.add('piece-playing')
+    }
+
+    setSlotPieceNotPlaying(slotIndex) {
+        // Slot that finished playing, remove special appearance.
+        this.boardSlots[slotIndex].classList.remove('piece-playing')
+    }
+
+    inactivateBoard() {
+        let slotGUI
+        for (let slotIndex = 0; slotIndex < this.nSlots; slotIndex++) {
+            slotGUI = this.boardSlots[slotIndex]
+            if (this.debugMode) {
+                console.log('Inactivating slot ' + slotIndex)
+            }
+            slotGUI.draggable = false
+        }
     }
 
     // *** Button to start the game and share after you win ***
@@ -157,6 +210,12 @@ class GUIManager {
 
     setActionButtonText(textStr) {
         this.actionButton.innerHTML = textStr
+    }
+
+    setActionButtonGameOn() {
+        this.setActionButtonText('')
+        this.setActionButtonImage("url('../images/game_on.png')")
+        this.setActionButtonClick(null)
     }
 
     // *** Timer display ***
