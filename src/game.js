@@ -138,22 +138,13 @@ class Game {
     // ***** Sharing Results ***** //
 
     actionButtonShare() {
-        this.guiManager.setActionButtonImage('')
-        this.guiManager.setActionButtonText('Share')
-        this.guiManager.setActionButtonClick(() => {
-            this.generateResult()
-            this.actionButtonCopied()
-        })
+        this.guiManager.setActionButtonShare(this.actionButtonCopied.bind(this))
     }
 
     actionButtonCopied() {
         // Sharable result is in clipboard, Show message for a short time.
-        this.guiManager.setActionButtonText('Copied')
-        this.guiManager.setActionButtonClick(null)
-        setTimeout(() => {
-            this.actionButtonShare()
-        }, 3000)
-    }
+        this.guiManager.setActionButtonCopied(this.actionButtonShare.bind(this))
+     }
 
     generateResult() {
         const timeString = this.timer.getTimeString()

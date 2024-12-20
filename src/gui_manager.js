@@ -8,6 +8,7 @@ const darkGray = '#5F5F5F'
 const yellow = '#FFC000'
 const borderWidth = 3
 const borderRadius = '10px'
+const copiedDelay = 3000
 
 class GUIManager {
 
@@ -216,6 +217,18 @@ class GUIManager {
         this.setActionButtonText('')
         this.setActionButtonImage("url('../images/game_on.png')")
         this.setActionButtonClick(null)
+    }
+
+    setActionButtonShare(shareFunc) {
+        this.setActionButtonImage('')
+        this.setActionButtonText('Share')
+        this.setActionButtonClick(shareFunc)
+    }
+
+    setActionButtonCopied(shareFunc) {
+        this.setActionButtonText('Copied')
+        this.setActionButtonClick(null)
+        setTimeout(shareFunc, copiedDelay)
     }
 
     // *** Timer display ***
