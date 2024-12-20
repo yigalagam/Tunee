@@ -1,21 +1,21 @@
 const nBoardRows = 5
 const nBoardCols = 12
-const nPieces  = 10
+const nPieces  = 3
 const debugMode = true
 
 // Start a game object from an audio file.
-const game = new Game(nPieces, [nBoardRows, nBoardCols], false, debugMode)
-const gameGUI = new gui(nBoardRows, nBoardCols)
+const guiManager = new GUIManager(nBoardRows, nBoardCols)
+const game = new Game(guiManager, nPieces, [nBoardRows, nBoardCols], false, debugMode)
 
 // Set up game container.
-const gameDiv = gameGUI.getGameDiv()
-document.body.appendChild(gameDiv)
+document.body.appendChild(guiManager.gameDiv)
 
 // Set action button to start the game.
-gameGUI.setActionButtonClick(startGame)
+guiManager.setActionButtonText('Start')
+guiManager.setActionButtonClick(startGame)
 
 // Image for dragging operations (positioned outside the page).
-document.body.appendChild(gameGUI.dragImage)
+document.body.appendChild(guiManager.dragImage)
 
 // Load audio data for today's date.
 const today = new Date()

@@ -2,7 +2,10 @@
 
 class Board {
 
-    constructor(nRows, nCols, testMode, debugMode=false) {
+    constructor(guiManager, nRows, nCols, testMode, debugMode=false) {
+        
+        this.guiManager = guiManager
+        
         // Initialize with all empty slots.
         this.width = nCols
         this.nSlots = nRows * nCols
@@ -19,7 +22,6 @@ class Board {
 
     reset() {
         this.slots = new Array(this.nSlots).fill(null)
-        this.slotsGUI = []
         this.startGUI()
     }
     
@@ -173,6 +175,7 @@ class Board {
 
         } else {            
             // In test mode, just return the concatenated sound data.
+            
             const soundOut = []
             let pieceToPlay
             for (let testSlotIndex = startSlot; testSlotIndex <= endSlot; testSlotIndex++) {
@@ -241,10 +244,10 @@ class Board {
     }
 
     startGUI() {
-        this.slotsGUI = Array.from(document.getElementsByClassName('board-slot'))
+        this.slotsGUI = this.guiManager.boardSlots
 
         // The GUI has to match the back end.
-        if (this.slotsGUI.length  > 0 && (this.slotsGUI.length != this.nSlots)) {
+        if ((this.slotsGUI.length  > 0) && (this.slotsGUI.length != this.nSlots)) {
             throw new Error(component + ': Number of slot GUI elements (' + this.slotsGUI.length + ') does not match the number of slots (' + this.nSlots + ')')
         }
 

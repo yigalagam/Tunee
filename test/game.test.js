@@ -2,28 +2,13 @@ describe('Game Test', () =>  {
     
     beforeEach(() => {
 
-        // Create board divs for testing, one for each slot.
-        this.slotDivs = []
-        let element
-        for (let i = 0; i < 42; i++) {
-            element = document.createElement('div')
-            element.classList.add('board-slot')
-            document.body.append(element)
-            this.slotDivs.push(element)
-        }
-        
-        // Create timer div for testing.
-        this.timerDiv = document.createElement('div')
-        document.body.append(this.timerDiv)
-
         // Start a new game from a Game object.
-        this.game = new Game(null, 11, [3, 14], true)
+        this.guiManager = new GUIManager(3, 14)
+        this.game = new Game(this.guiManager, 11, [3, 14], true)
     })
 
     afterEach(() => {
-        this.slotDivs.forEach(slotDiv => {
-            slotDiv.remove()
-        })
+        this.guiManager.close()
     })
 
     it('Constructor', () => {

@@ -18,8 +18,9 @@ class Game {
 
         // Game board where all the pieces are laid out.
         this.boardSize = boardSize
-        this.board = new Board(boardSize[0], boardSize[1], this.testMode, this.debugMode)
+        this.board = new Board(this.guiManager, boardSize[0], boardSize[1], this.testMode, this.debugMode)
 
+        // Timer that runs until the puzzle is solved.
         this.timer = new Timer(this.guiManager, this.testMode, this.debugMode)
 
         // Properties used to handle moving pieces.
@@ -88,11 +89,9 @@ class Game {
     startGUI() {
         this.board.startGUI()
         this.timer.startGUI()
-        if (!this.testMode) {
-            this.guiManager.setActionButtonText('')
-            this.guiManager.setActionButtonImage("url('../images/game_on.png')")
-            this.guiManager.setActionButtonClick(null)
-        }
+        this.guiManager.setActionButtonText('')
+        this.guiManager.setActionButtonImage("url('../images/game_on.png')")
+        this.guiManager.setActionButtonClick(null)
     }
 
     endGUI() {
@@ -140,19 +139,18 @@ class Game {
     // ***** Sharing Results ***** //
 
     actionButtonShare() {
-        this.actionButton.style.backgroundImage = "url('../images/yellow.png')"
-        console.log(this.actionButton)
-        this.actionButton.innerHTML = 'Share'
-        this.actionButton.onclick = () => {
+        this.guiManager.setActionButtonImage('')
+        this.guiManager.setActionButtonText('Share')
+        this.guiManager.setActionButtonClick(() => {
             this.generateResult()
             this.actionButtonCopied()
-        }
+        })
     }
 
     actionButtonCopied() {
         // Sharable result is in clipboard, Show message for a short time.
-        this.actionButton.innerHTML = 'Copied'
-        this.actionButton.onclick = null
+        this.guiManager.setActionButtonText('Copied')
+        this.guiManager.setActionButtonClick(null)
         setTimeout(() => {
             this.actionButtonShare()
         }, 3000)

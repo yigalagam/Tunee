@@ -9,16 +9,25 @@ const yellow = '#FFC000'
 const borderWidth = 3
 const borderRadius = '10px'
 
-class gui {
+class GUIManager {
 
     constructor(nBoardRows, nBoardCols) {
         this.nBoardRows = nBoardRows
         this.nBoardCols = nBoardCols
         
         this.gameDiv = null
+        this.boardSlots = []
         this.actionButton = null
         this.timer = null
         this.dragImage = this.getDragImage()
+
+        this.gameDiv = this.getGameDiv()
+    }
+
+    close() {
+        if (this.gameDiv) {
+            this.gameDiv.remove()
+        }
     }
 
     // *** Main game container ***
@@ -41,21 +50,22 @@ class gui {
     getBoardDiv() {
         const boardDiv = document.createElement('div')
         boardDiv.style.backgroundColor = lightGray
-        boardDiv.style.backgroundSize = 'cover'
         boardDiv.style.border = borderWidth + 'px' + ' solid'
         boardDiv.style.width = (slotSizePx * this.nBoardCols) + 'px'
         boardDiv.style.height = (slotSizePx * this.nBoardRows) + 'px'
         boardDiv.style.display = 'flex'
         boardDiv.style.flexWrap = 'wrap'
-        for (let i = 0; i < nBoardRows * nBoardCols; i++) {
-            boardDiv.appendChild(this.getBoardSlotDiv(i))
+        for (let i = 0; i < this.nBoardRows * this.nBoardCols; i++) {
+            const slotDiv = this.getBoardSlotDiv(i)
+            boardDiv.appendChild(slotDiv)
+            this.boardSlots.push(slotDiv)
         }
         return boardDiv
     }
 
     getBoardSlotDiv(id) {
         // Generate a div element for board slots.
-        
+
         const div = document.createElement('div')
         div.classList.add('board-slot')
         div.id = id
@@ -142,6 +152,7 @@ class gui {
 
     setActionButtonImage(imgStr) {
         this.actionButton.style.backgroundImage = imgStr
+        this.actionButton.style.backgroundSize = 'cover'
     }
 
     setActionButtonText(textStr) {
