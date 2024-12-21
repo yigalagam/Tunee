@@ -1,7 +1,7 @@
 describe('Board Test', () =>  {
     
     beforeEach(() => {
-        this.guiManager = new GUIManager(3, 5)
+        this.guiManager = new GUIManager('Test', 3, 5)
         this.board = new Board(guiManager, 3, 5, true)
         this.segment = new Segment('small.wav', true)
         this.pieces = this.segment.divide(4)

@@ -6,7 +6,7 @@ class Board {
         
         this.nSlots = nRows * nCols
         if (guiManager.boardSlots.length != this.nSlots) {
-            throw new Error(component + ': Number of slot GUI elements (' + this.slotsGUI.length + ') does not match the number of slots (' + this.nSlots + ')')
+            throw new Error('Number of slot GUI elements (' + this.slotsGUI.length + ') does not match the number of slots (' + this.nSlots + ')')
         }
         this.guiManager = guiManager
 

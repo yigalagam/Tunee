@@ -3,7 +3,7 @@ describe('Game Test', () =>  {
     beforeEach(() => {
 
         // Start a new game from a Game object.
-        this.guiManager = new GUIManager(3, 14)
+        this.guiManager = new GUIManager('Test', 3, 14)
         this.game = new Game(this.guiManager, 11, [3, 14], true)
     })
 

@@ -1,18 +1,26 @@
 // Parameters for setting up the game GUI.
-const baseSize = 25
-const slotSizePx = 3 * baseSize
+const baseSize = 10
+const slotSizePx = 7 * baseSize
 const font = 'Verdana'
-const fontSize = 1.3
+const fontSizeEM = 1.3
 const lightGray = '#AFAFAF'
 const darkGray = '#5F5F5F'
 const yellow = '#FFC000'
 const borderWidth = 3
 const borderRadius = '10px'
+// Bottom div outside the board.
+const bottomDivWidthPx = 50 * baseSize
+const bottomDivHeightPx = 19 * baseSize
+
+// Parameters for the sharing interface.
 const copiedDelay = 3000
 
 class GUIManager {
 
-    constructor(nBoardRows, nBoardCols, testMode, debugMode) {
+    constructor(name, nBoardRows, nBoardCols, testMode, debugMode) {
+
+        this.name = name
+
         this.nBoardRows = nBoardRows
         this.nBoardCols = nBoardCols
         
@@ -45,6 +53,7 @@ class GUIManager {
         // Add game elements.
         this.gameDiv.appendChild(this.getBoardDiv())
         this.gameDiv.appendChild(this.getControlDiv())
+        this.gameDiv.appendChild(this.getShareDiv())
        
         return this.gameDiv
     }
@@ -186,11 +195,10 @@ class GUIManager {
         this.actionButton.style.backgroundColor = yellow
         this.actionButton.style.border = borderWidth + 'px solid'
         this.actionButton.style.borderRadius = borderRadius
-        this.actionButton.style.width = (baseSize * 3) + 'px'
-        this.actionButton.style.height = (baseSize * 3) + 'px'
-        this.actionButton.style.marginTop = baseSize + 'px'
+        this.actionButton.style.width = (10 * baseSize) + 'px'
+        this.actionButton.style.height = (10 * baseSize) + 'px'
         this.actionButton.style.fontFamily = font
-        this.actionButton.style.fontSize = fontSize + 'em'
+        this.actionButton.style.fontSize = fontSizeEM + 'em'
         this.actionButton.style.fontWeight = 'bold'
         this.actionButton.style.color = darkGray
         this.actionButton.style.display = 'flex'
@@ -239,18 +247,17 @@ class GUIManager {
         this.timer.style.backgroundColor = yellow
         this.timer.style.border = borderWidth + 'px solid'
         this.timer.style.borderRadius = borderRadius
-        this.timer.style.width = (baseSize * 6) + 'px'
-        this.timer.style.height = (baseSize * 3) + 'px'
-        this.timer.style.marginTop = baseSize + 'px'
-        this.timer.innerHTML = '00:00:00'
+        this.timer.style.width = (15 * baseSize) + 'px'
+        this.timer.style.height = (8 * baseSize) + 'px'
         this.timer.style.fontFamily = font
-        this.timer.style.fontSize = fontSize + 'em'
+        this.timer.style.fontSize = fontSizeEM + 'em'
         this.timer.style.fontWeight = 'bold'
         this.timer.style.color = darkGray
         this.timer.style.display = 'flex'
         this.timer.style.alignItems = 'center'
         this.timer.style.justifyContent = 'center'
         this.timer.style.userSelect = 'none'
+        this.timer.innerHTML = '00:00:00'
         return this.timer
     }
 
@@ -262,19 +269,129 @@ class GUIManager {
 
     getControlDiv() {
         const controlDiv = document.createElement('div')
-        controlDiv.style.width = (baseSize * 20) + 'px'
-        controlDiv.style.height = (baseSize * 5) + 'px'
+        controlDiv.style.width = bottomDivWidthPx + 'px'
+        controlDiv.style.height = bottomDivHeightPx + 'px'
         controlDiv.style.backgroundColor = lightGray
         controlDiv.style.border = borderWidth + 'px solid'
         controlDiv.style.borderRadius = borderRadius
-        controlDiv.style.marginTop = baseSize + 'px'
         controlDiv.style.marginLeft = 'auto'
         controlDiv.style.marginRight = 'auto'
+        controlDiv.style.marginTop = baseSize + 'px'
         controlDiv.style.display = 'flex'
         controlDiv.style.justifyContent = 'space-around'
+        controlDiv.style.alignItems = 'center'
         controlDiv.appendChild(this.getActionButton())
         controlDiv.appendChild(this.getTimer())
         return controlDiv
+    }
+
+    // Interface for sharing results on social media.
+    getShareDiv() {
+
+        // Top row: Game title between two puzzle pieces.
+        
+        const pieceDiv = document.createElement('div')
+        pieceDiv.style.width = slotSizePx + 'px'
+        pieceDiv.style.height = slotSizePx + 'px'
+        pieceDiv.style.backgroundImage = "url('../images/piece.png')"
+        pieceDiv.style.backgroundSize = 'cover'
+        const leftPiece = pieceDiv
+        const rightPiece = pieceDiv.cloneNode(true)
+        
+        const nameDiv = document.createElement('div')
+        nameDiv.style.height = slotSizePx + 'px'
+        nameDiv.style.fontFamily = font
+        nameDiv.style.fontSize = (2.25 * fontSizeEM) + 'em'
+        nameDiv.style.fontWeight = 'bold'
+        nameDiv.style.color = darkGray
+        nameDiv.style.userSelect = 'none'
+        nameDiv.innerHTML = this.name
+
+        const topRowDiv = document.createElement('div')
+        topRowDiv.style.width = '100%'
+        topRowDiv.style.height = slotSizePx + 'px'
+        topRowDiv.style.display = 'flex'
+        topRowDiv.style.justifyContent = 'space-between'
+        topRowDiv.append(leftPiece)
+        topRowDiv.append(nameDiv)
+        topRowDiv.append(rightPiece)
+
+        // Create the div that will be shared as an image.
+        const shareImageDiv = document.createElement('div')
+        shareImageDiv.style.width = bottomDivWidthPx + 'px'
+        shareImageDiv.style.height = bottomDivHeightPx + 'px'
+        shareImageDiv.style.backgroundColor = lightGray
+        shareImageDiv.style.border = borderWidth + 'px solid'
+        shareImageDiv.style.borderRadius = borderRadius
+        shareImageDiv.style.padding = baseSize + 'px'
+        shareImageDiv.style.boxSizing = 'border-box'
+        shareImageDiv.style.marginTop = baseSize + 'px'
+        shareImageDiv.style.marginLeft = 'auto'
+        shareImageDiv.style.marginRight = 'auto'
+        shareImageDiv.style.marginTop = baseSize + 'px'
+        shareImageDiv.style.display = 'flex'
+        shareImageDiv.style.flexDirection = 'column'
+        shareImageDiv.style.placeItems = 'center'
+        shareImageDiv.style.justifyContent = 'space-between'
+      
+        shareImageDiv.appendChild(topRowDiv)
+        // Show final timer result in the shared image.
+        shareImageDiv.appendChild(this.timer.cloneNode(true))
+
+        // Create a row div that contains the image and platform-specific sharing buttons.
+
+        const shareButtonsRow = document.createElement('div')
+        shareButtonsRow.style.width = bottomDivWidthPx + 'px'
+        shareButtonsRow.style.height = slotSizePx + 'px'
+        shareImageDiv.style.padding = baseSize + 'px'
+        shareImageDiv.style.boxSizing = 'border-box'
+        shareButtonsRow.style.display = 'flex'
+        shareButtonsRow.style.justifyContent = 'space-between'
+
+        const shareButtons = [
+            {'image': 'facebook', 'click': shareFacebook, 'hover': 'Share on Facebook'},
+            {'image': 'instagram', 'click': shareInstagram, 'hover': 'Share on Instagram'},
+            {'image': 'x', 'click': shareX, 'hover': 'Share on X'},
+            {'image': 'bluesky', 'click': shareBluesky, 'hover': 'Share on Bluesky'},
+            {'image': 'whatsapp', 'click': shareWhatsApp, 'hover': 'Share on WhatsApp'},
+            {'image': 'copy', 'click': shareCopy, 'hover': 'Copy to Clipboard'},
+        ]
+
+        shareButtons.forEach(shareButton => {
+            const shareButtonDiv = document.createElement('div')
+            shareButtonDiv.style.backgroundImage = 'url("../images/' + shareButton.image + '.png")'
+            shareButtonDiv.style.backgroundSize = 'cover'
+            shareButtonDiv.style.width = slotSizePx + 'px'
+            shareButtonDiv.style.height = slotSizePx + 'px'
+            shareButtonDiv.onclick = shareButton.click
+            shareButtonsRow.appendChild(shareButtonDiv)
+        })
+
+        function shareFacebook() {
+        }
+
+        function shareInstagram() {
+        }
+
+        function shareX() {
+        }
+
+        function shareBluesky() {
+        }
+
+        function shareWhatsApp() {
+        }
+
+        function shareCopy() {
+            
+        }
+
+        const shareDiv = document.createElement('div')
+        shareDiv.appendChild(shareImageDiv)
+        shareDiv.appendChild(shareButtonsRow)
+
+        return shareDiv
+
     }
 
 }    
