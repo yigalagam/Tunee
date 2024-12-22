@@ -1,11 +1,3 @@
-const appName = 'Musicle'
-const website = 'www.musicle.com'
-
-const nBoardRows = 5
-const nBoardCols = 12
-const nPieces  = 2
-const debugMode = true
-
 // Start a game object from an audio file.
 const guiManager = new GUIManager(appName, nBoardRows, nBoardCols, false, debugMode)
 const game = new Game(guiManager, nPieces, [nBoardRows, nBoardCols], false, debugMode)
@@ -26,7 +18,6 @@ const year = today.getFullYear()
 const month = (today.getMonth() + 1).toString().padStart(2, '0')
 const day = today.getDate().toString().padStart(2, '0')
 const date_filename = 'src/audio_data_' + year + month + day + '.js'
-console.log(date_filename)
 
 const audioData = document.createElement('script')
 audioData.src = 'src/audio_data.js'

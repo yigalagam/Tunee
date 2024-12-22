@@ -1,20 +1,3 @@
-// Parameters for setting up the game GUI.
-const baseSize = 10
-const slotSizePx = 7 * baseSize
-const font = 'Verdana'
-const fontSizeEM = 1.3
-const lightGray = '#AFAFAF'
-const darkGray = '#5F5F5F'
-const yellow = '#FFC000'
-const borderWidth = 3
-const borderRadius = '10px'
-// Bottom div outside the board.
-const bottomDivWidthPx = 50 * baseSize
-const bottomDivHeightPx = 19 * baseSize
-
-// Parameters for the sharing interface.
-const copiedDelay = 3000
-
 class GUIManager {
 
     constructor(name, nBoardRows, nBoardCols, testMode, debugMode) {

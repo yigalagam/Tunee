@@ -34,6 +34,7 @@ class ShareManager {
         const topRowDiv = document.createElement('div')
         topRowDiv.style.width = '100%'
         topRowDiv.style.height = slotSizePx + 'px'
+        topRowDiv.style.backgroundColor = lightGray
         topRowDiv.style.display = 'flex'
         topRowDiv.style.justifyContent = 'space-between'
         topRowDiv.append(leftPiece)
@@ -102,7 +103,15 @@ class ShareManager {
 
     }
 
-    shareFacebook() {
+    async shareFacebook() {
+        if (this.debugMode) {
+            console.log('Sharing to Facebook')
+        }
+        await this.generateShareImage()
+        const dataURL = this.shareImage.toDataURL('image/png')
+        console.log(dataURL)
+        const facebookShareURL = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(dataURL)
+        window.open(facebookShareURL, 'facebook-share-dialog')
     }
 
     shareInstagram() {
@@ -129,7 +138,6 @@ class ShareManager {
                 this.shareCopied(event.target)
             }
         })
-        console.log(event)
     }
 
     shareCopied(shareButtonDiv) {
@@ -149,9 +157,18 @@ class ShareManager {
             if (this.debugMode) {
                 console.log('Generating shareable image')
             }
-            this.shareImage = await html2canvas(this.shareImageDiv)
-        }
+            const canvas = await html2canvas(this.shareImageDiv)
 
+            // Scale shared image.
+            const context = canvas.getContext('2d')
+            const scaledCanvas = document.createElement('canvas')
+            const scaledContext = scaledCanvas.getContext('2d')
+            scaledCanvas.width = canvas.width * shareImageScaling
+            scaledCanvas.height = canvas.height * shareImageScaling;
+            scaledContext.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, scaledCanvas.width, scaledCanvas.height)
+
+            this.shareImage = scaledCanvas
+        }
     }
 
 }
