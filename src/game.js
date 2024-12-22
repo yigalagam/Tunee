@@ -93,7 +93,7 @@ class Game {
     endGUI() {
         this.guiManager.inactivateBoard()
         this.timer.stop()
-        this.actionButtonShare()
+        this.guiManager.startSharing()
     }
 
     slotClick(slotIndex) {
@@ -132,23 +132,4 @@ class Game {
             }
         }
     }
-
-    // ***** Sharing Results ***** //
-
-    actionButtonShare() {
-        this.guiManager.setActionButtonShare(this.actionButtonCopy.bind(this))
-    }
-
-    actionButtonCopy() {
-        // Sharable result is in clipboard, Show message for a short time.
-        this.generateResult()
-        this.guiManager.setActionButtonCopied(this.actionButtonShare.bind(this))
-     }
-
-    generateResult() {
-        const timeString = this.timer.getTimeString()
-        const clipboardText = String.fromCodePoint(0x1F3B5) + '   Solved ' + guiManager.name + ' in ' + timeString + '!   ' + String.fromCodePoint(0x1F3B5)
-        navigator.clipboard.writeText(clipboardText)
-    }
-
 }

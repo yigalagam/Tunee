@@ -1,12 +1,13 @@
-const name = 'Musicle'
+const appName = 'Musicle'
+const website = 'www.musicle.com'
 
 const nBoardRows = 5
 const nBoardCols = 12
-const nPieces  = 10
+const nPieces  = 2
 const debugMode = true
 
 // Start a game object from an audio file.
-const guiManager = new GUIManager(name, nBoardRows, nBoardCols, false, debugMode)
+const guiManager = new GUIManager(appName, nBoardRows, nBoardCols, false, debugMode)
 const game = new Game(guiManager, nPieces, [nBoardRows, nBoardCols], false, debugMode)
 
 // Set up game container.
