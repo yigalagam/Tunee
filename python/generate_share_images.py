@@ -41,5 +41,16 @@ for hh in range(1):
                         dpi=75, bbox_inches='tight', pad_inches=0)
             plt.close()
 
+# Image for results over 1 hour.
+img_data = plt.imread(os.path.join(input_dir, 'base_image_1_hour.bmp')).copy()
+img_data = img_data[:119, 1:-1]
+fig, ax = plt.subplots()
+ax.imshow(img_data)
+plt.axis('off')
+plt.tight_layout(pad=0)
+plt.savefig(os.path.join(output_dir, 'share.png'),
+            dpi=75, bbox_inches='tight', pad_inches=0)
+plt.close()
+
 
 

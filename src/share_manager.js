@@ -6,6 +6,7 @@ class ShareManager {
         this.debugMode = debugMode
         this.shareImageDiv = null
         this.shareImage = null
+        this.imageShareLink = null
     }
 
     getShareDiv() {
@@ -77,11 +78,12 @@ class ShareManager {
         const shareButtons = [
             {'image': 'facebook', 'click': this.shareFacebook, 'hover': 'Share on Facebook'},
             {'image': 'instagram', 'click': this.shareInstagram, 'hover': 'Share on Instagram'},
-            {'image': 'x', 'click': this.shareX, 'hover': 'Share on X'},
-            {'image': 'bluesky', 'click': this.shareBluesky, 'hover': 'Share on Bluesky'},
             {'image': 'whatsapp', 'click': this.shareWhatsApp, 'hover': 'Share on WhatsApp'},
             {'image': 'copy', 'click': this.shareCopy, 'hover': 'Copy to Clipboard'},
         ]
+
+        // Get link to image for social media sharing.
+        this.imageShareLink = this.getShareImagePath()
 
         shareButtons.forEach(shareButton => {
             const shareButtonDiv = document.createElement('div')
@@ -107,23 +109,25 @@ class ShareManager {
         if (this.debugMode) {
             console.log('Sharing to Facebook')
         }
-        await this.generateShareImage()
-        const dataURL = this.shareImage.toDataURL('image/png')
-        console.log(dataURL)
-        const facebookShareURL = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(dataURL)
-        window.open(facebookShareURL, 'facebook-share-dialog')
+        const facebookURL = 'https://www.facebook.com/sharer/sharer.php?u=' + this.imageShareLink
+        window.open(facebookURL, 'facebook-share-dialog')
     }
 
     shareInstagram() {
-    }
-
-    shareX() {
-    }
-
-    shareBluesky() {
+        if (this.debugMode) {
+            console.log('Sharing to Instagram')
+        }
+        const instagramURL = 'https://www.instagram.com/share?url=' + this.imageShareLink
+        window.open(instagramURL, '_blank');
     }
 
     shareWhatsApp() {
+        if (this.debugMode) {
+            console.log('Sharing to Facebook')
+        }
+        const whatsAppURL = 'https://wa.me/?text=' + this.imageShareLink
+        console.log(whatsAppURL)
+        window.open(whatsAppURL, '_blank');
     }
 
     async shareCopy(event) {
@@ -131,7 +135,7 @@ class ShareManager {
         if (this.debugMode) {
             console.log('Copying to clipboard')
         }
-        await this.generateShareImage()
+        await this.generateClipboardImage()
         this.shareImage.toBlob(blob => {
             if (blob) {
                 navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
@@ -150,7 +154,7 @@ class ShareManager {
         }, copiedDelay)
     }
 
-    async generateShareImage() {
+    async generateClipboardImage() {
         // Create an image to share on social media or to copy to clipboard.
 
         if (this.shareImage == null) {
@@ -169,6 +173,12 @@ class ShareManager {
 
             this.shareImage = scaledCanvas
         }
+    }
+
+    getShareImagePath() {
+        // For sharing on social media platforms, use a pre-generated image with the right time displayed.
+        // If time is more than 1 hour, share an image without a timer result.
+        return website + '/images/share/' + this.timer.innerHTML.replaceAll(':', '_') + '.png'
     }
 
 }
