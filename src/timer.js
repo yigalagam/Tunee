@@ -1,12 +1,10 @@
 class Timer {
 
-    constructor(guiManager, testMode=false, debugMode=false) {
+    constructor(guiManager) {
         this.guiManager = guiManager
         this.seconds = 0
         this.timerGUI = null
         this.trigger = null
-        this.testMode = testMode
-        this.debugMode = debugMode
     }
 
     reset() {
@@ -32,15 +30,12 @@ class Timer {
     }
 
     startGUI() {
-        this.timerGUI = document.querySelectorAll('.timer')[0]
+        this.timerGUI = this.guiManager.timer
         this.displayTime()
     }
 
     displayTime() {
-        if (!this.testMode) {
-            // Convert number of seconds to an hh:mm:ss string.
-            this.guiManager.showTime(this.getTimeString())
-        }
+        this.guiManager.showTime(this.getTimeString())
     }
 
     getTimeString() {

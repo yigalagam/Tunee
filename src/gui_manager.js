@@ -270,10 +270,21 @@ class GUIManager {
     }
 
     startSharing() {
-        this.controlDiv.remove()
+        // Fade out the control panel and fade in the sharing panel.
+
         const shareManager = new ShareManager(this.timer, this.debugMode)
         const shareDiv = shareManager.getShareDiv()
-        this.gameDiv.appendChild(shareDiv)
+
+        this.controlDiv.style.opacity = 1
+        const fadeOutInterval = setInterval(() => {
+            if (this.controlDiv.style.opacity > 0) {
+                this.controlDiv.style.opacity -= 0.1
+            } else {
+                this.controlDiv.remove()
+                clearInterval(fadeOutInterval)
+                this.gameDiv.appendChild(shareDiv)
+            }
+        }, shareFadeoutInterval / 10)
     }
 
 }    

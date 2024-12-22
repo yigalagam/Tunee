@@ -1,7 +1,8 @@
 describe('Timer Test', () =>  {
  
     beforeEach(() => {
-        this.timer = new Timer(null, true)
+        const guiManager = new GUIManager('Test', 3, 5)
+        this.timer = new Timer(guiManager)
         this.timer.startGUI()
     })
     

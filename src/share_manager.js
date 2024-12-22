@@ -70,8 +70,8 @@ class ShareManager {
         const shareButtonsRow = document.createElement('div')
         shareButtonsRow.style.width = bottomDivWidthPx + 'px'
         shareButtonsRow.style.height = slotSizePx + 'px'
-        shareImageDiv.style.padding = baseSize + 'px'
-        shareImageDiv.style.boxSizing = 'border-box'
+        shareButtonsRow.style.padding = baseSize + 'px'
+        shareButtonsRow.style.boxSizing = 'border-box'
         shareButtonsRow.style.display = 'flex'
         shareButtonsRow.style.justifyContent = 'space-between'
 
@@ -98,6 +98,7 @@ class ShareManager {
         const shareDiv = document.createElement('div')
         shareDiv.style.width = bottomDivWidthPx + 'px'
         shareDiv.style.height = bottomDivHeightPx + 'px'
+        shareDiv.style.transition = 'opacity 1s ease-in-out'
         shareDiv.appendChild(shareImageDiv)
         shareDiv.appendChild(shareButtonsRow)
 
@@ -173,6 +174,8 @@ class ShareManager {
 
             this.shareImage = scaledCanvas
         }
+        
+        return this.shareImage
     }
 
     getShareImagePath() {

@@ -23,5 +23,6 @@ const bottomDivWidthPx = 50 * baseSize
 const bottomDivHeightPx = 19 * baseSize
 
 // Parameters for the sharing interface.
+const shareFadeoutInterval = 1000
 const shareImageScaling = 0.5
 const copiedDelay = 3000

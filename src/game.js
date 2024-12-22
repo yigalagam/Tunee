@@ -19,7 +19,7 @@ class Game {
         this.board = new Board(this.guiManager, boardSize[0], boardSize[1], this.testMode, this.debugMode)
 
         // Timer that runs until the puzzle is solved.
-        this.timer = new Timer(this.guiManager, this.testMode, this.debugMode)
+        this.timer = new Timer(this.guiManager)
 
         // Properties used to handle moving pieces.
         this.slotBeingMovedFrom = ''
