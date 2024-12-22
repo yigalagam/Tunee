@@ -28,16 +28,16 @@ describe('Timer Test', () =>  {
         // Conversion of number of seconds to an HH:MM:SS string.
 
         this.timer.reset()
-        expect(timer.getTimeString()).toBe('00:00:00')
+        expect(timer.getTimeString()).toBe('00:00')
 
         this.timer.advance()
-        expect(timer.getTimeString()).toBe('00:00:01')
+        expect(timer.getTimeString()).toBe('00:01')
 
         this.timer.seconds = 60
-        expect(timer.getTimeString()).toBe('00:01:00')
+        expect(timer.getTimeString()).toBe('01:00')
 
         this.timer.seconds = 3599
-        expect(timer.getTimeString()).toBe('00:59:59')
+        expect(timer.getTimeString()).toBe('59:59')
 
         this.timer.seconds = 3600
         expect(timer.getTimeString()).toBe('01:00:00')

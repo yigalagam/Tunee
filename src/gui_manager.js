@@ -240,7 +240,7 @@ class GUIManager {
         this.timer.style.alignItems = 'center'
         this.timer.style.justifyContent = 'center'
         this.timer.style.userSelect = 'none'
-        this.timer.innerHTML = '00:00:00'
+        this.timer.innerHTML = '00:00'
         return this.timer
     }
 
