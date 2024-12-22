@@ -83,7 +83,7 @@ class ShareManager {
         ]
 
         // Get link to image for social media sharing.
-        this.imageShareLink = this.getShareImagePath()
+        this.getShareImageLink()
 
         shareButtons.forEach(shareButton => {
             const shareButtonDiv = document.createElement('div')
@@ -178,10 +178,16 @@ class ShareManager {
         return this.shareImage
     }
 
-    getShareImagePath() {
+    getShareImageLink() {
         // For sharing on social media platforms, use a pre-generated image with the right time displayed.
         // If time is more than 1 hour, share an image without a timer result.
-        return website + '/images/share/' + this.timer.innerHTML.replaceAll(':', '_') + '.png'
+        const timerStr = this.timer.innerHTML
+        if (timerStr.length == 5) {
+            this.imageShareLink = website + '/images/share/' + this.timer.innerHTML.replaceAll(':', '_') + '.png'
+        } else {
+            this.imageShareLink = website + '/images/share/share.png'
+        }
+        return this.imageShareLink
     }
 
 }

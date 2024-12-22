@@ -25,6 +25,22 @@ describe('Share Test', () =>  {
         expect(copyCanvas.width).toBeGreaterThan(100)
         expect(copyCanvas.height).toBeGreaterThan(100)
         shareDiv.remove()
+    })
+
+    it('Share on social media', () => {
+        // The sharing buttons share a pregenerated image with the timer result if it is less than an hour,
+        // Otherwise an image without a time display.
+        
+        this.timer.seconds = 3599
+        this.timer.displayTime()
+        let imageLink = this.shareManager.getShareImageLink()
+        expect(imageLink).toContain('/59_59.png')
+
+        this.timer.seconds = 3600
+        this.timer.displayTime()
+        imageLink = this.shareManager.getShareImageLink()
+        expect(imageLink).toContain('share.png')
+
 
     })
 
