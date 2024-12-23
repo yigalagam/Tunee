@@ -1,5 +1,5 @@
-const appName = 'Musicle'
-const website = 'www.musicle.com'
+const appName = 'Mystery Song'
+const website = 'www.mysterysong.com'
 
 const nBoardRows = 5
 const nBoardCols = 12
@@ -18,11 +18,13 @@ const darkGray = '#5F5F5F'
 const yellow = '#FFC000'
 const borderWidth = 3
 const borderRadius = '10px'
+
 // Bottom div outside the board.
 const bottomDivWidthPx = 50 * baseSize
 const bottomDivHeightPx = 19 * baseSize
 
 // Parameters for the sharing interface.
+const shareNameFontSizeEM = 1.8 * fontSizeEM
 const shareFadeoutInterval = 1000
 const shareImageScaling = 0.5
 const copiedDelay = 3000

@@ -26,7 +26,7 @@ class ShareManager {
         const nameDiv = document.createElement('div')
         nameDiv.style.height = slotSizePx + 'px'
         nameDiv.style.fontFamily = font
-        nameDiv.style.fontSize = (2.25 * fontSizeEM) + 'em'
+        nameDiv.style.fontSize = shareNameFontSizeEM + 'em'
         nameDiv.style.fontWeight = 'bold'
         nameDiv.style.color = darkGray
         nameDiv.style.userSelect = 'none'
