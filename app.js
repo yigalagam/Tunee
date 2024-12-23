@@ -12,6 +12,14 @@ guiManager.setActionButtonClick(startGame)
 // Image for dragging operations (positioned outside the page).
 document.body.appendChild(guiManager.dragImage)
 
+// Load today's script for loading audio data.
+const audioScriptName = getTodayScript()
+console.log(audioScriptName)
+const audioScript = document.createElement('script')
+audioScript.src = audioScriptName
+document.body.appendChild(audioScript)
+
+
 function startGame() {
-    game.start('tame_impala.wav')
+    game.start('')
 }

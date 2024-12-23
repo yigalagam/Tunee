@@ -35,6 +35,7 @@ class GUIManager {
         this.gameDiv.style.alignItems = 'center'
         
         // Add game elements.
+        this.gameDiv.appendChild(this.getTitleDiv())
         this.gameDiv.appendChild(this.getBoardDiv())
         this.gameDiv.appendChild(this.getControlDiv())
        
@@ -43,12 +44,37 @@ class GUIManager {
 
     // *** Game board  with slots for puzzle pieces ***
 
+    getTitleDiv() {
+        const mainTitleDiv = document.createElement('div')
+        mainTitleDiv.style.fontFamily = font
+        mainTitleDiv.style.fontSize = titleFontSizeEM + 'em'
+        mainTitleDiv.style.fontWeight = 'bold'
+        mainTitleDiv.style.color = darkGray
+        mainTitleDiv.innerHTML = this.name
+
+        const subTitleDiv = document.createElement('div')
+        subTitleDiv.style.fontFamily = font
+        subTitleDiv.style.fontSize = subtitleFontSizeEM + 'em'
+        subTitleDiv.style.fontWeight = 'bold'
+        subTitleDiv.style.color = lightGray
+        subTitleDiv.innerHTML = 'Put the puzzle pieces in the right order to play some music!'
+
+        const titleDiv = document.createElement('div')
+        titleDiv.style.display = 'grid'
+        titleDiv.style.placeItems = 'center'
+        titleDiv.appendChild(mainTitleDiv)
+        titleDiv.appendChild(subTitleDiv)
+
+        return titleDiv
+    }
+    
     getBoardDiv() {
         const boardDiv = document.createElement('div')
         boardDiv.style.backgroundColor = lightGray
         boardDiv.style.border = borderWidth + 'px' + ' solid'
         boardDiv.style.width = (slotSizePx * this.nBoardCols) + 'px'
         boardDiv.style.height = (slotSizePx * this.nBoardRows) + 'px'
+        boardDiv.style.marginTop = (2 * baseSizePx) + 'px'
         boardDiv.style.display = 'flex'
         boardDiv.style.flexWrap = 'wrap'
         for (let i = 0; i < this.nBoardRows * this.nBoardCols; i++) {
@@ -62,48 +88,48 @@ class GUIManager {
     getBoardSlotDiv(id) {
         // Generate a div element for board slots.
 
-        const div = document.createElement('div')
-        div.classList.add('board-slot')
-        div.id = id
-        div.style.width = (slotSizePx) + 'px'
-        div.style.height = (slotSizePx) + 'px'
-        div.style.border = 'dotted 0.25px'
-        div.style.boxSizing = 'border-box'
-        div.draggable = false
+        const slotDiv = document.createElement('div')
+        slotDiv.classList.add('board-slot')
+        slotDiv.id = id
+        slotDiv.style.width = (slotSizePx) + 'px'
+        slotDiv.style.height = (slotSizePx) + 'px'
+        slotDiv.style.border = 'dotted 0.25px'
+        slotDiv.style.boxSizing = 'border-box'
+        slotDiv.draggable = false
         
-        div.onclick = () => {
+        slotDiv.onclick = () => {
             if (debugMode) {
-                console.log('Play: slot ' + div.id)
+                console.log('Play: slot ' + slotDiv.id)
             }
-            game.slotClick(Number(div.id))
+            game.slotClick(Number(slotDiv.id))
         }
 
         // Set up drag and drop listeners for moving pieces.
-        div.ondragstart = (event) => {
+        slotDiv.ondragstart = (event) => {
             if (debugMode) {
-                console.log('Drag start: slot ' + div.id)
+                console.log('Drag start: slot ' + slotDiv.id)
             }
             event.stopPropagation()
             event.dataTransfer.setDragImage(this.dragImage, slotSizePx / 2, slotSizePx / 2)
             event.dataTransfer.effectAllowed = 'move'
-            game.slotDrag(div)
+            game.slotDrag(slotDiv)
         }
-        div.ondragend = (event) => {
+        slotDiv.ondragend = (event) => {
             if (debugMode) {
-                console.log('Drag end: slot ' + div.id)
+                console.log('Drag end: slot ' + slotDiv.id)
             }
             event.preventDefault()
             game.slotDragEnd()
         }
         
-        div.ondrop = () => {
+        slotDiv.ondrop = () => {
             if (debugMode) {
-                console.log('Drop: slot ' + div.id)
+                console.log('Drop: slot ' + slotDiv.id)
             }
-            game.slotDrop(div)
+            game.slotDrop(slotDiv)
         }
 
-        return div
+        return slotDiv
     }
 
     getDragImage() {
@@ -178,8 +204,8 @@ class GUIManager {
         this.actionButton.style.backgroundColor = yellow
         this.actionButton.style.border = borderWidth + 'px solid'
         this.actionButton.style.borderRadius = borderRadius
-        this.actionButton.style.width = (10 * baseSize) + 'px'
-        this.actionButton.style.height = (10 * baseSize) + 'px'
+        this.actionButton.style.width = (10 * baseSizePx) + 'px'
+        this.actionButton.style.height = (10 * baseSizePx) + 'px'
         this.actionButton.style.fontFamily = font
         this.actionButton.style.fontSize = fontSizeEM + 'em'
         this.actionButton.style.fontWeight = 'bold'
@@ -230,8 +256,8 @@ class GUIManager {
         this.timer.style.backgroundColor = yellow
         this.timer.style.border = borderWidth + 'px solid'
         this.timer.style.borderRadius = borderRadius
-        this.timer.style.width = (15 * baseSize) + 'px'
-        this.timer.style.height = (8 * baseSize) + 'px'
+        this.timer.style.width = (15 * baseSizePx) + 'px'
+        this.timer.style.height = (8 * baseSizePx) + 'px'
         this.timer.style.fontFamily = font
         this.timer.style.fontSize = fontSizeEM + 'em'
         this.timer.style.fontWeight = 'bold'
@@ -252,14 +278,14 @@ class GUIManager {
 
     getControlDiv() {
         const controlDiv = document.createElement('div')
-        controlDiv.style.width = bottomDivWidthPx + 'px'
-        controlDiv.style.height = bottomDivHeightPx + 'px'
+        controlDiv.style.width = controlDivWidthPx + 'px'
+        controlDiv.style.height = controlDivHeightPx + 'px'
         controlDiv.style.backgroundColor = lightGray
         controlDiv.style.border = borderWidth + 'px solid'
         controlDiv.style.borderRadius = borderRadius
         controlDiv.style.marginLeft = 'auto'
         controlDiv.style.marginRight = 'auto'
-        controlDiv.style.marginTop = baseSize + 'px'
+        controlDiv.style.marginTop = baseSizePx + 'px'
         controlDiv.style.display = 'flex'
         controlDiv.style.justifyContent = 'space-around'
         controlDiv.style.alignItems = 'center'
