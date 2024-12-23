@@ -12,7 +12,7 @@ for hh in range(1):
     for mm in range(60):
         for ss in range(60):
             img_data = plt.imread(os.path.join(input_dir, 'base_image.bmp')).copy()
-            img_data = img_data[:245, 1:-1]
+            img_data = img_data[:190, 1:-1]
 
             hh_str = f'{hh:02d}'
             mm_str = f'{mm:02d}'
@@ -27,7 +27,7 @@ for hh in range(1):
             plt.tight_layout(pad=0)
             txt = plt.text(0, 0, time_str)
             txt.set_fontname('Verdana')
-            txt.set_fontsize(45)
+            txt.set_fontsize(30)
             txt.set_fontweight('bold')
             txt.set_color('#5f5f5f')
             ax_width = ax.get_xlim()[1] - ax.get_xlim()[0]
@@ -36,7 +36,7 @@ for hh in range(1):
             txt_width = txt_dims[1][0] - txt_dims[0][0]
             txt_height = txt_dims[1][1] - txt_dims[0][1]
             txt.set_x((ax_width - txt_width) // 2)
-            txt.set_y((ax_height - txt_height) // 2 + 24)
+            txt.set_y((ax_height - txt_height) // 2 + 14)
             plt.savefig(os.path.join(output_dir, time_str.replace(':', '_') + '.png'),
                         dpi=75, bbox_inches='tight', pad_inches=0)
             plt.close()

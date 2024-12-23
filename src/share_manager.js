@@ -24,7 +24,6 @@ class ShareManager {
         const rightPiece = pieceDiv.cloneNode(true)
         
         const nameDiv = document.createElement('div')
-        nameDiv.style.height = slotSizePx + 'px'
         nameDiv.style.fontFamily = font
         nameDiv.style.fontSize = shareNameFontSizeEM + 'em'
         nameDiv.style.fontWeight = 'bold'
@@ -38,39 +37,48 @@ class ShareManager {
         topRowDiv.style.backgroundColor = lightGray
         topRowDiv.style.display = 'flex'
         topRowDiv.style.justifyContent = 'space-between'
+        topRowDiv.style.alignItems = 'center'
+        topRowDiv.style.marginBottom = baseSizePx + 'px'
         topRowDiv.append(leftPiece)
         topRowDiv.append(nameDiv)
         topRowDiv.append(rightPiece)
 
+        const websiteDiv = document.createElement('div')
+        websiteDiv.style.fontFamily = font
+        websiteDiv.style.fontSize = shareWebsiteFontSizeEM + 'em'
+        websiteDiv.style.fontWeight = 'bold'
+        websiteDiv.style.color = darkGray
+        websiteDiv.style.userSelect = 'none'
+        websiteDiv.style.marginTop = (2 * baseSizePx) + 'px'
+        websiteDiv.style.marginBottom = baseSizePx + 'px'
+        websiteDiv.innerHTML = website
+
         // Create the div that will be shared as an image.
         const shareImageDiv = document.createElement('div')
-        shareImageDiv.style.width = bottomDivWidthPx + 'px'
-        shareImageDiv.style.height = bottomDivHeightPx + 'px'
+        shareImageDiv.style.width = shareDivWidthPx + 'px'
+        shareImageDiv.style.height = shareDivHeightPx + 'px'
         shareImageDiv.style.backgroundColor = lightGray
         shareImageDiv.style.border = borderWidth + 'px solid'
         shareImageDiv.style.borderRadius = borderRadius
-        shareImageDiv.style.padding = baseSize + 'px'
+        shareImageDiv.style.padding = baseSizePx + 'px'
         shareImageDiv.style.boxSizing = 'border-box'
-        shareImageDiv.style.marginTop = baseSize + 'px'
-        shareImageDiv.style.marginLeft = 'auto'
-        shareImageDiv.style.marginRight = 'auto'
-        shareImageDiv.style.marginTop = baseSize + 'px'
+        shareImageDiv.style.marginTop = baseSizePx + 'px'
         shareImageDiv.style.display = 'flex'
         shareImageDiv.style.flexDirection = 'column'
         shareImageDiv.style.placeItems = 'center'
-        shareImageDiv.style.justifyContent = 'space-between'
       
         shareImageDiv.appendChild(topRowDiv)
         // Show final timer result in the shared image.
         shareImageDiv.appendChild(this.timer.cloneNode(true))
+        shareImageDiv.appendChild(websiteDiv)
         this.shareImageDiv = shareImageDiv
 
         // Create a row div that contains the image and platform-specific sharing buttons.
 
         const shareButtonsRow = document.createElement('div')
-        shareButtonsRow.style.width = bottomDivWidthPx + 'px'
+        shareButtonsRow.style.width = controlDivWidthPx + 'px'
         shareButtonsRow.style.height = slotSizePx + 'px'
-        shareButtonsRow.style.padding = baseSize + 'px'
+        shareButtonsRow.style.padding = baseSizePx + 'px'
         shareButtonsRow.style.boxSizing = 'border-box'
         shareButtonsRow.style.display = 'flex'
         shareButtonsRow.style.justifyContent = 'space-between'
@@ -96,8 +104,8 @@ class ShareManager {
         })
 
         const shareDiv = document.createElement('div')
-        shareDiv.style.width = bottomDivWidthPx + 'px'
-        shareDiv.style.height = bottomDivHeightPx + 'px'
+        shareDiv.style.width = controlDivWidthPx + 'px'
+        shareDiv.style.height = controlDivHeightPx + 'px'
         shareDiv.style.transition = 'opacity 1s ease-in-out'
         shareDiv.appendChild(shareImageDiv)
         shareDiv.appendChild(shareButtonsRow)
