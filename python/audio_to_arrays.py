@@ -17,18 +17,18 @@ def audio_to_arrays(audio_file, output_file):
         sound = two_channels
 
     with open(output_file, 'w') as fid:
-        fid.write('return [\n[')
+        fid.write("function loadAudioDataDate() {\n\treturn {\n\t\t'left':\n\t\t\t[")
         for i, value in enumerate(sound[:, 0]):
             fid.write(str(value))
             if i < dims[0] - 1:
                 fid.write(',')
-        fid.write('],\n[')
+        fid.write("],\n\t\t'right':\n\t\t\t[")
         for i, value in enumerate(sound[:, 0]):
             fid.write(str(value))
             if i < dims[0] - 1:
                 fid.write(',')
-        fid.write(']\n],\n')
-        fid.write(str(sample_rate) + '\n')
+        fid.write("],\n\t\t'sampleRate': ")
+        fid.write(str(sample_rate) + '\n\t}\n}\n')
 
 
 
