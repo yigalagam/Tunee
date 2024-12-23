@@ -29,7 +29,6 @@ const controlDivHeightPx = 19 * baseSizePx
 
 // Parameters for the sharing interface.
 const shareDivWidthPx = 47 * baseSizePx
-const shareDivHeightPx = 22 * baseSizePx
 const shareNameFontSizeEM = 2.1
 const shareWebsiteFontSizeEM = 1
 const shareFadeoutInterval = 1000

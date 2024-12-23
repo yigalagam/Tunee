@@ -1,84 +1,30 @@
 class ShareManager {
 
-    constructor(timer, debugMode) {
-        // Set up a share manager object with a timer showing time to complete the puzzle.
-        this.timer = timer
+    constructor(timeStr, debugMode) {
+        // Set up a share manager object with a the time taken to complete the puzzle.
+        this.timeStr = timeStr
         this.debugMode = debugMode
-        this.shareImageDiv = null
         this.shareImage = null
-        this.imageShareLink = null
     }
 
     getShareDiv() {
 
         // Build an interface for sharing results on social media.
 
-        // Top row: Game title between two puzzle pieces.
-        
-        const pieceDiv = document.createElement('div')
-        pieceDiv.style.width = slotSizePx + 'px'
-        pieceDiv.style.height = slotSizePx + 'px'
-        pieceDiv.style.backgroundImage = "url('../images/piece.png')"
-        pieceDiv.style.backgroundSize = 'cover'
-        const leftPiece = pieceDiv
-        const rightPiece = pieceDiv.cloneNode(true)
-        
-        const nameDiv = document.createElement('div')
-        nameDiv.style.fontFamily = font
-        nameDiv.style.fontSize = shareNameFontSizeEM + 'em'
-        nameDiv.style.fontWeight = 'bold'
-        nameDiv.style.color = darkGray
-        nameDiv.style.userSelect = 'none'
-        nameDiv.innerHTML = appName
-
-        const topRowDiv = document.createElement('div')
-        topRowDiv.style.width = '100%'
-        topRowDiv.style.height = slotSizePx + 'px'
-        topRowDiv.style.backgroundColor = lightGray
-        topRowDiv.style.display = 'flex'
-        topRowDiv.style.justifyContent = 'space-between'
-        topRowDiv.style.alignItems = 'center'
-        topRowDiv.style.marginBottom = baseSizePx + 'px'
-        topRowDiv.append(leftPiece)
-        topRowDiv.append(nameDiv)
-        topRowDiv.append(rightPiece)
-
-        const websiteDiv = document.createElement('div')
-        websiteDiv.style.fontFamily = font
-        websiteDiv.style.fontSize = shareWebsiteFontSizeEM + 'em'
-        websiteDiv.style.fontWeight = 'bold'
-        websiteDiv.style.color = darkGray
-        websiteDiv.style.userSelect = 'none'
-        websiteDiv.style.marginTop = (2 * baseSizePx) + 'px'
-        websiteDiv.style.marginBottom = baseSizePx + 'px'
-        websiteDiv.innerHTML = website
-
-        // Create the div that will be shared as an image.
-        const shareImageDiv = document.createElement('div')
-        shareImageDiv.style.width = shareDivWidthPx + 'px'
-        shareImageDiv.style.height = shareDivHeightPx + 'px'
-        shareImageDiv.style.backgroundColor = lightGray
-        shareImageDiv.style.border = borderWidth + 'px solid'
-        shareImageDiv.style.borderRadius = borderRadius
-        shareImageDiv.style.padding = baseSizePx + 'px'
-        shareImageDiv.style.boxSizing = 'border-box'
-        shareImageDiv.style.marginTop = baseSizePx + 'px'
-        shareImageDiv.style.display = 'flex'
-        shareImageDiv.style.flexDirection = 'column'
-        shareImageDiv.style.placeItems = 'center'
-      
-        shareImageDiv.appendChild(topRowDiv)
-        // Show final timer result in the shared image.
-        shareImageDiv.appendChild(this.timer.cloneNode(true))
-        shareImageDiv.appendChild(websiteDiv)
-        this.shareImageDiv = shareImageDiv
-
+        // Show the shared image from a pre-generated set.
+        // If the time is less than an hour, show an image with a timer, otherwise a generic image.
+        this.shareImage = document.createElement('img')
+        this.shareImage.src = this.getShareImageLink()
+        this.shareImage.style.width = shareDivWidthPx + 'px'
+        this.shareImage.style.marginTop = baseSizePx + 'px'
+     
         // Create a row div that contains the image and platform-specific sharing buttons.
 
         const shareButtonsRow = document.createElement('div')
-        shareButtonsRow.style.width = controlDivWidthPx + 'px'
+        shareButtonsRow.style.width = shareDivWidthPx + 'px'
         shareButtonsRow.style.height = slotSizePx + 'px'
-        shareButtonsRow.style.padding = baseSizePx + 'px'
+        shareButtonsRow.style.paddingLeft = baseSizePx + 'px'
+        shareButtonsRow.style.paddingRight = baseSizePx + 'px'
         shareButtonsRow.style.boxSizing = 'border-box'
         shareButtonsRow.style.display = 'flex'
         shareButtonsRow.style.justifyContent = 'space-between'
@@ -89,9 +35,6 @@ class ShareManager {
             {'image': 'whatsapp', 'click': this.shareWhatsApp, 'hover': 'Share on WhatsApp'},
             {'image': 'copy', 'click': this.shareCopy, 'hover': 'Copy to Clipboard'},
         ]
-
-        // Get link to image for social media sharing.
-        this.getShareImageLink()
 
         shareButtons.forEach(shareButton => {
             const shareButtonDiv = document.createElement('div')
@@ -104,10 +47,9 @@ class ShareManager {
         })
 
         const shareDiv = document.createElement('div')
-        shareDiv.style.width = controlDivWidthPx + 'px'
-        shareDiv.style.height = controlDivHeightPx + 'px'
+        shareDiv.style.width = shareDivWidthPx + 'px'
         shareDiv.style.transition = 'opacity 1s ease-in-out'
-        shareDiv.appendChild(shareImageDiv)
+        shareDiv.appendChild(this.shareImage)
         shareDiv.appendChild(shareButtonsRow)
 
         return shareDiv
@@ -118,7 +60,7 @@ class ShareManager {
         if (this.debugMode) {
             console.log('Sharing to Facebook')
         }
-        const facebookURL = 'https://www.facebook.com/sharer/sharer.php?u=' + this.imageShareLink
+        const facebookURL = 'https://www.facebook.com/sharer/sharer.php?u=' + this.getShareImageLink(true)
         window.open(facebookURL, 'facebook-share-dialog')
     }
 
@@ -126,7 +68,7 @@ class ShareManager {
         if (this.debugMode) {
             console.log('Sharing to Instagram')
         }
-        const instagramURL = 'https://www.instagram.com/share?url=' + this.imageShareLink
+        const instagramURL = 'https://www.instagram.com/share?url=' + this.getShareImageLink(true)
         window.open(instagramURL, '_blank');
     }
 
@@ -134,7 +76,7 @@ class ShareManager {
         if (this.debugMode) {
             console.log('Sharing to Facebook')
         }
-        const whatsAppURL = 'https://wa.me/?text=' + this.imageShareLink
+        const whatsAppURL = 'https://wa.me/?text=' + this.getShareImageLink(true)
         console.log(whatsAppURL)
         window.open(whatsAppURL, '_blank');
     }
@@ -144,13 +86,22 @@ class ShareManager {
         if (this.debugMode) {
             console.log('Copying to clipboard')
         }
-        await this.generateClipboardImage()
-        this.shareImage.toBlob(blob => {
-            if (blob) {
-                navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
-                this.shareCopied(event.target)
-            }
-        })
+
+        // Copy shared image to a canvas object.
+        const canvas = document.createElement('canvas')
+        canvas.width = this.shareImage.width
+        canvas.height = this.shareImage.height
+        const context = canvas.getContext('2d')
+        context.drawImage(this.shareImage, 0, 0, this.shareImage.width, this.shareImage.height)
+
+        // Copy to clipboard.
+        const dataURL = canvas.toDataURL('image/png'); 
+        const response = await fetch(dataURL);
+        const blob = await response.blob();
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
+
+        // Turn on "copied" indicator.
+        this.shareCopied(event.target)
     }
 
     shareCopied(shareButtonDiv) {
@@ -166,36 +117,42 @@ class ShareManager {
     async generateClipboardImage() {
         // Create an image to share on social media or to copy to clipboard.
 
-        if (this.shareImage == null) {
-            if (this.debugMode) {
-                console.log('Generating shareable image')
-            }
-            const canvas = await html2canvas(this.shareImageDiv)
-
-            // Scale shared image.
-            const context = canvas.getContext('2d')
-            const scaledCanvas = document.createElement('canvas')
-            const scaledContext = scaledCanvas.getContext('2d')
-            scaledCanvas.width = canvas.width * shareImageScaling
-            scaledCanvas.height = canvas.height * shareImageScaling;
-            scaledContext.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, scaledCanvas.width, scaledCanvas.height)
-
-            this.shareImage = scaledCanvas
+        if (this.debugMode) {
+            console.log('Generating shareable image')
         }
-        
-        return this.shareImage
+        const canvas = await html2canvas(this.shareImageDiv)
+
+        // Scale shared image.
+        const context = canvas.getContext('2d')
+        const scaledCanvas = document.createElement('canvas')
+        const scaledContext = scaledCanvas.getContext('2d')
+        scaledCanvas.width = canvas.width * shareImageScaling
+        scaledCanvas.height = canvas.height * shareImageScaling;
+        scaledContext.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, scaledCanvas.width, scaledCanvas.height)
+
+        this.shareImage = scaledCanvas
+
+        return shareImage
     }
 
-    getShareImageLink() {
+    getShareImageLink(external=false) {
         // For sharing on social media platforms, use a pre-generated image with the right time displayed.
         // If time is more than 1 hour, share an image without a timer result.
-        const timerStr = this.timer.innerHTML
-        if (timerStr.length == 5) {
-            this.imageShareLink = website + '/images/share/' + this.timer.innerHTML.replaceAll(':', '_') + '.png'
+        let prefix
+        if (external) {
+            prefix = website
         } else {
-            this.imageShareLink = website + '/images/share/share.png'
+            prefix = '..'
         }
-        return this.imageShareLink
+        let imageShareLink
+        if (this.timeStr.length == 5) {
+            // Time is mm:ss, meaning less than 1 hour.
+            imageShareLink = prefix + '/images/share/' + this.timeStr.replaceAll(':', '_') + '.png'
+        } else {
+            // Time has an hours component, meaning at least 1 hour.
+            imageShareLink = prefix + '/images/share/share.png'
+        }
+        return imageShareLink
     }
 
 }

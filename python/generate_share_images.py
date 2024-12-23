@@ -8,11 +8,23 @@ import matplotlib.pyplot as plt
 input_dir = '../../Javascript/musicle/python/'
 output_dir = '../../Javascript/musicle/images/share'
 
+# Image for results over 1 hour.
+img_data = plt.imread(os.path.join(input_dir, 'base_image_1_hour.bmp')).copy()
+img_data = img_data[1:294, 2:-6]
+fig, ax = plt.subplots()
+ax.imshow(img_data)
+plt.axis('off')
+plt.tight_layout(pad=0)
+plt.savefig(os.path.join(output_dir, 'share.png'),
+            dpi=200, bbox_inches='tight', pad_inches=0)
+plt.close()
+
+
 for hh in range(1):
     for mm in range(60):
         for ss in range(60):
             img_data = plt.imread(os.path.join(input_dir, 'base_image.bmp')).copy()
-            img_data = img_data[:190, 1:-1]
+            img_data = img_data[1:473, 2:-6]
 
             hh_str = f'{hh:02d}'
             mm_str = f'{mm:02d}'
@@ -36,21 +48,9 @@ for hh in range(1):
             txt_width = txt_dims[1][0] - txt_dims[0][0]
             txt_height = txt_dims[1][1] - txt_dims[0][1]
             txt.set_x((ax_width - txt_width) // 2)
-            txt.set_y((ax_height - txt_height) // 2 + 14)
+            txt.set_y((ax_height - txt_height) // 2 + 30)
             plt.savefig(os.path.join(output_dir, time_str.replace(':', '_') + '.png'),
-                        dpi=75, bbox_inches='tight', pad_inches=0)
+                        dpi=200, bbox_inches='tight', pad_inches=0)
             plt.close()
-
-# Image for results over 1 hour.
-img_data = plt.imread(os.path.join(input_dir, 'base_image_1_hour.bmp')).copy()
-img_data = img_data[:119, 1:-1]
-fig, ax = plt.subplots()
-ax.imshow(img_data)
-plt.axis('off')
-plt.tight_layout(pad=0)
-plt.savefig(os.path.join(output_dir, 'share.png'),
-            dpi=75, bbox_inches='tight', pad_inches=0)
-plt.close()
-
 
 

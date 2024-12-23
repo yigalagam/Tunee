@@ -298,7 +298,7 @@ class GUIManager {
     startSharing() {
         // Fade out the control panel and fade in the sharing panel.
 
-        const shareManager = new ShareManager(this.timer, this.debugMode)
+        const shareManager = new ShareManager(this.timer.innerHTML, this.debugMode)
         const shareDiv = shareManager.getShareDiv()
 
         this.controlDiv.style.opacity = 1
