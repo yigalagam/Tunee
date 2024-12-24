@@ -12,12 +12,21 @@ guiManager.setActionButtonClick(startGame)
 // Image for dragging operations (positioned outside the page).
 document.body.appendChild(guiManager.dragImage)
 
-// Load today's script for loading audio data.
-const audioScriptName = getTodayScript()
+// Check if a specific date passed in URL.
+// If not, use today's data.
+const params = new URLSearchParams(window.location.search)
+const dateStr = params.get('date')
+let audioScriptName
+if (dateStr != null) {
+    audioScriptName = '../audio_data/' + dateStr + '.js'
+} else {
+    audioScriptName = getTodayScript()
+}
+
+// Run the script that define the function to load audio data.
 const audioScript = document.createElement('script')
 audioScript.src = audioScriptName
 document.body.appendChild(audioScript)
-
 
 function startGame() {
     game.start('')
