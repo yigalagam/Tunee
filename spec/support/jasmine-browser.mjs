@@ -1,16 +1,8 @@
 export default {
   srcDir: "src",
-  srcFiles: [
-    "*.wav", "*.js"
-  ],
+  srcFiles: ["*.js"],
   specDir: "test",
-  specFiles: [
-    "*.test.js"
-  ],
-  helpers: [
-    "helpers/**/*.js",
-    "test/test_data/**/*.wav"
-  ],
+  specFiles: ["*.test.js"],
   env: {
     stopSpecOnExpectationFailure: false,
     stopOnSpecFailure: false,

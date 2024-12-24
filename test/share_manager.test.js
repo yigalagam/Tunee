@@ -1,4 +1,4 @@
-describe('Share Test', () =>  {
+describe('Share Manager Test', () =>  {
  
     it('Share on social media', () => {
         // The sharing buttons share a pregenerated image with the timer result if it is less than an hour,
@@ -11,8 +11,6 @@ describe('Share Test', () =>  {
         shareManager = new ShareManager('01:00:00', false)
         imageLink = shareManager.getShareImageLink()
         expect(imageLink).toContain('share.png')
-
-
     })
 
 })
