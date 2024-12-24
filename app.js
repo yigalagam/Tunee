@@ -1,3 +1,5 @@
+document.title = appName
+
 // Start a game object from an audio file.
 const guiManager = new GUIManager(appName, nBoardRows, nBoardCols, false, debugMode)
 const game = new Game(guiManager, nPieces, [nBoardRows, nBoardCols], false, debugMode)
