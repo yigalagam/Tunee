@@ -1,9 +1,9 @@
 const appName = 'Mystery Song'
-const website = 'www.mysterysong.com'
+const website = 'http://mysterysong.freesite.online/'
 
 const nBoardRows = 5
 const nBoardCols = 15
-const nPieces  = 2
+const nPieces  = 3
 
 // Title div styling.
 const titleFontSizeEM = 2.8

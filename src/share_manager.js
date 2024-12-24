@@ -56,14 +56,13 @@ class ShareManager {
         shareDiv.appendChild(shareButtonsRow)
 
         return shareDiv
-
     }
 
     async shareFacebook() {
-        if (this.debugMode) {
-            console.log('Sharing to Facebook')
-        }
         const facebookURL = 'https://www.facebook.com/sharer/sharer.php?u=' + this.getShareImageLink(true)
+        if (this.debugMode) {
+            console.log('Sharing to Facebook: ' + facebookURL)
+        }
         window.open(facebookURL, 'facebook-share-dialog')
     }
 
@@ -115,27 +114,6 @@ class ShareManager {
             shareButtonDiv.onclick = this.shareCopy.bind(this)
             shareButtonDiv.style.backgroundImage = 'url("../images/copy.png")'
         }, copiedDelay)
-    }
-
-    async generateClipboardImage() {
-        // Create an image to share on social media or to copy to clipboard.
-
-        if (this.debugMode) {
-            console.log('Generating shareable image')
-        }
-        const canvas = await html2canvas(this.shareImageDiv)
-
-        // Scale shared image.
-        const context = canvas.getContext('2d')
-        const scaledCanvas = document.createElement('canvas')
-        const scaledContext = scaledCanvas.getContext('2d')
-        scaledCanvas.width = canvas.width * shareImageScaling
-        scaledCanvas.height = canvas.height * shareImageScaling;
-        scaledContext.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, scaledCanvas.width, scaledCanvas.height)
-
-        this.shareImage = scaledCanvas
-
-        return shareImage
     }
 
     getShareImageLink(external=false) {
