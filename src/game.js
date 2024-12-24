@@ -26,8 +26,9 @@ class Game {
         this.slotBeingMovedElement = null
     }
 
-    start(wavFile) {
-        this.segment = new Segment(wavFile, this.testMode, this.debugMode)
+    start(id) {
+        this.segment = new Segment(id, this.testMode, this.debugMode)
+        this.guiManager.setSongData(this.segment.songTitle, this.segment.youtubeLink)
         this.solution = this.segment.divide(this.nPieces)
         this.board.reset()
         this.board.loadPieces(this.solution)
@@ -93,7 +94,7 @@ class Game {
     endGUI() {
         this.guiManager.inactivateBoard()
         this.timer.stop()
-        this.guiManager.startSharing()
+        this.guiManager.endGame()
     }
 
     slotClick(slotIndex) {

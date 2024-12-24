@@ -1,13 +1,26 @@
 class Segment {
     
-    constructor(wavFile, testMode, debugMode=false) {
+    constructor(id, testMode, debugMode=false) {
         if (debugMode) {
-            console.log('Loading ' + wavFile)
+            console.log('Loading ' + id)
         }
 
-        const audioData = loadAudioData(wavFile)
+        const audioData = loadAudioData(id)
         this.sound = [audioData.left, audioData.right]
         this.sampleRate = audioData.sampleRate
+
+        if (audioData.hasOwnProperty('songTitle')) {
+            this.songTitle = audioData.songTitle
+        } else {
+            this.songTitle = null
+        }
+
+        if (audioData.hasOwnProperty('youtubeLink')) {
+            this.youtubeLink = audioData.youtubeLink
+        } else {
+            this.youtubeLink = null
+        }
+
         this.testMode = testMode
     }
 

@@ -1,6 +1,6 @@
 class ShareManager {
 
-    constructor(timeStr, debugMode) {
+    constructor(timeStr, debugMode=false) {
         // Set up a share manager object with a the time taken to complete the puzzle.
         this.timeStr = timeStr
         this.debugMode = debugMode
@@ -48,7 +48,10 @@ class ShareManager {
 
         const shareDiv = document.createElement('div')
         shareDiv.style.width = shareDivWidthPx + 'px'
-        shareDiv.style.transition = 'opacity 1s ease-in-out'
+        shareDiv.style.marginTop = baseSizePx + 'px'
+        shareDiv.style.display = 'flex'
+        shareDiv.style.flexDirection = 'column'
+        shareDiv.style.placeItems = 'center'
         shareDiv.appendChild(this.shareImage)
         shareDiv.appendChild(shareButtonsRow)
 

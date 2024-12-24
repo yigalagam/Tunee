@@ -3,9 +3,10 @@ import numpy as np
 import sys
 
 # Read an audio file and output it as a python script that returns two arrays and a sample rate.
+# Add optional song data for sharing.
 
 
-def audio_to_arrays(audio_file, output_file):
+def audio_to_arrays(audio_file, output_file, song_title=None, youtube_link=None):
     sample_rate, sound = wavfile.read(audio_file)
 
     dims = sound.shape
@@ -28,10 +29,26 @@ def audio_to_arrays(audio_file, output_file):
             if i < dims[0] - 1:
                 fid.write(',')
         fid.write("],\n\t\t'sampleRate': ")
-        fid.write(str(sample_rate) + '\n\t}\n}\n')
+        fid.write(str(sample_rate) + ',\n')
+        
+        if song_title is not None:
+            fid.write("\t\t'songTitle': " + '"' + song_title + '",\n')
 
-
+        if youtube_link is not None:
+            fid.write("\t\t'youtubeLink': " + '"' + youtube_link + '",\n')
+                
+        fid.write('\t}\n}\n')
 
 
 if __name__ == '__main__':
-    audio_to_arrays(sys.argv[1], sys.argv[2])
+    if len(sys.argv) > 3:
+        song_title = sys.argv[3]
+    else:
+        song_title = None
+
+    if len(sys.argv) > 4:
+        youtube_link = sys.argv[4]
+    else:
+        youtube_link = None
+
+    audio_to_arrays(sys.argv[1], sys.argv[2], song_title, youtube_link)

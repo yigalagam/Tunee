@@ -1,12 +1,13 @@
 class GUIManager {
 
-    constructor(name, nBoardRows, nBoardCols, testMode, debugMode) {
+    constructor(name, nBoardRows, nBoardCols, songTitle=null, youtubeLink=null, testMode=false, debugMode=false) {
 
         this.name = name
 
         this.nBoardRows = nBoardRows
         this.nBoardCols = nBoardCols
-        
+        this.songTitle = songTitle
+        this.youtubeLink = youtubeLink
         this.gameDiv = null
         this.controlDiv = null
         this.boardSlots = []
@@ -18,6 +19,11 @@ class GUIManager {
         this.debugMode = debugMode
 
         this.gameDiv = this.getGameDiv()
+    }
+
+    setSongData(songTitle, youtubeLink) {
+        this.songTitle = songTitle
+        this.youtubeLink = youtubeLink
     }
 
     close() {
@@ -274,6 +280,21 @@ class GUIManager {
         this.timer.innerHTML = timeStr
     }
 
+    // *** Song information ***
+
+    getSongTitleDiv() {
+        const songTitleDiv = document.createElement('div')
+        if (this.songTitle != null) {
+            songTitleDiv.style.fontFamily = font
+            songTitleDiv.style.fontSize = shareSongTitleFontSizeEM + 'em'
+            songTitleDiv.style.fontWeight = 'bold'
+            songTitleDiv.style.color = darkGray
+            songTitleDiv.style.marginTop = baseSizePx + 'px'
+            songTitleDiv.innerHTML = this.songTitle
+        }
+        return songTitleDiv
+    }
+
     // *** Area containing the game controls (anything outside the board) ***
 
     getControlDiv() {
@@ -295,22 +316,25 @@ class GUIManager {
         return controlDiv
     }
 
-    startSharing() {
-        // Fade out the control panel and fade in the sharing panel.
-
-        const shareManager = new ShareManager(this.timer.innerHTML, this.debugMode)
+    endGame() {
+        // Fade out the control panel and fade in song information and the sharing panel.
+        const shareManager = new ShareManager(this.timer.innerHTML, this.songTitle, this.youtubeLink, this.debugMode)
         const shareDiv = shareManager.getShareDiv()
+
+        // Optional div with song title.
+        const songTitleDiv = this.getSongTitleDiv()
 
         this.controlDiv.style.opacity = 1
         const fadeOutInterval = setInterval(() => {
             if (this.controlDiv.style.opacity > 0) {
-                this.controlDiv.style.opacity -= 0.1
+                this.controlDiv.style.opacity -= 0.05
             } else {
                 this.controlDiv.remove()
                 clearInterval(fadeOutInterval)
+                this.gameDiv.append(songTitleDiv)
                 this.gameDiv.appendChild(shareDiv)
             }
-        }, shareFadeoutInterval / 10)
+        }, shareFadeoutInterval / 20)
     }
 
 }    
