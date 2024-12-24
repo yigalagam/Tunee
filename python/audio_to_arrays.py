@@ -17,7 +17,7 @@ def audio_to_arrays(audio_file, output_file):
         sound = two_channels
 
     with open(output_file, 'w') as fid:
-        fid.write("function loadAudioDataDate() {\n\treturn {\n\t\t'left':\n\t\t\t[")
+        fid.write("function loadAudioDataByDate() {\n\treturn {\n\t\t'left':\n\t\t\t[")
         for i, value in enumerate(sound[:, 0]):
             fid.write(str(value))
             if i < dims[0] - 1:
