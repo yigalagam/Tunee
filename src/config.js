@@ -2,7 +2,7 @@ const appName = 'Mystery Song'
 const website = 'www.mysterysong.com'
 
 const nBoardRows = 5
-const nBoardCols = 12
+const nBoardCols = 15
 const nPieces  = 2
 
 // Title div styling.
@@ -27,8 +27,12 @@ const borderRadius = '10px'
 const controlDivWidthPx = 50 * baseSizePx
 const controlDivHeightPx = 19 * baseSizePx
 
+// Parameter for displaying song information.
+const songTitleFontSizeEM = 1.3
+const youtubeDivWidthPx = 47 * baseSizePx
+const youtubeDivHeightPx = 37 * baseSizePx
+
 // Parameters for the sharing interface.
-const shareSongTitleFontSizeEM = 1.3
 const shareDivWidthPx = 47 * baseSizePx
 const shareFadeoutInterval = 1000
 const shareImageScaling = 0.5

@@ -28,7 +28,7 @@ class Game {
 
     start(id) {
         this.segment = new Segment(id, this.testMode, this.debugMode)
-        this.guiManager.setSongData(this.segment.songTitle, this.segment.youtubeLink)
+        this.guiManager.setSongData(this.segment.songTitle, this.segment.youtubeId)
         this.solution = this.segment.divide(this.nPieces)
         this.board.reset()
         this.board.loadPieces(this.solution)

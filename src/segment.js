@@ -15,10 +15,10 @@ class Segment {
             this.songTitle = null
         }
 
-        if (audioData.hasOwnProperty('youtubeLink')) {
-            this.youtubeLink = audioData.youtubeLink
+        if (audioData.hasOwnProperty('youtubeId')) {
+            this.youtubeId = audioData.youtubeId
         } else {
-            this.youtubeLink = null
+            this.youtubeId = null
         }
 
         this.testMode = testMode

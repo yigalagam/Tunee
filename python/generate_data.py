@@ -6,7 +6,7 @@ import sys
 # Add optional song data for sharing.
 
 
-def audio_to_arrays(audio_file, output_file, song_title=None, youtube_link=None):
+def audio_to_arrays(audio_file, output_file, song_title=None, youtube_id=None):
     sample_rate, sound = wavfile.read(audio_file)
 
     dims = sound.shape
@@ -34,8 +34,8 @@ def audio_to_arrays(audio_file, output_file, song_title=None, youtube_link=None)
         if song_title is not None:
             fid.write("\t\t'songTitle': " + '"' + song_title + '",\n')
 
-        if youtube_link is not None:
-            fid.write("\t\t'youtubeLink': " + '"' + youtube_link + '",\n')
+        if youtube_id is not None:
+            fid.write("\t\t'youtubeId': " + '"' + youtube_id + '",\n')
                 
         fid.write('\t}\n}\n')
 
@@ -47,8 +47,8 @@ if __name__ == '__main__':
         song_title = None
 
     if len(sys.argv) > 4:
-        youtube_link = sys.argv[4]
+        youtube_id = sys.argv[4]
     else:
-        youtube_link = None
+        youtube_id = None
 
-    audio_to_arrays(sys.argv[1], sys.argv[2], song_title, youtube_link)
+    audio_to_arrays(sys.argv[1], sys.argv[2], song_title, youtube_id)

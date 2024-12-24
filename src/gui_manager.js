@@ -1,13 +1,13 @@
 class GUIManager {
 
-    constructor(name, nBoardRows, nBoardCols, songTitle=null, youtubeLink=null, testMode=false, debugMode=false) {
+    constructor(name, nBoardRows, nBoardCols, songTitle=null, youtubeId=null, testMode=false, debugMode=false) {
 
         this.name = name
 
         this.nBoardRows = nBoardRows
         this.nBoardCols = nBoardCols
         this.songTitle = songTitle
-        this.youtubeLink = youtubeLink
+        this.youtubeId = youtubeId
         this.gameDiv = null
         this.controlDiv = null
         this.boardSlots = []
@@ -21,9 +21,9 @@ class GUIManager {
         this.gameDiv = this.getGameDiv()
     }
 
-    setSongData(songTitle, youtubeLink) {
+    setSongData(songTitle, youtubeId) {
         this.songTitle = songTitle
-        this.youtubeLink = youtubeLink
+        this.youtubeId = youtubeId
     }
 
     close() {
@@ -286,13 +286,46 @@ class GUIManager {
         const songTitleDiv = document.createElement('div')
         if (this.songTitle != null) {
             songTitleDiv.style.fontFamily = font
-            songTitleDiv.style.fontSize = shareSongTitleFontSizeEM + 'em'
+            songTitleDiv.style.fontSize = songTitleFontSizeEM + 'em'
             songTitleDiv.style.fontWeight = 'bold'
             songTitleDiv.style.color = darkGray
             songTitleDiv.style.marginTop = baseSizePx + 'px'
             songTitleDiv.innerHTML = this.songTitle
         }
         return songTitleDiv
+    }
+
+    getYoutubeDiv() {
+        const youtubeDiv = document.createElement('div')
+        
+        if (this.youtubeId != null) {
+            youtubeDiv.style.width = youtubeDivWidthPx + 'px'
+            youtubeDiv.style.height = youtubeDivHeightPx + 'px'
+            youtubeDiv.style.marginTop = baseSizePx + 'px'
+            youtubeDiv.style.display = 'flex'
+            youtubeDiv.style.justifyContent = 'center'
+            youtubeDiv.style.alignItems = 'center'
+            
+            const youtubeFrame = document.createElement('iframe')
+            youtubeFrame.width = '100%'
+            youtubeFrame.height = '100%'
+            youtubeFrame.src = 'https://www.youtube.com/embed/' + this.youtubeId
+            youtubeFrame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+            youtubeFrame.allowFullscreen = true
+            youtubeDiv.appendChild(youtubeFrame)
+        }
+
+        return youtubeDiv
+    }
+
+    getSongDiv() {
+        const songDiv = document.createElement('div')
+        songDiv.style.display = 'flex'
+        songDiv.style.flexDirection = 'column'
+        songDiv.style.placeItems = 'center'
+        songDiv.appendChild(this.getSongTitleDiv())
+        songDiv.appendChild(this.getYoutubeDiv())
+        return songDiv
     }
 
     // *** Area containing the game controls (anything outside the board) ***
@@ -318,11 +351,18 @@ class GUIManager {
 
     endGame() {
         // Fade out the control panel and fade in song information and the sharing panel.
-        const shareManager = new ShareManager(this.timer.innerHTML, this.songTitle, this.youtubeLink, this.debugMode)
+        const shareManager = new ShareManager(this.timer.innerHTML, this.songTitle, this.youtubeId, this.debugMode)
         const shareDiv = shareManager.getShareDiv()
 
-        // Optional div with song title.
-        const songTitleDiv = this.getSongTitleDiv()
+        // Optional div with song title and youtube link.
+        const songDiv = this.getSongDiv()
+
+        const endDiv = document.createElement('div')
+        endDiv.style.display = 'flex'
+        endDiv.style.alignItems = 'center'
+        endDiv.style.gap = (3 * baseSizePx) + 'px'
+        endDiv.appendChild(shareDiv)
+        endDiv.appendChild(songDiv)
 
         this.controlDiv.style.opacity = 1
         const fadeOutInterval = setInterval(() => {
@@ -331,8 +371,7 @@ class GUIManager {
             } else {
                 this.controlDiv.remove()
                 clearInterval(fadeOutInterval)
-                this.gameDiv.append(songTitleDiv)
-                this.gameDiv.appendChild(shareDiv)
+                this.gameDiv.append(endDiv)
             }
         }, shareFadeoutInterval / 20)
     }
