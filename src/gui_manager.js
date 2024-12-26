@@ -18,6 +18,15 @@ class GUIManager {
         this.testMode = testMode
         this.debugMode = debugMode
 
+        if (debugMode) {
+            if (isMobile) {
+                console.log('Detected mobile environment')
+            } else {
+                console.log('Detected desktop environment')
+            }
+        }
+
+        // Create the main application div.
         this.gameDiv = this.getGameDiv()
     }
 
@@ -84,7 +93,7 @@ class GUIManager {
         boardDiv.style.display = 'flex'
         boardDiv.style.flexWrap = 'wrap'
         for (let i = 0; i < this.nBoardRows * this.nBoardCols; i++) {
-            const slotDiv = this.getBoardSlotDiv(i)
+            const slotDiv = this.getBoardSlotDiv(i, isMobile)
             boardDiv.appendChild(slotDiv)
             this.boardSlots.push(slotDiv)
         }
@@ -102,40 +111,96 @@ class GUIManager {
         slotDiv.style.border = 'dotted 0.25px'
         slotDiv.style.boxSizing = 'border-box'
         slotDiv.draggable = false
-        
-        slotDiv.onclick = () => {
-            if (debugMode) {
-                console.log('Play: slot ' + slotDiv.id)
-            }
-            game.slotClick(Number(slotDiv.id))
-        }
 
         // Set up drag and drop listeners for moving pieces.
-        slotDiv.ondragstart = (event) => {
-            if (debugMode) {
-                console.log('Drag start: slot ' + slotDiv.id)
+        if (isMobile) {
+            // Drag & drop isteners for mobile.
+
+            const hammer = new Hammer(slotDiv)
+            hammer.get('pan').set({ direction: Hammer.DIRECTION_ALL })
+
+            hammer.on('tap', () => {
+                if (debugMode) {
+                    console.log('Tap: slot ' + slotDiv.id)
+                }
+                game.slotClick(Number(slotDiv.id))
+            })
+
+            hammer.on('panstart', () => {
+                if (this.isPiece(slotDiv)) {
+                    if (debugMode) {
+                        console.log('Drag start: slot ' + slotDiv.id)
+                    }
+                    game.slotDrag(slotDiv)
+                }
+            })
+
+            hammer.on('panend', (event) => {
+                if (this.isPiece(slotDiv)) {
+                    if (debugMode) {
+                        console.log('Drag end: slot ' + slotDiv.id)
+                        const targetSlotDiv = document.elementFromPoint(event.center.x, event.center.y)
+                        if (this.boardSlots.includes(targetSlotDiv)) {
+                            if (this.debugMode) {
+                                console.log('Dropped on slot ' + targetSlotDiv.id)
+                            }
+                            if (targetSlotDiv == slotDiv) {
+                                // Touch and release in the same slot: consider as a click.
+                                if (debugMode) {
+                                    console.log('Play: slot ' + slotDiv.id)
+                                }
+                                game.slotClick(Number(slotDiv.id))
+                            } else {
+                                // Touch ended in a different slot than the origin: drag operation.
+                                game.slotDrop(targetSlotDiv)
+                            }
+                        }
+                    }
+                    game.slotDragEnd()
+                }
+            })
+
+        } else {
+            // Drag & drop listeners for desktop.
+
+            slotDiv.onclick = () => {
+                if (debugMode) {
+                    console.log('Play: slot ' + slotDiv.id)
+                }
+                game.slotClick(Number(slotDiv.id))
             }
-            event.stopPropagation()
-            event.dataTransfer.setDragImage(this.dragImage, slotSizePx / 2, slotSizePx / 2)
-            event.dataTransfer.effectAllowed = 'move'
-            game.slotDrag(slotDiv)
-        }
-        slotDiv.ondragend = (event) => {
-            if (debugMode) {
-                console.log('Drag end: slot ' + slotDiv.id)
+
+            slotDiv.ondragstart = (event) => {
+                if (debugMode) {
+                    console.log('Drag staaart: slot ' + slotDiv.id)
+                }
+                event.stopPropagation()
+                event.dataTransfer.setDragImage(this.dragImage, slotSizePx / 2, slotSizePx / 2)
+                event.dataTransfer.effectAllowed = 'move'
+                game.slotDrag(slotDiv)
             }
-            event.preventDefault()
-            game.slotDragEnd()
+
+            slotDiv.ondragend = (event) => {
+                if (debugMode) {
+                    console.log('Drag end: slot ' + slotDiv.id)
+                }
+                event.preventDefault()
+                game.slotDragEnd()
+            }
+            
+            slotDiv.ondrop = () => {
+                if (debugMode) {
+                    console.log('Drop: slot ' + slotDiv.id)
+                }
+                game.slotDrop(slotDiv)
+            }
         }
         
-        slotDiv.ondrop = () => {
-            if (debugMode) {
-                console.log('Drop: slot ' + slotDiv.id)
-            }
-            game.slotDrop(slotDiv)
-        }
-
         return slotDiv
+    }
+
+    isPiece(slotDiv) {
+        return slotDiv.classList.contains('piece')
     }
 
     getDragImage() {

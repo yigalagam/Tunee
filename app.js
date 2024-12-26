@@ -1,8 +1,14 @@
 document.title = appName
 
+// Check if operating in a desktop or mobile environment.
+const isAndroid = /Android/i.test(navigator.userAgent)
+const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent)
+var isMobile = isAndroid || isiOS
+const mobileIndex = Number(isMobile)
+
 // Start a game object from an audio file.
-const guiManager = new GUIManager(appName, nBoardRows, nBoardCols, false, debugMode)
-const game = new Game(guiManager, nPieces, [nBoardRows, nBoardCols], false, debugMode)
+const guiManager = new GUIManager(appName, nBoardRows[mobileIndex], nBoardCols[mobileIndex], null, null, false, debugMode)
+const game = new Game(guiManager, nPieces, [nBoardRows[mobileIndex], nBoardCols[mobileIndex]], false, debugMode)
 
 // Set up game container.
 document.body.appendChild(guiManager.gameDiv)
@@ -29,6 +35,7 @@ if (dateStr != null) {
 const audioScript = document.createElement('script')
 audioScript.src = audioScriptName
 document.body.appendChild(audioScript)
+
 
 function startGame() {
     game.start('')
