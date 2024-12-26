@@ -6,7 +6,7 @@ const nBoardRows = [5, 6]
 const nBoardCols = [14, 12]
 
 // Number of pieces making up the puzzle.
-const nPieces  = 2
+const nPieces  = 10
 
 // Title div styling.
 const titleFontSizeEM = 2.8
@@ -39,5 +39,5 @@ const youtubeDivHeightPx = 37 * baseSizePx
 const resultDivWidthPx = 47 * baseSizePx
 const resultAppNameFontSizeEM = 2.1
 const resultFadeoutInterval = 1000
-const copyButtonSizePx = 9 * baseSizePx
+const copyButtonSizePx = 7 * baseSizePx
 const copiedDelay = 3000
