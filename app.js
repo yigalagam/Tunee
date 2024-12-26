@@ -3,7 +3,7 @@ document.title = appName
 // Check if operating in a desktop or mobile environment.
 const isAndroid = /Android/i.test(navigator.userAgent)
 const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent)
-var isMobile = isAndroid || isiOS
+isMobile = isAndroid || isiOS
 const mobileIndex = Number(isMobile)
 
 // Start a game object from an audio file.

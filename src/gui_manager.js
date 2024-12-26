@@ -17,7 +17,6 @@ class GUIManager {
 
         this.testMode = testMode
         this.debugMode = debugMode
-
         if (debugMode) {
             if (isMobile) {
                 console.log('Detected mobile environment')
@@ -415,9 +414,9 @@ class GUIManager {
     }
 
     endGame() {
-        // Fade out the control panel and fade in song information and the sharing panel.
-        const shareManager = new ShareManager(this.timer, this.songTitle, this.youtubeId, this.debugMode)
-        const shareDiv = shareManager.getShareDiv()
+        // Fade out the control panel and fade in song information and the result panel.
+        const shareManager = new ShareManager(this.timer, this.debugMode)
+        const resultDiv = shareManager.getResultDiv()
 
         // Optional div with song title and youtube link.
         const songDiv = this.getSongDiv()
@@ -426,7 +425,7 @@ class GUIManager {
         endDiv.style.display = 'flex'
         endDiv.style.alignItems = 'center'
         endDiv.style.gap = (3 * baseSizePx) + 'px'
-        endDiv.appendChild(shareDiv)
+        endDiv.appendChild(resultDiv)
         endDiv.appendChild(songDiv)
 
         this.controlDiv.style.opacity = 1
@@ -439,6 +438,8 @@ class GUIManager {
                 this.gameDiv.append(endDiv)
             }
         }, resultFadeoutInterval / 20)
+
+        return endDiv
     }
 
 }    

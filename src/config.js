@@ -1,6 +1,9 @@
 const appName = 'Mystery Song'
 const website = 'http://mysterysong.freesite.online'
 
+// Mobile vs. Desktop (this will be overridden by the main app script, but needs to be specified for testing).
+var isMobile = false
+
 // Board dimensions: [desktop, mobile]
 const nBoardRows = [5, 6]
 const nBoardCols = [14, 12]

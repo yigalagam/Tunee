@@ -8,7 +8,7 @@ class ShareManager {
         this.resultImage = null
     }
 
-    getShareDiv() {
+    getResultDiv() {
 
         // Div with final timer result and copy button for sharing.
 

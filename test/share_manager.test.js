@@ -1,16 +1,21 @@
 describe('Share Manager Test', () =>  {
  
-    it('Share on social media', () => {
-        // The sharing buttons share a pregenerated image with the timer result if it is less than an hour,
-        // Otherwise an image without a time display.
+    it('Result Display', () => {
         
-        let shareManager = new ShareManager('59:59', false)
-        let imageLink = shareManager.getShareImageLink()
-        expect(imageLink).toContain('/59_59.png')
+        const timerDiv = document.createElement('div')
+        timerDiv.innerHTML = '59:59'
+        let shareManager = new ShareManager(timerDiv, false)
+        const resultDiv = shareManager.getResultDiv()
 
-        shareManager = new ShareManager('01:00:00', false)
-        imageLink = shareManager.getShareImageLink()
-        expect(imageLink).toContain('share.png')
+        // Verify timer display.
+        let outputTimerDiv = resultDiv.children[0].children[1]
+        expect(outputTimerDiv).toBe(timerDiv)
+        
+        timerDiv.innerHTML = '01:00:00'
+        shareManager = new ShareManager(timerDiv, false)
+        outputTimerDiv = resultDiv.children[0].children[1]
+        expect(outputTimerDiv).toBe(timerDiv)
+
     })
 
 })
