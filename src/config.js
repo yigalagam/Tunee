@@ -6,7 +6,7 @@ const nBoardRows = [5, 6]
 const nBoardCols = [14, 12]
 
 // Number of pieces making up the puzzle.
-const nPieces  = 10
+const nPieces  = 2
 
 // Title div styling.
 const titleFontSizeEM = 2.8
@@ -35,8 +35,9 @@ const songTitleFontSizeEM = 1.3
 const youtubeDivWidthPx = 47 * baseSizePx
 const youtubeDivHeightPx = 37 * baseSizePx
 
-// Parameters for the sharing interface.
-const shareDivWidthPx = 47 * baseSizePx
-const shareFadeoutInterval = 1000
-const shareImageScaling = 0.5
+// Parameters for the result display.
+const resultDivWidthPx = 47 * baseSizePx
+const resultAppNameFontSizeEM = 2.1
+const resultFadeoutInterval = 1000
+const copyButtonSizePx = 9 * baseSizePx
 const copiedDelay = 3000

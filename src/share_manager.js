@@ -1,38 +1,79 @@
 class ShareManager {
 
-    constructor(timeStr, debugMode=false) {
+    constructor(timerDiv, debugMode=false) {
         // Set up a share manager object with a the time taken to complete the puzzle.
-        this.timeStr = timeStr
+        this.timerDiv = timerDiv       
+        this.timeStr = timerDiv.innerHTML
         this.debugMode = debugMode
         this.resultImage = null
     }
 
     getShareDiv() {
 
-        // Build an interface for sharing results on social media.
+        // Div with final timer result and copy button for sharing.
 
-        // Show the shared image from a pre-generated set.
-        // If the time is less than an hour, show an image with a timer, otherwise a generic image.
-        this.resultImage = document.createElement('img')
-        this.resultImage.src = this.getShareImageLink()
-        this.resultImage.style.width = shareDivWidthPx + 'px'
-        this.resultImage.style.marginTop = baseSizePx + 'px'
-     
+        // Top row: Game title between two puzzle pieces.
+        
+        const pieceDiv = document.createElement('div')
+        pieceDiv.style.width = slotSizePx + 'px'
+        pieceDiv.style.height = slotSizePx + 'px'
+        pieceDiv.style.backgroundImage = "url('../images/piece.png')"
+        pieceDiv.style.backgroundSize = 'cover'
+        const leftPiece = pieceDiv
+        const rightPiece = pieceDiv.cloneNode(true)
+        
+        const nameDiv = document.createElement('div')
+        nameDiv.style.fontFamily = font
+        nameDiv.style.fontSize = resultAppNameFontSizeEM + 'em'
+        nameDiv.style.fontWeight = 'bold'
+        nameDiv.style.color = darkGray
+        nameDiv.style.userSelect = 'none'
+        nameDiv.innerHTML = appName
+
+        const topRowDiv = document.createElement('div')
+        topRowDiv.style.width = '100%'
+        topRowDiv.style.height = slotSizePx + 'px'
+        topRowDiv.style.marginTop = baseSizePx + 'px'
+        topRowDiv.style.marginBottom = baseSizePx + 'px'
+        topRowDiv.style.paddingLeft = baseSizePx + 'px'
+        topRowDiv.style.paddingRight = baseSizePx + 'px'
+        topRowDiv.style.boxSizing = 'border-box'
+        topRowDiv.style.display = 'flex'
+        topRowDiv.style.justifyContent = 'space-between'
+        topRowDiv.style.alignItems = 'center'
+        topRowDiv.append(leftPiece)
+        topRowDiv.append(nameDiv)
+        topRowDiv.append(rightPiece)
+
         // Create a div that contains the copy button.
         const copyButtonDiv = document.createElement('div')
         copyButtonDiv.style.backgroundImage = 'url("../images/copy.png")'
         copyButtonDiv.style.backgroundSize = 'cover'
-        copyButtonDiv.style.width = Math.round(2.5 * slotSizePx) + 'px'
-        copyButtonDiv.style.height = Math.round(2.5 * slotSizePx) + 'px'
+        copyButtonDiv.style.width = copyButtonSizePx + 'px'
+        copyButtonDiv.style.height = copyButtonSizePx + 'px'
         copyButtonDiv.onclick = this.copyResult.bind(this)
  
+        // The full result div contains the top row, timer result and copy button.
+
+        const nameAndTimerDiv = document.createElement('div')
+        nameAndTimerDiv.style.width = '100%'
+        nameAndTimerDiv.style.backgroundColor = lightGray
+        nameAndTimerDiv.style.border = borderWidth + 'px solid'
+        nameAndTimerDiv.style.borderRadius = borderRadius
+        nameAndTimerDiv.style.marginBottom = baseSizePx + 'px'
+        nameAndTimerDiv.style.display = 'flex'
+        nameAndTimerDiv.style.flexDirection = 'column'
+        nameAndTimerDiv.style.placeItems = 'center'
+        nameAndTimerDiv.appendChild(topRowDiv)
+        this.timerDiv.style.marginBottom = baseSizePx + 'px'
+        nameAndTimerDiv.appendChild(this.timerDiv)
+
         const resultDiv = document.createElement('div')
-        resultDiv.style.width = shareDivWidthPx + 'px'
-        resultDiv.style.marginTop = baseSizePx + 'px'
+        resultDiv.style.width = resultDivWidthPx + 'px'
         resultDiv.style.display = 'flex'
         resultDiv.style.flexDirection = 'column'
         resultDiv.style.placeItems = 'center'
-        resultDiv.appendChild(this.resultImage)
+        resultDiv.appendChild(nameAndTimerDiv)
         resultDiv.appendChild(copyButtonDiv)
 
         return resultDiv
@@ -42,8 +83,10 @@ class ShareManager {
         // Copy to clipboard.
 
         const copyText = this.getShareText()
-
-        //navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
+        if (this.debugMode) {
+            console.log(copyText)
+        }
+        navigator.clipboard.writeText(copyText)
 
         // Turn on "copied" indicator.
         this.copiedResult(event.target)
@@ -75,14 +118,11 @@ class ShareManager {
         let shareText = note + ' ' + appName + ', ' + dateStr + ' ' + note
 
         // Timer result with padding.
-        const nSpaces = Math.round((shareText.length - this.timeStr.length) / 2)
-        shareText += ('\n' + ' '.repeat(nSpaces) + this.timeStr + ' '.repeat(nSpaces))
+        shareText += ('\n\n' + 'Time to solve: ' + this.timeStr)
 
-        shareText += ('\n' + website + '\n')
+        shareText += ('\n\n' + website + '\n')
 
-        if (this.debugMode) {
-            console.log(shareText)
-        }
+        return shareText
     }
 
     getShareImageLink(external=false) {

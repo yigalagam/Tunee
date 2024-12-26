@@ -416,7 +416,7 @@ class GUIManager {
 
     endGame() {
         // Fade out the control panel and fade in song information and the sharing panel.
-        const shareManager = new ShareManager(this.timer.innerHTML, this.songTitle, this.youtubeId, this.debugMode)
+        const shareManager = new ShareManager(this.timer, this.songTitle, this.youtubeId, this.debugMode)
         const shareDiv = shareManager.getShareDiv()
 
         // Optional div with song title and youtube link.
@@ -438,7 +438,7 @@ class GUIManager {
                 clearInterval(fadeOutInterval)
                 this.gameDiv.append(endDiv)
             }
-        }, shareFadeoutInterval / 20)
+        }, resultFadeoutInterval / 20)
     }
 
 }    
