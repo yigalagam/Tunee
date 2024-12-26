@@ -1,9 +1,12 @@
 const appName = 'Mystery Song'
-const website = 'http://mysterysong.freesite.online/'
+const website = 'http://mysterysong.freesite.online'
 
-const nBoardRows = 5
-const nBoardCols = 15
-const nPieces  = 3
+// Board dimensions: [desktop, mobile]
+const nBoardRows = [5, 6]
+const nBoardCols = [14, 12]
+
+// Number of pieces making up the puzzle.
+const nPieces  = 10
 
 // Title div styling.
 const titleFontSizeEM = 2.8
