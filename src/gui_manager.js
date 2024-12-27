@@ -11,6 +11,7 @@ class GUIManager {
         this.gameDiv = null
         this.controlDiv = null
         this.boardSlots = []
+        this.boardActive = true
         this.actionButton = null
         this.timer = null
         this.dragImage = this.getDragImage()
@@ -160,8 +161,18 @@ class GUIManager {
             })
 
         } else {
-            // Drag & drop listeners for desktop.
+            // Mouse action listeners for desktop.
 
+            slotDiv.onmouseover = () => {
+                if (this.boardActive && slotDiv.classList.contains('piece')) {
+                    this.setSlotMouseOver(slotDiv.id)
+                }
+            }
+
+            slotDiv.onmouseout = () => {
+                this.setSlotMouseNotOver(slotDiv.id)
+            }
+            
             slotDiv.onclick = () => {
                 if (debugMode) {
                     console.log('Play: slot ' + slotDiv.id)
@@ -171,8 +182,9 @@ class GUIManager {
 
             slotDiv.ondragstart = (event) => {
                 if (debugMode) {
-                    console.log('Drag staaart: slot ' + slotDiv.id)
+                    console.log('Drag start: slot ' + slotDiv.id)
                 }
+                this.setSlotMouseNotOver(slotDiv.id)
                 event.stopPropagation()
                 event.dataTransfer.setDragImage(this.dragImage, slotSizePx / 2, slotSizePx / 2)
                 event.dataTransfer.effectAllowed = 'move'
@@ -183,6 +195,7 @@ class GUIManager {
                 if (debugMode) {
                     console.log('Drag end: slot ' + slotDiv.id)
                 }
+                this.setSlotMouseNotOver(slotDiv.id)
                 event.preventDefault()
                 game.slotDragEnd()
             }
@@ -191,6 +204,7 @@ class GUIManager {
                 if (debugMode) {
                     console.log('Drop: slot ' + slotDiv.id)
                 }
+                this.setSlotMouseNotOver(slotDiv.id)
                 game.slotDrop(slotDiv)
             }
         }
@@ -255,7 +269,22 @@ class GUIManager {
         this.boardSlots[slotIndex].classList.remove('piece-playing')
     }
 
+    setSlotMouseOver(slotIndex) {
+        if (typeof(slotIndex) === 'string') {
+            slotIndex = Number(slotIndex)
+        }
+        this.boardSlots[slotIndex].classList.add('piece-mouseover')
+    }
+
+    setSlotMouseNotOver(slotIndex) {
+        if (typeof(slotIndex) === 'string') {
+            slotIndex = Number(slotIndex)
+        }
+        this.boardSlots[slotIndex].classList.remove('piece-mouseover')
+    }
+
     inactivateBoard() {
+        this.boardActive = false
         let slotGUI
         for (let slotIndex = 0; slotIndex < this.nSlots; slotIndex++) {
             slotGUI = this.boardSlots[slotIndex]
@@ -263,6 +292,7 @@ class GUIManager {
                 console.log('Inactivating slot ' + slotIndex)
             }
             slotGUI.draggable = false
+            this.setSlotMouseNotOver(slotIndex)
         }
     }
 
