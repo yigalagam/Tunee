@@ -14,6 +14,7 @@ class GUIManager {
         this.boardActive = true
         this.actionButton = null
         this.timer = null
+        this.feedbackButton = null
         this.dragImage = this.getDragImage()
 
         this.testMode = testMode
@@ -41,7 +42,6 @@ class GUIManager {
         }
     }
 
-    // *** Main game container ***
     getGameDiv() {
         this.gameDiv = document.createElement('div')
         this.gameDiv.style.margin = '0 auto'
@@ -53,11 +53,10 @@ class GUIManager {
         this.gameDiv.appendChild(this.getTitleDiv())
         this.gameDiv.appendChild(this.getBoardDiv())
         this.gameDiv.appendChild(this.getControlDiv())
+        this.gameDiv.appendChild(this.getFeedbackButton())
        
         return this.gameDiv
     }
-
-    // *** Game board  with slots for puzzle pieces ***
 
     getTitleDiv() {
         const mainTitleDiv = document.createElement('div')
@@ -369,9 +368,46 @@ class GUIManager {
         this.timer.innerHTML = '00:00'
         return this.timer
     }
-
+            
     showTime(timeStr) {
         this.timer.innerHTML = timeStr
+    }
+
+    // *** Area containing the game controls (anything outside the board) ***
+
+    getControlDiv() {
+        const controlDiv = document.createElement('div')
+        controlDiv.style.width = controlDivWidthPx + 'px'
+        controlDiv.style.height = controlDivHeightPx + 'px'
+        controlDiv.style.backgroundColor = lightGray
+        controlDiv.style.border = borderWidth + 'px solid'
+        controlDiv.style.borderRadius = borderRadius
+        controlDiv.style.marginLeft = 'auto'
+        controlDiv.style.marginRight = 'auto'
+        controlDiv.style.marginTop = baseSizePx + 'px'
+        controlDiv.style.display = 'flex'
+        controlDiv.style.justifyContent = 'space-around'
+        controlDiv.style.alignItems = 'center'
+        controlDiv.appendChild(this.getActionButton())
+        controlDiv.appendChild(this.getTimer())
+        this.controlDiv = controlDiv
+        return controlDiv
+    }
+
+    getFeedbackButton() {
+        // Mailto link for feedback.
+        this.feedbackButton = document.createElement('div')
+        this.feedbackButton.style.backgroundImage = 'url("../images/feedback.png")'
+        this.feedbackButton.style.backgroundSize = 'cover'
+        this.feedbackButton.style.width = feedbackButtonSizePx + 'px'
+        this.feedbackButton.style.height = feedbackButtonSizePx + 'px'
+        this.feedbackButton.style.marginTop = baseSizePx + 'px'
+        this.feedbackButton.title = email
+        this.feedbackButton.style.cursor = 'pointer'
+        this.feedbackButton.onclick = () => {
+            window.location.href = 'mailto:' + email
+        }
+        return this.feedbackButton
     }
 
     // *** Song information ***
@@ -422,27 +458,6 @@ class GUIManager {
         return songDiv
     }
 
-    // *** Area containing the game controls (anything outside the board) ***
-
-    getControlDiv() {
-        const controlDiv = document.createElement('div')
-        controlDiv.style.width = controlDivWidthPx + 'px'
-        controlDiv.style.height = controlDivHeightPx + 'px'
-        controlDiv.style.backgroundColor = lightGray
-        controlDiv.style.border = borderWidth + 'px solid'
-        controlDiv.style.borderRadius = borderRadius
-        controlDiv.style.marginLeft = 'auto'
-        controlDiv.style.marginRight = 'auto'
-        controlDiv.style.marginTop = baseSizePx + 'px'
-        controlDiv.style.display = 'flex'
-        controlDiv.style.justifyContent = 'space-around'
-        controlDiv.style.alignItems = 'center'
-        controlDiv.appendChild(this.getActionButton())
-        controlDiv.appendChild(this.getTimer())
-        this.controlDiv = controlDiv
-        return controlDiv
-    }
-
     endGame() {
         // Fade out the control panel and fade in song information and the result panel.
         const shareManager = new ShareManager(this.timer, this.debugMode)
@@ -459,13 +474,18 @@ class GUIManager {
         endDiv.appendChild(songDiv)
 
         this.controlDiv.style.opacity = 1
+        this.feedbackButton.style.opacity = 1
         const fadeOutInterval = setInterval(() => {
             if (this.controlDiv.style.opacity > 0) {
                 this.controlDiv.style.opacity -= 0.05
+                this.feedbackButton.style.opacity -= 0.05
             } else {
+                this.controlDiv.remove()
                 this.controlDiv.remove()
                 clearInterval(fadeOutInterval)
                 this.gameDiv.append(endDiv)
+                this.feedbackButton.style.opacity = 1
+                this.gameDiv.append(this.feedbackButton)
             }
         }, resultFadeoutInterval / 20)
 

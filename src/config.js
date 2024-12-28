@@ -1,5 +1,6 @@
 const appName = 'Mystery Song'
 const website = 'http://mysterysong.freesite.online'
+const email = 'mysterysonggame@gmail.com'
 
 // Mobile vs. Desktop (this will be overridden by the main app script, but needs to be specified for testing).
 var isMobile = false
@@ -9,7 +10,7 @@ const nBoardRows = [5, 6]
 const nBoardCols = [14, 12]
 
 // Number of pieces making up the puzzle.
-const nPieces = 10
+const nPieces = 2
 
 // Title div styling.
 const titleFontSizeEM = 2.8
@@ -32,6 +33,9 @@ const borderRadius = '10px'
 // Bottom div outside the board with button and timer.
 const controlDivWidthPx = 50 * baseSizePx
 const controlDivHeightPx = 19 * baseSizePx
+
+// Feedback button.
+const feedbackButtonSizePx = 7 * baseSizePx
 
 // Parameter for displaying song information.
 const songTitleFontSizeEM = 1.3
