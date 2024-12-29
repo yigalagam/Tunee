@@ -419,7 +419,6 @@ class GUIManager {
             songTitleDiv.style.fontSize = songTitleFontSizeEM + 'em'
             songTitleDiv.style.fontWeight = 'bold'
             songTitleDiv.style.color = darkGray
-            songTitleDiv.style.marginTop = baseSizePx + 'px'
             songTitleDiv.innerHTML = this.songTitle
         }
         return songTitleDiv
@@ -460,19 +459,21 @@ class GUIManager {
 
     endGame() {
         // Fade out the control panel and fade in song information and the result panel.
+        
         const shareManager = new ShareManager(this.timer, this.debugMode)
         const resultDiv = shareManager.getResultDiv()
-
-        // Optional div with song title and youtube link.
-        const songDiv = this.getSongDiv()
 
         const endDiv = document.createElement('div')
         endDiv.style.display = 'flex'
         endDiv.style.alignItems = 'center'
-        endDiv.style.gap = (3 * baseSizePx) + 'px'
+        endDiv.style.marginTop = baseSizePx + 'px'
         endDiv.appendChild(resultDiv)
-        endDiv.appendChild(songDiv)
-
+        if (this.songTitle != null || this.youtubeId != null) {
+            // Optional div with song title and youtube link.
+            const songDiv = this.getSongDiv()
+            endDiv.style.gap = (3 * baseSizePx) + 'px'
+            endDiv.appendChild(songDiv)
+        }
         this.controlDiv.style.opacity = 1
         this.feedbackButton.style.opacity = 1
         const fadeOutInterval = setInterval(() => {

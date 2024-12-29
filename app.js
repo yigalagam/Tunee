@@ -23,7 +23,7 @@ document.body.appendChild(guiManager.dragImage)
 // Check if a specific date passed in URL.
 // If not, use today's data.
 const params = new URLSearchParams(window.location.search)
-const dateStr = params.get('date')
+const dateStr = params.get('dateoverride')
 let audioScriptName
 if (dateStr != null) {
     audioScriptName = '../audio_data/' + dateStr + '.js'
