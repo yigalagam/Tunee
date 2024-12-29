@@ -419,7 +419,11 @@ class GUIManager {
             songTitleDiv.style.fontSize = songTitleFontSizeEM + 'em'
             songTitleDiv.style.fontWeight = 'bold'
             songTitleDiv.style.color = darkGray
+            songTitleDiv.style.whiteSpace = 'pre-wrap'
             songTitleDiv.innerHTML = this.songTitle
+            if (this.debugMode) {
+                console.log(this.songTitle)
+            }
         }
         return songTitleDiv
     }
@@ -430,7 +434,6 @@ class GUIManager {
         if (this.youtubeId != null) {
             youtubeDiv.style.width = youtubeDivWidthPx + 'px'
             youtubeDiv.style.height = youtubeDivHeightPx + 'px'
-            youtubeDiv.style.marginTop = baseSizePx + 'px'
             youtubeDiv.style.display = 'flex'
             youtubeDiv.style.justifyContent = 'center'
             youtubeDiv.style.alignItems = 'center'
@@ -453,6 +456,7 @@ class GUIManager {
         songDiv.style.flexDirection = 'column'
         songDiv.style.placeItems = 'center'
         songDiv.appendChild(this.getSongTitleDiv())
+        songDiv.style.gap = baseSizePx + 'px'
         songDiv.appendChild(this.getYoutubeDiv())
         return songDiv
     }
