@@ -1,0 +1,7 @@
+npx jasmine-browser-runner serve
+
+For local hosting: python3 -m http.server 8000
+
+Uglify command:
+
+uglifyjs src/hammer.min.js src/piece.js src/segment.js src/board.js src/timer.js src/game.js src/config.js src/share_manager.js src/gui_manager.js src/audio.js app.js

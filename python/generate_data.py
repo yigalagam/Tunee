@@ -32,12 +32,21 @@ def audio_to_arrays(audio_file, output_file, song_title=None, youtube_id=None):
         fid.write(str(sample_rate) + ',\n')
         
         if song_title is not None:
-            fid.write("\t\t'songTitle': " + '"' + song_title + '",\n')
+            fid.write("\t\t'songTitle': " + '"' + shift_ascii(song_title, 1) + '",\n')
 
         if youtube_id is not None:
-            fid.write("\t\t'youtubeId': " + '"' + youtube_id + '",\n')
+            fid.write("\t\t'youtubeId': " + '"' + shift_ascii(youtube_id, 1) + '",\n')
                 
         fid.write('\t}\n}\n')
+
+
+def shift_ascii(string, shift):
+    # Shift ascii code in strings to hide the inforamtion.
+    shifted_chars = []
+    for char in string:
+        shifted_char = chr(ord(char) + shift)
+        shifted_chars.append(shifted_char)
+    return ''.join(shifted_chars)
 
 
 if __name__ == '__main__':

@@ -9,14 +9,16 @@ class Segment {
         this.sound = [audioData.left, audioData.right]
         this.sampleRate = audioData.sampleRate
 
+        // Load song information, accounting for ASCII shift to hide the information.
+        
         if (audioData.hasOwnProperty('songTitle')) {
-            this.songTitle = audioData.songTitle
+            this.songTitle = shiftAscii(audioData.songTitle, -1)
         } else {
             this.songTitle = null
         }
 
         if (audioData.hasOwnProperty('youtubeId')) {
-            this.youtubeId = audioData.youtubeId
+            this.youtubeId = shiftAscii(audioData.youtubeId, -1)
         } else {
             this.youtubeId = null
         }
@@ -44,4 +46,9 @@ class Segment {
         }
         return pieces
     }
+
+}
+
+function shiftAscii(str, shift) {
+    return str.split('').map((char) => String.fromCharCode(char.charCodeAt(0) + shift)).join('');
 }
