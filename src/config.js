@@ -1,4 +1,4 @@
-const appName = 'Mystery Song'
+const appName = 'Tunee'
 const website = 'http://mysterysong.freesite.online'
 const email = 'mysterysonggame@gmail.com'
 
@@ -13,7 +13,7 @@ const nBoardCols = [14, 12]
 const nPieces = 2
 
 // Title div styling.
-const titleFontSizeEM = 2.8
+const titleFontSizeEM = 3
 const subtitleFontSizeEM = 1.5
 
 // This will generate some console messages.

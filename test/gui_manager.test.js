@@ -9,8 +9,7 @@ describe('GUI Manager Test', () =>  {
         let youtubeDiv = guiManager.getYoutubeDiv()
         expect(youtubeDiv.innerHTML).toBe('')
         let endDiv = guiManager.endGame()
-        expect(endDiv.children[1].children[0].innerHTML).toBe('')
-        expect(endDiv.children[1].children[1].innerHTML).toBe('')
+        expect(endDiv.children.length).toBe(1)
         
         guiManager = new GUIManager('', 4, 7, 'Beatles: A Day in the Life')
         songTitleDiv = guiManager.getSongTitleDiv()
