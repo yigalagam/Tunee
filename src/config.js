@@ -17,7 +17,7 @@ const titleFontSizeEM = 3
 const subtitleFontSizeEM = 1.5
 
 // This will generate some console messages.
-const debugMode = true
+const debugMode = false
 
 // Parameters for setting up the game GUI.
 const baseSizePx = 10
