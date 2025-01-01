@@ -123,6 +123,10 @@ class Game {
         // Callback function when a piece is getting dropped.
 
         if (!this.gameEnded) {
+            if (this.debugMode) {
+                console.log('Dropped on Slot: ' + slotElement.id)
+            }
+
             this.movePiece(Number(this.slotBeingMovedElement.id), Number(slotElement.id))
 
             // Check if puzzle is solved.
