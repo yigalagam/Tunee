@@ -163,7 +163,9 @@ class Board {
                 this.slots[startSlot].play()
                 this.guiManager.setSlotPiecePlaying(startSlot)
                 this.slots[startSlot].audioSource.onended = () => {
-                    console.log('Slot ' + startSlot + ' finished playing')
+                    if (this.debugMode) {
+                        console.log('Slot ' + startSlot + ' finished playing')
+                    }
                     this.guiManager.setSlotPieceNotPlaying(startSlot)
                     if (!this.playingInterrupted) {
                         this.playMultipleSlots(startSlot + 1, endSlot)
