@@ -2,8 +2,14 @@ const appName = 'Tunee'
 const website = 'https://tuneepuzzle.github.io/play'
 const email = 'tuneepuzzle@gmail.com'
 
+// This will generate some console messages.
+const debugMode = true
+
 // Mobile vs. Desktop (this will be overridden by the main app script, but needs to be specified for testing).
 var isMobile = false
+
+// Piece playing volume.
+const playVolumePct = 30
 
 // Board dimensions: [desktop, mobile]
 const nBoardRows = [5, 6]
@@ -15,9 +21,6 @@ const nPieces = 10
 // Title div styling.
 const titleFontSizeEM = 3
 const subtitleFontSizeEM = 1.5
-
-// This will generate some console messages.
-const debugMode = false
 
 // Parameters for setting up the game GUI.
 const baseSizePx = 10

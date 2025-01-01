@@ -22,7 +22,7 @@ class Piece {
             rightChannel.set(this.sound[1])
 
             // Normalize the data (assuming values are in the range of -32768 to 32767)
-            const normalizationFactor = 1 / 32768;
+            const normalizationFactor = 1 / 32768 * playVolumePct / 100
             for (let i = 0; i < this.sound[0].length; i++) {
                 leftChannel[i] = this.sound[0][i] * normalizationFactor;
                 rightChannel[i] = this.sound[1][i] * normalizationFactor;
