@@ -1,5 +1,11 @@
 document.title = appName
 
+// Icon to appear in browser tab.
+let icon = document.createElement('link');
+icon.setAttribute('rel', 'shortcut icon');
+icon.setAttribute('href', 'images/piece_mouseover.png');
+document.head.appendChild(icon);
+
 // Check if operating in a desktop or mobile environment.
 const isAndroid = /Android/i.test(navigator.userAgent)
 const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent)
