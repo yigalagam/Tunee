@@ -1,4 +1,5 @@
 const appName = 'Tunee'
+const subtitle = "Put the puzzle pieces in the right order to play today's music!"
 const website = 'https://tuneepuzzle.github.io/play'
 const email = 'tuneepuzzle@gmail.com'
 

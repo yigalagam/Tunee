@@ -71,7 +71,7 @@ class GUIManager {
         subTitleDiv.style.fontSize = subtitleFontSizeEM + 'em'
         subTitleDiv.style.fontWeight = 'bold'
         subTitleDiv.style.color = lightGray
-        subTitleDiv.innerHTML = 'Put the puzzle pieces in the right order to play some music!'
+        subTitleDiv.innerHTML = subtitle
 
         const titleDiv = document.createElement('div')
         titleDiv.style.display = 'grid'
