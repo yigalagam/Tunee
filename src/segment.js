@@ -6,19 +6,20 @@ class Segment {
         }
 
         const audioData = loadAudioData(id)
-        this.sound = [audioData.left, audioData.right]
-        this.sampleRate = audioData.sampleRate
+        // Audio data is inverted and reversed to mask the content.
+        this.sound = [audioData[0].reverse().map(num => -num), audioData[1].reverse().map(num => -num)]
+        this.sampleRate = audioData[2]
 
         // Load song information, accounting for ASCII shift to hide the information.
-        
-        if (audioData.hasOwnProperty('songTitle')) {
-            this.songTitle = shiftAscii(audioData.songTitle, -1)
+
+        if (audioData.length > 3) {
+            this.songTitle = shiftAscii(audioData[3], -1)
         } else {
             this.songTitle = null
         }
 
-        if (audioData.hasOwnProperty('youtubeId')) {
-            this.youtubeId = shiftAscii(audioData.youtubeId, -1)
+        if (audioData.length > 4) {
+            this.youtubeId = shiftAscii(audioData[4], -1)
         } else {
             this.youtubeId = null
         }

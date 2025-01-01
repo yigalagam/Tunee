@@ -17,6 +17,9 @@ def audio_to_arrays(audio_file, output_file, song_title=None, youtube_id=None):
         two_channels[:, 1] = sound
         sound = two_channels
 
+    # Scamble data by negating and reversing.
+    sound = -sound[::-1, :]
+
     with open(output_file, 'w') as fid:
         fid.write("function loadAudioDataByDate() {\n\treturn {\n\t\t'left':\n\t\t\t[")
         for i, value in enumerate(sound[:, 0]):
@@ -24,7 +27,7 @@ def audio_to_arrays(audio_file, output_file, song_title=None, youtube_id=None):
             if i < dims[0] - 1:
                 fid.write(',')
         fid.write("],\n\t\t'right':\n\t\t\t[")
-        for i, value in enumerate(sound[:, 0]):
+        for i, value in enumerate(sound[:, 1]):
             fid.write(str(value))
             if i < dims[0] - 1:
                 fid.write(',')
@@ -32,10 +35,10 @@ def audio_to_arrays(audio_file, output_file, song_title=None, youtube_id=None):
         fid.write(str(sample_rate) + ',\n')
         
         if song_title is not None:
-            fid.write("\t\t'songTitle': " + '"' + shift_ascii(song_title, 1) + '",\n')
+            fid.write("\t\t'songTitle': " + "'" + shift_ascii(song_title, 1) + "',\n")
 
         if youtube_id is not None:
-            fid.write("\t\t'youtubeId': " + '"' + shift_ascii(youtube_id, 1) + '",\n')
+            fid.write("\t\t'youtubeId': " + "'" + shift_ascii(youtube_id, 1) + "',\n")
                 
         fid.write('\t}\n}\n')
 

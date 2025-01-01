@@ -26,7 +26,7 @@ const params = new URLSearchParams(window.location.search)
 const dateStr = params.get('d')
 let audioScriptName
 if (dateStr != null) {
-    audioScriptName = '../audio_data/' + dateStr + '.js'
+    audioScriptName = 'audio_data/' + dateStr + '.js'
 } else {
     audioScriptName = getTodayScript()
 }

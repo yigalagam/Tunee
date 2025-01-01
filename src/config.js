@@ -1,6 +1,6 @@
 const appName = 'Tunee'
-const website = 'http://mysterysong.freesite.online'
-const email = 'mysterysonggame@gmail.com'
+const website = 'https://tuneepuzzle.github.io/play'
+const email = 'tuneepuzzle@gmail.com'
 
 // Mobile vs. Desktop (this will be overridden by the main app script, but needs to be specified for testing).
 var isMobile = false

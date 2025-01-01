@@ -217,7 +217,7 @@ class GUIManager {
 
     getDragImage() {
         const dragImage = new Image();
-        dragImage.src = '../images/piece_dragged.png';
+        dragImage.src = 'images/piece_dragged.png';
         dragImage.style.width = slotSizePx + 'px'
         dragImage.style.height = slotSizePx + 'px'
         const dragDiv = document.createElement('div')
@@ -331,7 +331,7 @@ class GUIManager {
 
     setActionButtonGameOn() {
         this.setActionButtonText('')
-        this.setActionButtonImage("url('../images/game_on.png')")
+        this.setActionButtonImage("url('images/game_on.png')")
         this.setActionButtonClick(null)
     }
 
@@ -397,7 +397,7 @@ class GUIManager {
     getFeedbackButton() {
         // Mailto link for feedback.
         this.feedbackButton = document.createElement('div')
-        this.feedbackButton.style.backgroundImage = 'url("../images/feedback.png")'
+        this.feedbackButton.style.backgroundImage = 'url("images/feedback.png")'
         this.feedbackButton.style.backgroundSize = 'cover'
         this.feedbackButton.style.width = feedbackButtonSizePx + 'px'
         this.feedbackButton.style.height = feedbackButtonSizePx + 'px'

@@ -17,7 +17,7 @@ class ShareManager {
         const pieceDiv = document.createElement('div')
         pieceDiv.style.width = slotSizePx + 'px'
         pieceDiv.style.height = slotSizePx + 'px'
-        pieceDiv.style.backgroundImage = "url('../images/piece.png')"
+        pieceDiv.style.backgroundImage = "url('images/piece.png')"
         pieceDiv.style.backgroundSize = 'cover'
         const leftPiece = pieceDiv
         const rightPiece = pieceDiv.cloneNode(true)
@@ -47,7 +47,7 @@ class ShareManager {
 
         // Create a div that contains the copy button.
         const copyButtonDiv = document.createElement('div')
-        copyButtonDiv.style.backgroundImage = 'url("../images/copy.png")'
+        copyButtonDiv.style.backgroundImage = 'url("images/copy.png")'
         copyButtonDiv.style.backgroundSize = 'cover'
         copyButtonDiv.style.width = copyButtonSizePx + 'px'
         copyButtonDiv.style.height = copyButtonSizePx + 'px'
@@ -95,10 +95,10 @@ class ShareManager {
     copiedResult(shareButtonDiv) {
         // Temporarily disable the copy button after copying.
         shareButtonDiv.onclick = null
-        shareButtonDiv.style.backgroundImage = 'url("../images/copied.png")'
+        shareButtonDiv.style.backgroundImage = 'url("images/copied.png")'
         setTimeout(() => {
             shareButtonDiv.onclick = this.copyResult.bind(this)
-            shareButtonDiv.style.backgroundImage = 'url("../images/copy.png")'
+            shareButtonDiv.style.backgroundImage = 'url("images/copy.png")'
         }, copiedDelay)
     }
 
@@ -123,26 +123,6 @@ class ShareManager {
         shareText += ('\n\n' + website + '\n')
 
         return shareText
-    }
-
-    getShareImageLink(external=false) {
-        // For sharing on social media platforms, use a pre-generated image with the right time displayed.
-        // If time is more than 1 hour, share an image without a timer result.
-        let prefix
-        if (external) {
-            prefix = website
-        } else {
-            prefix = '..'
-        }
-        let imageShareLink
-        if (this.timeStr.length == 5) {
-            // Time is mm:ss, meaning less than 1 hour.
-            imageShareLink = prefix + '/images/share/' + this.timeStr.replaceAll(':', '_') + '.png'
-        } else {
-            // Time has an hours component, meaning at least 1 hour.
-            imageShareLink = prefix + '/images/share/share.png'
-        }
-        return imageShareLink
     }
 
 }

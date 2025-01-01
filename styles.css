@@ -1,18 +1,18 @@
 .piece {
-    background-image: url('../images/piece.png');
+    background-image: url('images/piece.png');
     background-size: cover;
 }
 
 .piece-dragged {
-    background-image: url('../images/piece_dragged.png');
+    background-image: url('images/piece_dragged.png');
     background-size: cover;
 }
 .piece-mouseover {
-    background-image: url('../images/piece_mouseover.png');
+    background-image: url('images/piece_mouseover.png');
     background-size: cover;
 }
 
 .piece-playing {
-    background-image: url('../images/piece_playing.png');
+    background-image: url('images/piece_playing.png');
     background-size: cover;
 }
