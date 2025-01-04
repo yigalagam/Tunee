@@ -17,7 +17,7 @@ const nBoardRows = [5, 6]
 const nBoardCols = [14, 12]
 
 // Number of pieces making up the puzzle.
-const nPieces = 10
+const nPieces = 2
 
 // Title div styling.
 const titleFontSizeEM = 3
@@ -43,8 +43,7 @@ const feedbackButtonSizePx = 7 * baseSizePx
 
 // Parameter for displaying song information.
 const songTitleFontSizeEM = 1.3
-const youtubeDivWidthPx = 47 * baseSizePx
-const youtubeDivHeightPx = 37 * baseSizePx
+const soundcloudFrameWidthPx = 47 * baseSizePx
 
 // Parameters for the result display.
 const resultDivWidthPx = 47 * baseSizePx

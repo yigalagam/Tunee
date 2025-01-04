@@ -26,17 +26,21 @@ class Game {
         this.slotBeingMovedElement = null
     }
 
-    start(id) {
-        this.segment = new Segment(id, this.testMode, this.debugMode)
-        this.guiManager.setSongData(this.segment.songTitle, this.segment.youtubeId)
-        this.solution = this.segment.divide(this.nPieces)
-        this.board.reset()
-        this.board.loadPieces(this.solution)
-        this.gameEnded = false
-        this.startGUI()
+    start(songTitle, soundCloudLink, startTime, endTime) {
+        // Initialize a soundcloud widget object with a music track, then start game.
+        this.guiManager.setSongTitle(songTitle)
+        const scWidget = this.guiManager.getSoundcloudWidget(soundCloudLink)
 
-        // Start running the timer.
-        this.timer.start()
+        scWidget.bind(SC.Widget.Events.READY, () => {
+            scWidget.unbind(SC.Widget.Events.READY)
+            this.segment = new Segment(scWidget, startTime, endTime, this.testMode)
+            this.solution = this.segment.divide(this.nPieces)
+            this.board.reset()
+            this.board.loadPieces(this.solution)
+            this.gameEnded = false
+            this.startGUI()
+            this.timer.start()
+        })
     }
 
     end() {

@@ -20,6 +20,7 @@ class Board {
         // Properties to control audio conflicts.
         this.playing = false
         this.playingInterrupted = false
+        this.playEndEventHandler = null
 
     }
 
@@ -148,7 +149,7 @@ class Board {
     }
     
     async playMultipleSlots(startSlot, endSlot) {
-        // Play the content of the player between two slot indexes, pausing at slots with no pieces.
+        // Play the content of the player between two slot indexes.
 
         if (!this.testMode) {
 
@@ -161,8 +162,10 @@ class Board {
             if (!this.playingInterrupted) {
                 this.playing = true
                 this.slots[startSlot].play()
+                // Make sure nothing else plays until this piece is done playing.
                 this.guiManager.setSlotPiecePlaying(startSlot)
-                this.slots[startSlot].audioSource.onended = () => {
+                this.playEndEventHandler = () => {
+                    document.removeEventListener('playEnd', this.playEndEventHandler)
                     if (this.debugMode) {
                         console.log('Slot ' + startSlot + ' finished playing')
                     }
@@ -173,6 +176,8 @@ class Board {
                         this.playingInterrupted = false
                     }
                 }
+                document.addEventListener('playEnd', this.playEndEventHandler)
+
             } else {
                 this.playing = false
                 this.playingInterrupted = false

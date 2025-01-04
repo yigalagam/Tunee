@@ -3,7 +3,7 @@ describe('Board Test', () =>  {
     beforeEach(() => {
         this.guiManager = new GUIManager('Test', 3, 5)
         this.board = new Board(guiManager, 3, 5, true)
-        this.segment = new Segment('small.wav', true)
+        this.segment = new Segment(null, 5, 12.2, true)
         this.pieces = this.segment.divide(4)
         this.board.loadPieces(this.pieces)
         this.occupiedSlots = this.board.getOccupiedSlots()

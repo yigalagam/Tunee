@@ -44,5 +44,5 @@ document.body.appendChild(audioScript)
 
 
 function startGame() {
-    game.start('')
+    game.start('Coldplay: Viva La Vida', 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/255770309', 60, 65)
 }

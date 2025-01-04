@@ -1,48 +1,35 @@
 class Piece {
 
-    constructor(sound, sampleRate, index, testMode) {
+    constructor(scWidget, startTime, endTime, fade, index, testMode) {
         // Initialize puzzle piece with sound data.
+        // Sound comes from a SoundCloud widget, which the piece uses to stream a short durtation.
+        // Most pieces play without fade (0), but the first piece plays with fade in (1) and the last piece plays with fade out (2).
         
-        this.sound = sound
-        this.sampleRate = sampleRate
+        this.scWidget = scWidget
+        // Time boundaries of played music in seconds.
+        this.startTime = startTime
+        this.endTime = endTime
+        this.fade = fade
         this.index = index
         this.testMode = testMode
-        this.gui = null
-
-        if (!this.testMode) {
-            // Set up audio playing for this piece.
-
-            // Create an AudioBuffer
-            this.audioBuffer = Piece.audioContext.createBuffer(2, this.sound[0].length, this.sampleRate)
-
-            // Fill the buffer with data
-            const leftChannel = this.audioBuffer.getChannelData(0)
-            const rightChannel = this.audioBuffer.getChannelData(1)
-            leftChannel.set(this.sound[0])
-            rightChannel.set(this.sound[1])
-
-            // Normalize the data (assuming values are in the range of -32768 to 32767)
-            const normalizationFactor = 1 / 32768 * playVolumePct / 100
-            for (let i = 0; i < this.sound[0].length; i++) {
-                leftChannel[i] = this.sound[0][i] * normalizationFactor;
-                rightChannel[i] = this.sound[1][i] * normalizationFactor;
-            }
-            this.audioSource = null
-        }
     }
 
-    static audioContext = new AudioContext()
-
     play() {
+        // Stream music from start time to end time using the SoundCloud widget.
         if (!this.testMode) {
-            // Create an AudioBufferSourceNode.
-            this.audioSource = Piece.audioContext.createBufferSource()
-            this.audioSource.buffer = this.audioBuffer
-            // Connect the source to the context's destination.
-            this.audioSource.connect(Piece.audioContext.destination)
-            this.audioSource.start()
+            console.log('playing, piece index: ' + this.index)
+            this.scWidget.seekTo(this.startTime * 1000)
+            this.scWidget.play()
+            this.scWidget.bind(SC.Widget.Events.PAUSE, () => {
+                this.scWidget.unbind(SC.Widget.Events.PAUSE)
+                console.log('playEnd event dispatched, piece index: ' + this.index)
+                document.dispatchEvent(new CustomEvent('playEnd', {}))
+            })
+            setTimeout(() => {
+                this.scWidget.pause()
+            }, (this.endTime - this.startTime) * 1000)
         }
-        return this.sound   
+        return this.index
     }
 
 }

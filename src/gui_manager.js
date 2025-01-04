@@ -16,6 +16,7 @@ class GUIManager {
         this.timer = null
         this.feedbackButton = null
         this.dragImage = this.getDragImage()
+        this.songTitle = ''
 
         this.testMode = testMode
         this.debugMode = debugMode
@@ -29,11 +30,6 @@ class GUIManager {
 
         // Create the main application div.
         this.gameDiv = this.getGameDiv()
-    }
-
-    setSongData(songTitle, youtubeId) {
-        this.songTitle = songTitle
-        this.youtubeId = youtubeId
     }
 
     close() {
@@ -53,11 +49,32 @@ class GUIManager {
         this.gameDiv.appendChild(this.getTitleDiv())
         this.gameDiv.appendChild(this.getBoardDiv())
         this.gameDiv.appendChild(this.getControlDiv())
+        this.gameDiv.appendChild(this.getSoundcloudDiv())
         this.gameDiv.appendChild(this.getFeedbackButton())
        
         return this.gameDiv
     }
 
+    getSoundcloudDiv() {
+        // Set up a soundcloud frame to stream music.
+        // While the game is played, the frame is not visible.
+        this.soundcloudDiv = document.createElement('div')
+        this.soundcloudDiv.style.width = soundcloudFrameWidthPx + 'px'
+        this.soundcloudFrame = document.createElement('iframe')
+        this.soundcloudFrame.width = '100%'
+        this.soundcloudDiv.appendChild(this.soundcloudFrame)
+        this.soundcloudDiv.style.position = 'absolute'
+        this.soundcloudDiv.style.left = (-2 * soundcloudFrameWidthPx) + 'px'
+        return this.soundcloudDiv
+    }
+
+    getSoundcloudWidget(scUrl) {
+        // Get a widget object to control streaming.
+        this.soundcloudFrame.src = scUrl
+        const scWidget = SC.Widget(this.soundcloudFrame)
+        return scWidget
+    }
+    
     getTitleDiv() {
         const mainTitleDiv = document.createElement('div')
         mainTitleDiv.style.fontFamily = font
@@ -412,42 +429,22 @@ class GUIManager {
 
     // *** Song information ***
 
-    getSongTitleDiv() {
-        const songTitleDiv = document.createElement('div')
-        if (this.songTitle != null) {
-            songTitleDiv.style.fontFamily = font
-            songTitleDiv.style.fontSize = songTitleFontSizeEM + 'em'
-            songTitleDiv.style.fontWeight = 'bold'
-            songTitleDiv.style.color = darkGray
-            songTitleDiv.style.whiteSpace = 'pre-wrap'
-            songTitleDiv.innerHTML = this.songTitle
-            if (this.debugMode) {
-                console.log(this.songTitle)
-            }
-        }
-        return songTitleDiv
+    setSongTitle(songTitle) {
+        this.songTitle = songTitle
     }
 
-    getYoutubeDiv() {
-        const youtubeDiv = document.createElement('div')
-        
-        if (this.youtubeId != null) {
-            youtubeDiv.style.width = youtubeDivWidthPx + 'px'
-            youtubeDiv.style.height = youtubeDivHeightPx + 'px'
-            youtubeDiv.style.display = 'flex'
-            youtubeDiv.style.justifyContent = 'center'
-            youtubeDiv.style.alignItems = 'center'
-            
-            const youtubeFrame = document.createElement('iframe')
-            youtubeFrame.width = '100%'
-            youtubeFrame.height = '100%'
-            youtubeFrame.src = 'https://www.youtube.com/embed/' + this.youtubeId
-            youtubeFrame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-            youtubeFrame.allowFullscreen = true
-            youtubeDiv.appendChild(youtubeFrame)
+    getSongTitleDiv() {
+        const songTitleDiv = document.createElement('div')
+        songTitleDiv.style.fontFamily = font
+        songTitleDiv.style.fontSize = songTitleFontSizeEM + 'em'
+        songTitleDiv.style.fontWeight = 'bold'
+        songTitleDiv.style.color = darkGray
+        songTitleDiv.style.whiteSpace = 'pre-wrap'
+        songTitleDiv.innerHTML = this.songTitle
+        if (this.debugMode) {
+            console.log(this.songTitle)
         }
-
-        return youtubeDiv
+        return songTitleDiv
     }
 
     getSongDiv() {
@@ -457,7 +454,9 @@ class GUIManager {
         songDiv.style.placeItems = 'center'
         songDiv.appendChild(this.getSongTitleDiv())
         songDiv.style.gap = baseSizePx + 'px'
-        songDiv.appendChild(this.getYoutubeDiv())
+        const resultSoundCloudDiv = this.soundcloudDiv.cloneNode(true)
+        resultSoundCloudDiv.style.position = ''
+        songDiv.appendChild(resultSoundCloudDiv)
         return songDiv
     }
 
@@ -472,12 +471,12 @@ class GUIManager {
         endDiv.style.alignItems = 'center'
         endDiv.style.marginTop = baseSizePx + 'px'
         endDiv.appendChild(resultDiv)
-        if (this.songTitle != null || this.youtubeId != null) {
-            // Optional div with song title and youtube link.
-            const songDiv = this.getSongDiv()
-            endDiv.style.gap = (3 * baseSizePx) + 'px'
-            endDiv.appendChild(songDiv)
-        }
+
+        // Div with song title and soundcloud player.
+        const songDiv = this.getSongDiv()
+        endDiv.style.gap = (3 * baseSizePx) + 'px'
+        endDiv.appendChild(songDiv)
+
         this.controlDiv.style.opacity = 1
         this.feedbackButton.style.opacity = 1
         const fadeOutInterval = setInterval(() => {
