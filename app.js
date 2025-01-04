@@ -29,20 +29,13 @@ document.body.appendChild(guiManager.dragImage)
 // Check if a specific date passed in URL.
 // If not, use today's data.
 const params = new URLSearchParams(window.location.search)
-const dateStr = params.get('d')
-let audioScriptName
-if (dateStr != null) {
-    audioScriptName = 'audio_data/' + dateStr + '.js'
-} else {
-    audioScriptName = getTodayScript()
+let dateStr = params.get('d')
+if (dateStr == null) {
+    dateStr = getTodayDateStr()
 }
-
-// Run the script that define the function to load audio data.
-const audioScript = document.createElement('script')
-audioScript.src = audioScriptName
-document.body.appendChild(audioScript)
-
+const gameData = getAudioData(dateStr)
 
 function startGame() {
-    game.start('Coldplay: Viva La Vida', 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/255770309', 60, 65)
+    // Start game: Song title, soundcloud link, start time, end time.
+    game.start(gameData[0], gameData[1], gameData[2], gameData[3])
 }
