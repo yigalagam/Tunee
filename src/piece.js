@@ -12,13 +12,50 @@ class Piece {
         this.fade = fade
         this.index = index
         this.testMode = testMode
+
+        this.scWidget.getVolume(function(volume) {
+            this.baseVolume = volume;
+        }.bind(this))
     }
 
     play() {
         // Stream music from start time to end time using the SoundCloud widget.
+        console.log('Base volume 1: ' + this.baseVolume)
         if (!this.testMode) {
             console.log('playing, piece index: ' + this.index)
             this.scWidget.seekTo(this.startTime * 1000)
+            const nVolumeSteps = 10
+            const volumeInterval = this.baseVolume / nVolumeSteps
+            this.scWidget.setVolume(this.baseVolume)
+
+            // Fade in.
+            if (this.fade == 1) {
+                let currVolume = 0
+                this.scWidget.setVolume(currVolume)
+                const fadeInInterval = setInterval(function() {
+                    if (currVolume < this.baseVolume) {
+                        currVolume += volumeInterval
+                        this.scWidget.setVolume(currVolume)
+                    } else {
+                        clearInterval(fadeInInterval)
+                    }
+                }.bind(this), this.fade / nVolumeSteps * 1000)
+            }
+
+            // Fade out.
+            if (this.fade == 2) {
+                let currVolume = this.baseVolume
+                this.scWidget.setVolume(currVolume)
+                const fadeOutInterval = setInterval(function() {
+                    if (currVolume > 0) {
+                        currVolume -= volumeInterval
+                        this.scWidget.setVolume(currVolume)
+                    } else {
+                        clearInterval(fadeOutInterval)
+                    }
+                }.bind(this), this.fade / nVolumeSteps * 1000)
+            }
+
             this.scWidget.play()
             this.scWidget.bind(SC.Widget.Events.PAUSE, () => {
                 this.scWidget.unbind(SC.Widget.Events.PAUSE)

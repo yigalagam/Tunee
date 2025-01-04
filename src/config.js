@@ -23,6 +23,9 @@ const nPieces = 2
 const titleFontSizeEM = 3
 const subtitleFontSizeEM = 1.5
 
+// Fade in and fade out in seconds.
+const fadeDuration = 0.5
+
 // Parameters for setting up the game GUI.
 const baseSizePx = 10
 const slotSizePx = 7 * baseSizePx
