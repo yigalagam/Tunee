@@ -179,9 +179,10 @@ class Board {
         if (!this.playingInterrupted) {
             const playingPiece = this.slots[startSlot]
             this.playing = true
+            this.scWidget.setVolume(this.baseVolume)
 
             // If this piece is contiguous with the previous one, just keep playing without seeking.
-            // This avoids a hiccup from the player.
+            // This avoids an audible hiccup from the player.
             if ((previousPiece != null) && (playingPiece.index != previousPiece.index + 1)) {
                 this.scWidget.seekTo(playingPiece.startTime * 1000)
             }
@@ -193,6 +194,41 @@ class Board {
             // Set timeout for the duration of the piece, then play the next piece.
             this.scWidget.bind(SC.Widget.Events.PLAY, () => {
                 this.scWidget.unbind(SC.Widget.Events.PLAY)
+
+                const nVolumeSteps = 10
+                const volumeInterval = this.baseVolume / nVolumeSteps
+                
+                // Fade in if this is the first piece in the solution.
+                if (playingPiece.fade == 1) {
+                    let currVolume = 0
+                    this.scWidget.setVolume(currVolume)
+                    const fadeInInterval = setInterval(function() {
+                        if (currVolume < this.baseVolume) {
+                            currVolume += volumeInterval
+                            this.scWidget.setVolume(currVolume)
+                        } else {
+                            clearInterval(fadeInInterval)
+                        }
+                     }.bind(this), fadeDuration / nVolumeSteps * 1000)
+                }
+
+                // Fade out if this is the last piece in the solution.
+                if (playingPiece.fade == 2) {
+                    const fadeOutDelay = playingPiece.endTime - playingPiece.startTime - fadeDuration
+                    setTimeout(() => {
+                        let currVolume = this.baseVolume
+                        const fadeOutInterval = setInterval(function() {
+                            if (currVolume > 0) {
+                                currVolume -= volumeInterval
+                                this.scWidget.setVolume(currVolume)
+                            } else {
+                                clearInterval(fadeOutInterval)
+                                this.scWidget.setVolume(this.baseVolume)
+                            }
+                        }.bind(this), fadeDuration / nVolumeSteps * 1000)
+                    }, fadeOutDelay * 1000)
+                }
+
                 setTimeout(() => {
                     // Remove "playing piece" visualization once playing is done.
                     this.guiManager.setSlotPieceNotPlaying(startSlot)

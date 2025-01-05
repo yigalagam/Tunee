@@ -9,15 +9,12 @@ const debugMode = true
 // Mobile vs. Desktop (this will be overridden by the main app script, but needs to be specified for testing).
 var isMobile = false
 
-// Piece playing volume.
-const playVolumePct = 30
-
 // Board dimensions: [desktop, mobile]
 const nBoardRows = [5, 6]
 const nBoardCols = [14, 12]
 
 // Number of pieces making up the puzzle.
-const nPieces = 4
+const nPieces = 10
 
 // Title div styling.
 const titleFontSizeEM = 3
