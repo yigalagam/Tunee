@@ -163,7 +163,7 @@ class Board {
         return null
     }
     
-    async playMultipleSlots(startSlot, endSlot, previousPiece=null) {
+    playMultipleSlots(startSlot, endSlot, previousPiece=null) {
         // Play the content of the player between two slot indexes.
 
         if (startSlot > endSlot) {
@@ -180,7 +180,6 @@ class Board {
         if (!this.playingInterrupted) {
             const playingPiece = this.slots[startSlot]
             this.playing = true
-            this.scWidget.setVolume(this.baseVolume)
 
             // If this piece is contiguous with the previous one, just keep playing without seeking.
             // This avoids an audible hiccup from the player.
