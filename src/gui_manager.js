@@ -15,6 +15,7 @@ class GUIManager {
         this.actionButton = null
         this.timer = null
         this.feedbackButton = null
+        this.disclaimerDiv = null
         this.dragImage = this.getDragImage()
         this.songTitle = ''
 
@@ -429,19 +430,19 @@ class GUIManager {
     }
 
     getDisclaimerDiv() {
-        const disclaimerDiv = document.createElement('div')
+        this.disclaimerDiv = document.createElement('div')
         const scLink = document.createElement('a')
         scLink.href = 'https://www.soundcloud.com/'
         scLink.textContent = 'SoundCloud'
         scLink.target = '_blank'
-        disclaimerDiv.style.fontFamily = font
-        disclaimerDiv.style.fontSize = disclaimerFontSizeEM + 'em'
-        disclaimerDiv.style.fontWeight = 'bold'
-        disclaimerDiv.style.color = darkGray
-        disclaimerDiv.appendChild(document.createTextNode('Music provided by '))
-        disclaimerDiv.appendChild(scLink)
-        disclaimerDiv.appendChild(document.createTextNode('. All music used in this game is copyrighted and belongs to its legal owners.'))
-        return disclaimerDiv
+        this.disclaimerDiv.style.fontFamily = font
+        this.disclaimerDiv.style.fontSize = disclaimerFontSizeEM + 'em'
+        this.disclaimerDiv.style.fontWeight = 'bold'
+        this.disclaimerDiv.style.color = darkGray
+        this.disclaimerDiv.appendChild(document.createTextNode('Music provided by '))
+        this.disclaimerDiv.appendChild(scLink)
+        this.disclaimerDiv.appendChild(document.createTextNode('. All music used in this game is copyrighted and belongs to its legal owners.'))
+        return this.disclaimerDiv
     }
 
     // *** Song information ***
@@ -496,17 +497,21 @@ class GUIManager {
 
         this.controlDiv.style.opacity = 1
         this.feedbackButton.style.opacity = 1
+        this.disclaimerDiv.style.opacity = 1
         const fadeOutInterval = setInterval(() => {
             if (this.controlDiv.style.opacity > 0) {
                 this.controlDiv.style.opacity -= 0.05
                 this.feedbackButton.style.opacity -= 0.05
+                this.disclaimerDiv.style.opacity -= 0.05
             } else {
                 this.controlDiv.remove()
                 this.controlDiv.remove()
                 clearInterval(fadeOutInterval)
                 this.gameDiv.append(endDiv)
                 this.feedbackButton.style.opacity = 1
+                this.disclaimerDiv.style.opacity = 1
                 this.gameDiv.append(this.feedbackButton)
+                this.gameDiv.append(this.disclaimerDiv)
             }
         }, resultFadeoutInterval / 20)
 
