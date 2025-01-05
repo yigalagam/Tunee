@@ -424,7 +424,7 @@ class GUIManager {
         this.feedbackButton.title = email
         this.feedbackButton.style.cursor = 'pointer'
         this.feedbackButton.onclick = () => {
-            window.location.href = 'mailto:' + email
+            window.open('mailto:' + email, '_blank')
         }
         return this.feedbackButton
     }
@@ -436,22 +436,28 @@ class GUIManager {
         scLink.href = 'https://www.soundcloud.com/'
         scLink.textContent = 'SoundCloud'
         scLink.target = '_blank'
+        scLink.style.textDecoration = 'none'
+        scLink.style.color = darkGray
 
         const privacyLink = document.createElement('a')
         privacyLink.href = 'privacy.html'
         privacyLink.textContent = 'Privacy Policy'
         privacyLink.target = '_blank'
+        privacyLink.style.textDecoration = 'none'
+        privacyLink.style.color = darkGray
 
         this.disclaimerDiv.style.fontFamily = font
         this.disclaimerDiv.style.fontSize = disclaimerFontSizeEM + 'em'
         this.disclaimerDiv.style.fontWeight = 'bold'
-        this.disclaimerDiv.style.color = darkGray
+        this.disclaimerDiv.style.color = lightGray
         this.disclaimerDiv.style.textAlign = 'center'
-        this.disclaimerDiv.appendChild(document.createTextNode('Music provided by '))
+        this.disclaimerDiv.appendChild(document.createTextNode('Music played using the '))
         this.disclaimerDiv.appendChild(scLink)
-        this.disclaimerDiv.appendChild(document.createTextNode('. All music used in this game is copyrighted and belongs to its legal owners.'))
+        this.disclaimerDiv.appendChild(document.createTextNode(' waveform player ("Widget").'))
         const br = document.createElement('br');
         this.disclaimerDiv.appendChild(br)
+        this.disclaimerDiv.appendChild(document.createTextNode('All music used in this game is copyrighted and belongs to its legal owners.'))
+        this.disclaimerDiv.appendChild(br.cloneNode())
         this.disclaimerDiv.appendChild(privacyLink)
         return this.disclaimerDiv
     }
