@@ -223,7 +223,9 @@ class Board {
                                 this.scWidget.setVolume(currVolume)
                             } else {
                                 clearInterval(fadeOutInterval)
-                                this.scWidget.setVolume(this.baseVolume)
+                                setTimeout(() => {
+                                    this.scWidget.setVolume(this.baseVolume)
+                                }, fadeDuration / nVolumeSteps * 1000)
                             }
                         }.bind(this), fadeDuration / nVolumeSteps * 1000)
                     }, fadeOutDelay * 1000)
