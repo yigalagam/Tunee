@@ -474,7 +474,7 @@ class GUIManager {
 
         // Div with song title and soundcloud player.
         const songDiv = this.getSongDiv()
-        endDiv.style.gap = (3 * baseSizePx) + 'px'
+        endDiv.style.gap = (2 * baseSizePx) + 'px'
         endDiv.appendChild(songDiv)
 
         this.controlDiv.style.opacity = 1

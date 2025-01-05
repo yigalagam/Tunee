@@ -28,33 +28,33 @@ class Piece {
             const volumeInterval = this.baseVolume / nVolumeSteps
             this.scWidget.setVolume(this.baseVolume)
 
-            // Fade in.
-            if (this.fade == 1) {
-                let currVolume = 0
-                this.scWidget.setVolume(currVolume)
-                const fadeInInterval = setInterval(function() {
-                    if (currVolume < this.baseVolume) {
-                        currVolume += volumeInterval
-                        this.scWidget.setVolume(currVolume)
-                    } else {
-                        clearInterval(fadeInInterval)
-                    }
-                }.bind(this), this.fade / nVolumeSteps * 1000)
-            }
+            // // Fade in.
+            // if (this.fade == 1) {
+            //     let currVolume = 0
+            //     this.scWidget.setVolume(currVolume)
+            //     const fadeInInterval = setInterval(function() {
+            //         if (currVolume < this.baseVolume) {
+            //             currVolume += volumeInterval
+            //             this.scWidget.setVolume(currVolume)
+            //         } else {
+            //             clearInterval(fadeInInterval)
+            //         }
+            //     }.bind(this), this.fade / nVolumeSteps * 1000)
+            // }
 
-            // Fade out.
-            if (this.fade == 2) {
-                let currVolume = this.baseVolume
-                this.scWidget.setVolume(currVolume)
-                const fadeOutInterval = setInterval(function() {
-                    if (currVolume > 0) {
-                        currVolume -= volumeInterval
-                        this.scWidget.setVolume(currVolume)
-                    } else {
-                        clearInterval(fadeOutInterval)
-                    }
-                }.bind(this), this.fade / nVolumeSteps * 1000)
-            }
+            // // Fade out.
+            // if (this.fade == 2) {
+            //     let currVolume = this.baseVolume
+            //     this.scWidget.setVolume(currVolume)
+            //     const fadeOutInterval = setInterval(function() {
+            //         if (currVolume > 0) {
+            //             currVolume -= volumeInterval
+            //             this.scWidget.setVolume(currVolume)
+            //         } else {
+            //             clearInterval(fadeOutInterval)
+            //         }
+            //     }.bind(this), this.fade / nVolumeSteps * 1000)
+            // }
 
             this.scWidget.play()
             this.scWidget.bind(SC.Widget.Events.PAUSE, () => {

@@ -46,10 +46,10 @@ const feedbackButtonSizePx = 7 * baseSizePx
 
 // Parameter for displaying song information.
 const songTitleFontSizeEM = 1.3
-const soundcloudFrameWidthPx = 47 * baseSizePx
+const soundcloudFrameWidthPx = 47.5 * baseSizePx
 
 // Parameters for the result display.
-const resultDivWidthPx = 47 * baseSizePx
+const resultDivWidthPx = 47.5 * baseSizePx
 const resultAppNameFontSizeEM = 2.1
 const resultFadeoutInterval = 1000
 const copyButtonSizePx = 7 * baseSizePx
