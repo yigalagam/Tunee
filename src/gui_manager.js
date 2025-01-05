@@ -51,6 +51,7 @@ class GUIManager {
         this.gameDiv.appendChild(this.getControlDiv())
         this.gameDiv.appendChild(this.getSoundcloudDiv())
         this.gameDiv.appendChild(this.getFeedbackButton())
+        this.gameDiv.appendChild(this.getDisclaimerDiv())
        
         return this.gameDiv
     }
@@ -425,6 +426,22 @@ class GUIManager {
             window.location.href = 'mailto:' + email
         }
         return this.feedbackButton
+    }
+
+    getDisclaimerDiv() {
+        const disclaimerDiv = document.createElement('div')
+        const scLink = document.createElement('a')
+        scLink.href = 'https://www.soundcloud.com/'
+        scLink.textContent = 'SoundCloud'
+        scLink.target = '_blank'
+        disclaimerDiv.style.fontFamily = font
+        disclaimerDiv.style.fontSize = disclaimerFontSizeEM + 'em'
+        disclaimerDiv.style.fontWeight = 'bold'
+        disclaimerDiv.style.color = darkGray
+        disclaimerDiv.appendChild(document.createTextNode('Music provided by '))
+        disclaimerDiv.appendChild(scLink)
+        disclaimerDiv.appendChild(document.createTextNode('. All music used in this game is copyrighted and belongs to its legal owners.'))
+        return disclaimerDiv
     }
 
     // *** Song information ***

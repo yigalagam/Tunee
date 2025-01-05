@@ -44,6 +44,9 @@ const controlDivHeightPx = 19 * baseSizePx
 // Feedback button.
 const feedbackButtonSizePx = 7 * baseSizePx
 
+// Dislaimer statement.
+const disclaimerFontSizeEM = 0.75
+
 // Parameter for displaying song information.
 const songTitleFontSizeEM = 1.3
 const soundcloudFrameWidthPx = 47.5 * baseSizePx
