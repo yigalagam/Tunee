@@ -155,7 +155,7 @@ class Board {
         return null
     }
     
-    async playMultipleSlots(startSlot, endSlot) {
+    async playMultipleSlots(startSlot, endSlot, previousPiece=null) {
         // Play the content of the player between two slot indexes.
 
         if (startSlot > endSlot) {
@@ -172,7 +172,13 @@ class Board {
         if (!this.playingInterrupted) {
             const playingPiece = this.slots[startSlot]
             this.playing = true
-            this.scWidget.seekTo(playingPiece.startTime * 1000)
+
+            // If this piece is contiguous with the previous one, just keep playing without seeking.
+            // This avoids a hiccup from the player.
+            if ((previousPiece != null) && (playingPiece.index != previousPiece.index + 1)) {
+                this.scWidget.seekTo(playingPiece.startTime * 1000)
+            }
+                        
             // Show piece as playing.
             this.guiManager.setSlotPiecePlaying(startSlot)
 
@@ -183,7 +189,7 @@ class Board {
                 setTimeout(() => {
                     // Remove "playing piece" visualization once playing is done.
                     this.guiManager.setSlotPieceNotPlaying(startSlot)
-                    this.playMultipleSlots(startSlot + 1, endSlot)
+                    this.playMultipleSlots(startSlot + 1, endSlot, playingPiece)
                 }, (playingPiece.endTime - playingPiece.startTime) * 1000)
             })
             this.scWidget.play()
