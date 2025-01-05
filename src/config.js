@@ -17,7 +17,7 @@ const nBoardRows = [5, 6]
 const nBoardCols = [14, 12]
 
 // Number of pieces making up the puzzle.
-const nPieces = 2
+const nPieces = 4
 
 // Title div styling.
 const titleFontSizeEM = 3

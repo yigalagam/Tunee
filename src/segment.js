@@ -1,9 +1,8 @@
 class Segment {
     
-    constructor(scWidget, startTime, endTime, testMode) {
+    constructor(startTime, endTime, testMode) {
         // Initialize musical segment with sound data.
-        // Sound comes from a SoundCloud widget.
-        this.scWidget = scWidget
+
         // Time boundaries of played music in seconds.
         this.startTime = startTime
         this.endTime = endTime
@@ -28,7 +27,7 @@ class Segment {
             } else {
                 fade = 0
             }
-            pieces.push(new Piece(this.scWidget, currTime, currTime + pieceDuration, fade, i, this.testMode))
+            pieces.push(new Piece(currTime, currTime + pieceDuration, fade, i, this.testMode))
             currTime += pieceDuration
         }
         return pieces

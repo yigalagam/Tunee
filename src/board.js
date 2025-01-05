@@ -9,6 +9,8 @@ class Board {
             throw new Error('Number of slot GUI elements (' + this.slotsGUI.length + ') does not match the number of slots (' + this.nSlots + ')')
         }
         this.guiManager = guiManager
+        this.scWidget = null
+        this.baseVolume = null
 
         // Initialize with all empty slots.
         this.width = nCols
@@ -29,8 +31,8 @@ class Board {
         this.updateGUI()
     }
     
-    loadPieces(pieces) {
-        // Load a set of pieces into the board.
+    loadPieces(pieces, scWidget) {
+        // Load a set of pieces into the board, with a soundcloud widget to play them.
         
         const nPieces = pieces.length
         
@@ -69,8 +71,13 @@ class Board {
             }
         }
 
-        this.updateGUI()
+        this.scWidget = scWidget
+        this.scWidget.getVolume(function(volume) {
+            // Record soundcloud player volume for fade-in and fade-out.
+            this.baseVolume = volume;
+        }.bind(this))
 
+        this.updateGUI()
     }
 
     getMaxAdjacentCount() {
@@ -151,52 +158,54 @@ class Board {
     async playMultipleSlots(startSlot, endSlot) {
         // Play the content of the player between two slot indexes.
 
-        if (!this.testMode) {
-
-            if (startSlot > endSlot) {
+        if (startSlot > endSlot) {
+            // Reached the end of the played piece set.
+            this.scWidget.bind(SC.Widget.Events.PAUSE, () => {
+                this.scWidget.unbind(SC.Widget.Events.PAUSE)
                 this.playing = false
                 this.playingInterrupted = false
-                return
-            }
+            })
+            this.scWidget.pause()
+            return
+        }
 
-            if (!this.playingInterrupted) {
-                this.playing = true
-                this.slots[startSlot].play()
-                // Make sure nothing else plays until this piece is done playing.
-                this.guiManager.setSlotPiecePlaying(startSlot)
-                this.playEndEventHandler = () => {
-                    document.removeEventListener('playEnd', this.playEndEventHandler)
-                    if (this.debugMode) {
-                        console.log('Slot ' + startSlot + ' finished playing')
-                    }
+        if (!this.playingInterrupted) {
+            const playingPiece = this.slots[startSlot]
+            this.playing = true
+            this.scWidget.seekTo(playingPiece.startTime * 1000)
+            // Show piece as playing.
+            this.guiManager.setSlotPiecePlaying(startSlot)
+
+            // Make sure nothing else plays until this piece is done playing.
+            // Set timeout for the duration of the piece, then play the next piece.
+            this.scWidget.bind(SC.Widget.Events.PLAY, () => {
+                this.scWidget.unbind(SC.Widget.Events.PLAY)
+                setTimeout(() => {
+                    // Remove "playing piece" visualization once playing is done.
                     this.guiManager.setSlotPieceNotPlaying(startSlot)
-                    if (!this.playingInterrupted) {
-                        this.playMultipleSlots(startSlot + 1, endSlot)
-                    } else {
-                        this.playingInterrupted = false
-                    }
-                }
-                document.addEventListener('playEnd', this.playEndEventHandler)
+                    this.playMultipleSlots(startSlot + 1, endSlot)
+                }, (playingPiece.endTime - playingPiece.startTime) * 1000)
+            })
+            this.scWidget.play()
 
-            } else {
+            document.addEventListener('playEnd', this.playEndEventHandler)
+
+        } else {
+            // There was a player interaction that interrupted the music, stop playing.
+            
+            if (this.debugMode) {
+                console.log('Playing interrupted, not playing slot ' + startSlot)
+            }
+
+            this.guiManager.setSlotPieceNotPlaying(startSlot)
+            this.scWidget.bind(SC.Widget.Events.PAUSE, () => {
+                this.scWidget.unbind(SC.Widget.Events.PAUSE)
                 this.playing = false
                 this.playingInterrupted = false
-            }
-
-        } else {            
-            // In test mode, just return the concatenated sound data.
-            
-            const soundOut = []
-            let pieceToPlay
-            for (let testSlotIndex = startSlot; testSlotIndex <= endSlot; testSlotIndex++) {
-                if (this.isSlotOccupied(testSlotIndex)) {
-                    pieceToPlay = this.slots[testSlotIndex]
-                } else {
-                    pieceToPlay = this.silentPiece
-                }
-                soundOut.push(pieceToPlay.play())
-            }
-            return soundOut
+            })
+            this.scWidget.pause()
+            this.playing = false
+            this.playingInterrupted = false
         }
     }
 

@@ -33,10 +33,10 @@ class Game {
 
         scWidget.bind(SC.Widget.Events.READY, () => {
             scWidget.unbind(SC.Widget.Events.READY)
-            this.segment = new Segment(scWidget, startTime, endTime, this.testMode)
+            this.segment = new Segment(startTime, endTime, this.testMode)
             this.solution = this.segment.divide(this.nPieces)
             this.board.reset()
-            this.board.loadPieces(this.solution)
+            this.board.loadPieces(this.solution, scWidget)
             this.gameEnded = false
             this.startGUI()
             this.timer.start()
