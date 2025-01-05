@@ -431,17 +431,28 @@ class GUIManager {
 
     getDisclaimerDiv() {
         this.disclaimerDiv = document.createElement('div')
+
         const scLink = document.createElement('a')
         scLink.href = 'https://www.soundcloud.com/'
         scLink.textContent = 'SoundCloud'
         scLink.target = '_blank'
+
+        const privacyLink = document.createElement('a')
+        privacyLink.href = 'privacy.html'
+        privacyLink.textContent = 'Privacy Policy'
+        privacyLink.target = '_blank'
+
         this.disclaimerDiv.style.fontFamily = font
         this.disclaimerDiv.style.fontSize = disclaimerFontSizeEM + 'em'
         this.disclaimerDiv.style.fontWeight = 'bold'
         this.disclaimerDiv.style.color = darkGray
+        this.disclaimerDiv.style.textAlign = 'center'
         this.disclaimerDiv.appendChild(document.createTextNode('Music provided by '))
         this.disclaimerDiv.appendChild(scLink)
         this.disclaimerDiv.appendChild(document.createTextNode('. All music used in this game is copyrighted and belongs to its legal owners.'))
+        const br = document.createElement('br');
+        this.disclaimerDiv.appendChild(br)
+        this.disclaimerDiv.appendChild(privacyLink)
         return this.disclaimerDiv
     }
 
