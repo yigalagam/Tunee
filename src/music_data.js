@@ -10,42 +10,42 @@ function getTodayDateStr() {
     return dateStr
 }
 
-const audioDataAll = {
-    '53583438': ['Frogsod|=#Ylyd#Od#Ylgd', '588::363<', 177.75, 183.15], // 20250105: Coldplay: Viva La Vida, 255770309
-    '53583439': ['Frogsod|=#Ylyd#Od#Ylgd', '588::363<', 177.75, 183.15], // 20250106: Coldplay: Viva La Vida, 255770309
-    '5358343:': ['Gdylg#Jxhwwd=#Wlwdqlxp#+ihdw1#Vld,', '549873;:8', 71.5, 77.5], // 20250107: David Guetta: Titanium (feat. Sia), 216540875
-    '5358343;': ['Dghoh=#Khoor', '58773:<73', 5, 11.25], // 20250108: Adelle: Hello, 254407940
-    '5358343<': ['U1H1P1=#Orvlqj#P|#Uholjlrq', '5<474969:', 44, 49.4], // 20250109: R.E.M.: Losing My Religion, 291416367
-    '53583443': ['GM#Fdvshu#0#Wkh#Fkd#Fkd#Volgh#+M1H1J#Hglw,', '47:89647', 133.25, 139], // 20250110: DJ Casper: The Cha Cha Slide (J.E.G Edit), 14756314
-    '53583444': ['Wudylv#Vfrww=#L#NqrzB', '48:9648:;<', 31, 38], // 20250111: Travis Scott: I Know?, 1576315789
-    '53583445': [], // 20250112: 
-    '53583446': [], // 20250113: 
-    '53583447': [], // 20250114: 
-    '53583448': [], // 20250115: 
-    '53583449': [], // 20250116: 
-    '5358344:': [], // 20250117: 
-    '5358344;': [], // 20250118: 
-    '5358344<': [], // 20250119: 
-    '53583453': [], // 20250120: 
-    '53583454': [], // 20250121: 
-    '53583455': [], // 20250122: 
-    '53583456': [], // 20250123: 
-    '53583457': [], // 20250124: 
-    '53583458': [], // 20250125: 
-    '53583459': [], // 20250126: 
-    '5358345:': [], // 20250127: 
-    '5358345;': [], // 20250128: 
-    '5358345<': [], // 20250129: 
-    '53583463': [], // 20250130: 
-    '53583464': [], // 20250131: 
-}
+const audioDataAll = [
+    '53583438', 'Frogsod|=#Ylyd#Od#Ylgd', '588::363<', 177.75, 183.15, // 20250105: Coldplay: Viva La Vida, 255770309
+    '53583439', 'Frogsod|=#Ylyd#Od#Ylgd', '588::363<', 177.75, 183.15, // 20250106: Coldplay: Viva La Vida, 255770309
+    '5358343:', 'Gdylg#Jxhwwd=#Wlwdqlxp#+ihdw1#Vld,', '549873;:8', 71.5, 77.5, // 20250107: David Guetta: Titanium (feat. Sia), 216540875
+    '5358343;', 'Dghoh=#Khoor', '58773:<73', 5, 11.25, // 20250108: Adelle: Hello, 254407940
+    '5358343<', 'U1H1P1=#Orvlqj#P|#Uholjlrq', '5<474969:', 44, 49.4, // 20250109: R.E.M.: Losing My Religion, 291416367
+    '53583443', 'GM#Fdvshu#0#Wkh#Fkd#Fkd#Volgh#+M1H1J#Hglw,', '47:89647', 133.25, 139, // 20250110: DJ Casper: The Cha Cha Slide (J.E.G Edit), 14756314
+    '53583444', 'Wudylv#Vfrww=#L#NqrzB', '48:9648:;<', 31, 38, // 20250111: Travis Scott: I Know?, 1576315789
+    '53583445', // 20250112: 
+    '53583446', // 20250113: 
+    '53583447', // 20250114: 
+    '53583448', // 20250115: 
+    '53583449', // 20250116: 
+    '5358344:', // 20250117: 
+    '5358344;', // 20250118: 
+    '5358344<', // 20250119: 
+    '53583453', // 20250120: 
+    '53583454', // 20250121: 
+    '53583455', // 20250122: 
+    '53583456', // 20250123: 
+    '53583457', // 20250124: 
+    '53583458', // 20250125: 
+    '53583459', // 20250126: 
+    '5358345:', // 20250127: 
+    '5358345;', // 20250128: 
+    '5358345<', // 20250129: 
+    '53583463', // 20250130: 
+    '53583464', // 20250131: 
+]
 
 function getAudioData(dateStr) {
-    const audioData = audioDataAll[shiftAscii(dateStr, 3)]
-    const songTitle = shiftAscii(audioData[0], -3)
-    const soundcloudLink = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/' + shiftAscii(audioData[1], -3)
-    const startTime = audioData[2]
-    const endTime = audioData[3]
+    const audioIndex = audioDataAll.findIndex(value => value == shiftAscii(dateStr, 3))
+    const songTitle = shiftAscii(audioDataAll[audioIndex + 1], -3)
+    const soundcloudLink = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/' + shiftAscii(audioDataAll[audioIndex + 2], -3) + '&auto_play=false'
+    const startTime = audioDataAll[audioIndex + 3]
+    const endTime = audioDataAll[audioIndex + 4]
     return [songTitle, soundcloudLink, startTime, endTime]
 }
 

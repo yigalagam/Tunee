@@ -21,7 +21,8 @@ class Board {
 
         // Properties to control audio conflicts.
         this.playing = false
-        this.playingInterrupted = false
+        // This must be set to false before playing can start.
+        this.playingInterrupted = true
 
     }
 

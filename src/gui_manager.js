@@ -63,6 +63,7 @@ class GUIManager {
         this.soundcloudDiv = document.createElement('div')
         this.soundcloudDiv.style.width = soundcloudFrameWidthPx + 'px'
         this.soundcloudFrame = document.createElement('iframe')
+        this.soundcloudFrame.allow = 'autoplay'
         this.soundcloudFrame.width = '100%'
         this.soundcloudDiv.appendChild(this.soundcloudFrame)
         this.soundcloudDiv.style.position = 'absolute'
@@ -352,18 +353,6 @@ class GUIManager {
         this.setActionButtonText('')
         this.setActionButtonImage("url('images/game_on.png')")
         this.setActionButtonClick(null)
-    }
-
-    setActionButtonShare(shareFunc) {
-        this.setActionButtonImage('')
-        this.setActionButtonText('Share')
-        this.setActionButtonClick(shareFunc)
-    }
-
-    setActionButtonCopied(shareFunc) {
-        this.setActionButtonText('Copied')
-        this.setActionButtonClick(null)
-        setTimeout(shareFunc, copiedDelay)
     }
 
     // *** Timer display ***
