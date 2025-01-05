@@ -26,21 +26,30 @@ class Game {
         this.slotBeingMovedElement = null
     }
 
-    start(songTitle, soundCloudLink, startTime, endTime) {
+    start(songTitle, soundCloudID, startTime, endTime) {
         // Initialize a soundcloud widget object with a music track, then start game.
         this.guiManager.setSongTitle(songTitle)
-        const scWidget = this.guiManager.getSoundcloudWidget(soundCloudLink)
 
-        scWidget.bind(SC.Widget.Events.READY, () => {
-            scWidget.unbind(SC.Widget.Events.READY)
-            this.segment = new Segment(startTime, endTime, this.testMode)
-            this.solution = this.segment.divide(this.nPieces)
-            this.board.reset()
-            this.board.loadPieces(this.solution, scWidget)
-            this.gameEnded = false
-            this.startGUI()
-            this.timer.start()
-        })
+        if (!this.testMode) {
+            const scWidget = this.guiManager.getSoundcloudWidget(soundCloudID)
+            scWidget.bind(SC.Widget.Events.READY, () => {
+                scWidget.unbind(SC.Widget.Events.READY)
+                this.soundcloudReady(scWidget, startTime, endTime)
+            })
+        } else {
+            this.soundcloudReady(null, startTime, endTime)
+        }
+
+    }
+
+    soundcloudReady(scWidget, startTime, endTime) {
+        this.segment = new Segment(startTime, endTime, this.testMode)
+        this.solution = this.segment.divide(this.nPieces)
+        this.board.reset()
+        this.board.loadPieces(this.solution, scWidget)
+        this.gameEnded = false
+        this.startGUI()
+        this.timer.start()
     }
 
     end() {

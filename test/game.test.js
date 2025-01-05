@@ -22,8 +22,9 @@ describe('Game Test', () =>  {
     })
 
     it('Start', () => {
-        // Start a new game from loaded segment.
-        this.game.start('small.wav')
+        // Start a new game with a song from soundcloud.
+        this.game.start('Our Song', '123456789', 15.72, 22.39)
+        expect(this.guiManager.songTitle).toBe('Our Song')
         expect(this.game.solution.length).toBe(11)
         expect(this.game.board.getOccupiedSlots().length).toBe(11)
     })

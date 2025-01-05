@@ -22,7 +22,6 @@ class Board {
         // Properties to control audio conflicts.
         this.playing = false
         this.playingInterrupted = false
-        this.playEndEventHandler = null
 
     }
 
@@ -71,11 +70,14 @@ class Board {
             }
         }
 
+        // The soundcloud widget is used to play the puzzle pieces.
         this.scWidget = scWidget
-        this.scWidget.getVolume(function(volume) {
-            // Record soundcloud player volume for fade-in and fade-out.
-            this.baseVolume = volume;
-        }.bind(this))
+        if (!this.testMode) {
+            this.scWidget.getVolume(function(volume) {
+                // Record soundcloud player volume for fade-in and fade-out.
+                this.baseVolume = volume;
+            }.bind(this))
+        }
 
         this.updateGUI()
     }
@@ -132,10 +134,10 @@ class Board {
     playSequence(slotIndex) {
         // Play the content of a player from a slot to the nearest gap or to the right edge of the board.
         
-        // Any click on a piece or on an empty slot should stop the audio playing.
         if (this.playing) {
+        // Any click on a piece or on an empty slot during playing should stop the audio playing but not play.
             this.stopPlaying()
-            return
+            return null
         }
 
         if (this.slots[slotIndex] != null) {
@@ -144,10 +146,15 @@ class Board {
             while ((this.slots[endSlotIndex] != null) && (endSlotIndex % this.width != 0)) {
                 endSlotIndex++
             }
+            endSlotIndex--
             if (this.debugMode) {
-                console.log('Playing from slot : ' + slotIndex + ' to ' + (endSlotIndex - 1))
+                console.log('Playing from slot : ' + slotIndex + ' to ' + (endSlotIndex))
             }
-            return this.playMultipleSlots(slotIndex, endSlotIndex - 1, false)
+            if (!this.testMode) {
+                this.playMultipleSlots(slotIndex, endSlotIndex, false)
+            } else {
+                return [slotIndex, endSlotIndex]
+            }
         }
 
         // Empty slot.

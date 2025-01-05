@@ -1,6 +1,6 @@
 describe('Segment Test', () =>  {
     it('Divide to 10 pieces', () => {
-        const segment = new Segment(null, 19.76, 27.11, true)
+        const segment = new Segment(19.76, 27.11, true)
         const pieces = segment.divide(10)
         expect(pieces.length).toBe(10)
 

@@ -58,34 +58,21 @@ describe('Board Test', () =>  {
         // Shoule return the sound from a single piece.
         let piece, playedSound, refSound
         piece = this.board.slots[0]
-        playedSound = await this.board.playSequence(0)
-        refSound = [await piece.play(true)]
-        expect(playedSound).toEqual(refSound)
+        expect(this.board.playSequence(0)).toEqual([0, 0])
         piece = this.board.slots[8]
-        playedSound = await this.board.playSequence(8)
-        refSound = [await piece.play(true)]
-        expect(playedSound).toEqual(refSound)
+        expect(this.board.playSequence(8)).toEqual([8, 8])
 
         // Should return the sound from two consecutive pieces.        
         piece = this.board.slots[5]
-        let piece2 = this.board.slots[6]
-        playedSound = await this.board.playSequence(5)
-        refSound = [await piece.play(true), await piece2.play(true)]
-        expect(playedSound).toEqual(refSound)
+        expect(this.board.playSequence(5)).toEqual([5, 6])
 
         // Verify that playing ends at right edge of the board (doesn't play into slot 5 in the 2nd row).
         this.board.insertPiece(3, this.pieces[0])
         this.board.insertPiece(4, this.pieces[1])
-        piece = this.board.slots[3]
-        piece2 = this.board.slots[4]
-        playedSound = await this.board.playSequence(3)
-        refSound = [await piece.play(true), await piece2.play(true)]
-        expect(playedSound).toEqual(refSound)
+        expect(this.board.playSequence(3)).toEqual([3, 4])
 
         // If we click on slot 4, slot 3 should not play, even though they are adjacent.
-        playedSound = await this.board.playSequence(4)
-        refSound = [await piece2.play(true)]
-        expect(playedSound).toEqual(refSound)
+        expect(this.board.playSequence(4)).toEqual([4, 4])
 
         // Trying to play from empty slots should not do anything.
         expect(this.board.playSequence(1)).toBe(null)
