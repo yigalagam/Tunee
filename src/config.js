@@ -14,14 +14,15 @@ const nBoardRows = [5, 6]
 const nBoardCols = [14, 12]
 
 // Number of pieces making up the puzzle.
-const nPieces = 10
+const nPieces = 4
 
 // Title div styling.
 const titleFontSizeEM = 3
 const subtitleFontSizeEM = 1.5
 
-// Fade in and fade out in seconds.
+// Fade in and fade out.
 const fadeDuration = 0.5
+const nFadeSteps = 10
 
 // Parameters for setting up the game GUI.
 const baseSizePx = 10

@@ -77,6 +77,7 @@ class Board {
             this.scWidget.getVolume(function(volume) {
                 // Record soundcloud player volume for fade-in and fade-out.
                 this.baseVolume = volume;
+                this.volumeInterval = this.baseVolume / nFadeSteps
             }.bind(this))
         }
 
@@ -152,7 +153,7 @@ class Board {
                 console.log('Playing from slot : ' + slotIndex + ' to ' + (endSlotIndex))
             }
             if (!this.testMode) {
-                this.playMultipleSlots(slotIndex, endSlotIndex, false)
+                return this.playMultipleSlots(slotIndex, endSlotIndex, null)
             } else {
                 return [slotIndex, endSlotIndex]
             }
@@ -178,71 +179,83 @@ class Board {
         }
 
         if (!this.playingInterrupted) {
+
+            if (this.debugMode) {
+                console.log('Slot ' + startSlot + ': playing')
+            }
+
             const playingPiece = this.slots[startSlot]
             this.playing = true
 
-            // If this piece is contiguous with the previous one, just keep playing without seeking.
-            // This avoids an audible hiccup from the player.
-            if ((previousPiece != null) && (playingPiece.index != previousPiece.index + 1)) {
-                this.scWidget.seekTo(playingPiece.startTime * 1000)
-            }
-                        
             // Show piece as playing.
             this.guiManager.setSlotPiecePlaying(startSlot)
 
-            // Make sure nothing else plays until this piece is done playing.
-            // Set timeout for the duration of the piece, then play the next piece.
-            this.scWidget.bind(SC.Widget.Events.PLAY, () => {
-                this.scWidget.unbind(SC.Widget.Events.PLAY)
+            // Fade in if this is the first piece in the solution.
+            if (playingPiece.fade == 1) {
+                let currVolume = 0
+                this.scWidget.setVolume(currVolume)
+                const fadeInInterval = setInterval(function() {
+                    if (currVolume < this.baseVolume) {
+                        currVolume += this.volumeInterval
+                        this.scWidget.setVolume(currVolume)
+                    } else {
+                        clearInterval(fadeInInterval)
+                    }
+                }.bind(this), fadeDuration / nFadeSteps * 1000)
+            }
 
-                const nVolumeSteps = 10
-                const volumeInterval = this.baseVolume / nVolumeSteps
-                
-                // Fade in if this is the first piece in the solution.
-                if (playingPiece.fade == 1) {
-                    let currVolume = 0
-                    this.scWidget.setVolume(currVolume)
-                    const fadeInInterval = setInterval(function() {
-                        if (currVolume < this.baseVolume) {
-                            currVolume += volumeInterval
+            // Fade out if this is the last piece in the solution.
+            if (playingPiece.fade == 2) {
+                const fadeOutDelay = playingPiece.endTime - playingPiece.startTime - fadeDuration
+                setTimeout(() => {
+                    let currVolume = this.baseVolume
+                    const fadeOutInterval = setInterval(function() {
+                        if (currVolume > 0) {
+                            currVolume -= this.volumeInterval
                             this.scWidget.setVolume(currVolume)
                         } else {
-                            clearInterval(fadeInInterval)
+                            clearInterval(fadeOutInterval)
+                            setTimeout(() => {
+                                this.scWidget.setVolume(this.baseVolume)
+                            }, fadeDuration / nFadeSteps * 1000)
                         }
-                     }.bind(this), fadeDuration / nVolumeSteps * 1000)
-                }
+                    }.bind(this), fadeDuration / nFadeSteps * 1000)
+                }, fadeOutDelay * 1000)
+            }
 
-                // Fade out if this is the last piece in the solution.
-                if (playingPiece.fade == 2) {
-                    const fadeOutDelay = playingPiece.endTime - playingPiece.startTime - fadeDuration
+            // If this piece is contiguous with the previous one, just keep playing without seeking.
+            // This avoids an audible hiccup from the player.
+            if ((previousPiece == null) || (playingPiece.index != previousPiece.index + 1)) {
+                if (this.debugMode) {
+                    console.log('Slot ' + startSlot + ', seeking to ' + playingPiece.startTime)
+                }
+                this.scWidget.seekTo(playingPiece.startTime * 1000)
+            }
+
+            if (previousPiece == null) {
+                // Set timeout for the duration of the piece, then play the next piece.
+                this.scWidget.bind(SC.Widget.Events.PLAY, () => {
+                    this.scWidget.unbind(SC.Widget.Events.PLAY)
                     setTimeout(() => {
-                        let currVolume = this.baseVolume
-                        const fadeOutInterval = setInterval(function() {
-                            if (currVolume > 0) {
-                                currVolume -= volumeInterval
-                                this.scWidget.setVolume(currVolume)
-                            } else {
-                                clearInterval(fadeOutInterval)
-                                setTimeout(() => {
-                                    this.scWidget.setVolume(this.baseVolume)
-                                }, fadeDuration / nVolumeSteps * 1000)
-                            }
-                        }.bind(this), fadeDuration / nVolumeSteps * 1000)
-                    }, fadeOutDelay * 1000)
+                        // Remove "playing piece" visualization once playing is done.
+                        this.guiManager.setSlotPieceNotPlaying(startSlot)
+                        this.playMultipleSlots(startSlot + 1, endSlot, playingPiece)
+                    }, (playingPiece.endTime - playingPiece.startTime) * 1000)
+                })
+                if (this.debugMode) {
+                    console.log('Slot ' + startSlot + ', calling play()')
                 }
-
+                this.scWidget.play()
+            
+            } else {
+                // Just keep playing without engaging the widget, but update the visualization.
                 setTimeout(() => {
-                    // Remove "playing piece" visualization once playing is done.
                     this.guiManager.setSlotPieceNotPlaying(startSlot)
                     this.playMultipleSlots(startSlot + 1, endSlot, playingPiece)
-                }, (playingPiece.endTime - playingPiece.startTime) * 1000)
-            })
-            this.scWidget.play()
-
-            document.addEventListener('playEnd', this.playEndEventHandler)
+                }, (playingPiece.endTime - playingPiece.startTime) * 1000)            }
 
         } else {
-            // There was a player interaction that interrupted the music, stop playing.
+            // There was a user interaction that interrupted the music, stop playing.
             
             if (this.debugMode) {
                 console.log('Playing interrupted, not playing slot ' + startSlot)
