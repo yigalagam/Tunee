@@ -178,6 +178,11 @@ class Board {
             return
         }
 
+        // Restore volume if previous piece had fade out.
+        if ((previousPiece == null) || (previousPiece.fade == 2)) {
+            this.scWidget.setVolume(this.baseVolume)
+        }
+
         if (!this.playingInterrupted) {
 
             if (this.debugMode) {
@@ -215,9 +220,6 @@ class Board {
                             this.scWidget.setVolume(currVolume)
                         } else {
                             clearInterval(fadeOutInterval)
-                            setTimeout(() => {
-                                this.scWidget.setVolume(this.baseVolume)
-                            }, fadeDuration / nFadeSteps * 1000)
                         }
                     }.bind(this), fadeDuration / nFadeSteps * 1000)
                 }, fadeOutDelay * 1000)
