@@ -1,5 +1,5 @@
 const appName = 'Tunee'
-const subtitle = "Put the puzzle pieces in the right order to play today's music!"
+const subtitle = "Click on the puzzle pieces, put them in order, hear today's music!"
 const website = 'https://tuneepuzzle.github.io/play'
 const email = 'tuneepuzzle@gmail.com'
 
@@ -14,14 +14,14 @@ const nBoardRows = [5, 6]
 const nBoardCols = [14, 12]
 
 // Number of pieces making up the puzzle.
-const nPieces = 10
+const nPieces = 12
 
 // Title div styling.
 const titleFontSizeEM = 3
 const subtitleFontSizeEM = 1.5
 
 // Fade in and fade out.
-const fadeDuration = 0.5
+const fadeDuration = 0.3
 const nFadeSteps = 10
 
 // Parameters for setting up the game GUI.
