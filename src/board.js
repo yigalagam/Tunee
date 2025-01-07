@@ -228,8 +228,8 @@ class Board {
                 }
                 this.scWidget.seekTo(playingPiece.startTime * 1000)
 
-                // Restore volume if previous piece had fade out.
-                if ((previousPiece != null) && (previousPiece.fade == 2)) {
+                // Restore volume in case previous piece had fade out.
+                if ((previousPiece == null) || (previousPiece.fade == 2)) {
                     if (this.debugMode) {
                         console.log('Slot ' + startSlot + ': restoring volume')
                     }
