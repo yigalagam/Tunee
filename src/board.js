@@ -21,8 +21,8 @@ class Board {
 
         // Properties to control audio conflicts.
         this.playing = false
-        // This must be set to false before playing can start.
         this.playingInterrupted = true
+        this.fadeInterval = null
 
     }
 
@@ -178,11 +178,6 @@ class Board {
             return
         }
 
-        // Restore volume if previous piece had fade out.
-        if ((previousPiece == null) || (previousPiece.fade == 2)) {
-            this.scWidget.setVolume(this.baseVolume)
-        }
-
         if (!this.playingInterrupted) {
 
             if (this.debugMode) {
@@ -199,12 +194,12 @@ class Board {
             if (playingPiece.fade == 1) {
                 let currVolume = 0
                 this.scWidget.setVolume(currVolume)
-                const fadeInInterval = setInterval(function() {
+                this.fadeInterval = setInterval(function() {
                     if (currVolume < this.baseVolume) {
                         currVolume += this.volumeInterval
                         this.scWidget.setVolume(currVolume)
                     } else {
-                        clearInterval(fadeInInterval)
+                        clearInterval(this.fadeInterval)
                     }
                 }.bind(this), fadeDuration / nFadeSteps * 1000)
             }
@@ -214,12 +209,12 @@ class Board {
                 const fadeOutDelay = playingPiece.endTime - playingPiece.startTime - fadeDuration
                 setTimeout(() => {
                     let currVolume = this.baseVolume
-                    const fadeOutInterval = setInterval(function() {
+                    this.fadeInterval = setInterval(function() {
                         if (currVolume > 0) {
                             currVolume -= this.volumeInterval
                             this.scWidget.setVolume(currVolume)
                         } else {
-                            clearInterval(fadeOutInterval)
+                            clearInterval(this.fadeInterval)
                         }
                     }.bind(this), fadeDuration / nFadeSteps * 1000)
                 }, fadeOutDelay * 1000)
@@ -232,6 +227,16 @@ class Board {
                     console.log('Slot ' + startSlot + ', seeking to ' + playingPiece.startTime)
                 }
                 this.scWidget.seekTo(playingPiece.startTime * 1000)
+
+                // Restore volume if previous piece had fade out.
+                if ((previousPiece != null) && (previousPiece.fade == 2)) {
+                    if (this.debugMode) {
+                        console.log('Slot ' + startSlot + ': restoring volume')
+                    }
+                    clearInterval(this.fadeInterval)
+                    this.scWidget.setVolume(this.baseVolume)
+                }
+
             }
 
             if (previousPiece == null) {
