@@ -9,8 +9,8 @@ def shift_ascii(string, shift):
 
     return ''.join(shifted_chars)
 
-for date in range(20250105, 20250132):
-    print("'%s': [], // %d: " % (shift_ascii(str(date), 3), date))
+# for date in range(20250105, 20250132):
+#     print("'%s': [], // %d: " % (shift_ascii(str(date), 3), date))
 
 if __name__ == '__main__':
     orig_strings = ', '.join(sys.argv[1:])

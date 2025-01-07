@@ -14,13 +14,13 @@ const audioDataAll = [
     '53583438', 'Frogsod|=#Ylyd#Od#Ylgd', '588::363<', 177.75, 183.15, // 20250105: Coldplay: Viva La Vida, 255770309
     '53583439', 'Frogsod|=#Ylyd#Od#Ylgd', '588::363<', 177.75, 183.15, // 20250106: Coldplay: Viva La Vida, 255770309
     '5358343:', 'Gdylg#Jxhwwd=#Wlwdqlxp#+ihdw1#Vld,', '549873;:8', 71.5, 77.5, // 20250107: David Guetta: Titanium (feat. Sia), 216540875
-    '5358343;', 'Dghoh=#Khoor', '58773:<73', 5, 11.25, // 20250108: Adelle: Hello, 254407940
-    '5358343<', 'U1H1P1=#Orvlqj#P|#Uholjlrq', '5<474969:', 44, 49.4, // 20250109: R.E.M.: Losing My Religion, 291416367
+    '5358343;',  'Euxqr#Pduv=#Frxqw#rq#Ph', '589377;64', 20, 26, // 20250108: Bruno Mars: Count on Me, 256044831
+    '5358343<',  'Wkh#Zklwh#Vwulshv=#Vhyhq#Qdwlrq#Dup|', '5;5877597', 13.75, 19.4, // 20250109: The White Stripes: Seven Nation Army, 282544264
     '53583443', 'GM#Fdvshu#0#Wkh#Fkd#Fkd#Volgh#+M1H1J#Hglw,', '47:89647', 133.25, 139, // 20250110: DJ Casper: The Cha Cha Slide (J.E.G Edit), 14756314
     '53583444', 'Wudylv#Vfrww=#L#NqrzB', '48:9648:;<', 31, 38, // 20250111: Travis Scott: I Know?, 1576315789
-    '53583445', // 20250112: 
-    '53583446', // 20250113: 
-    '53583447', // 20250114: 
+    '53583445', 'Dghoh=#Khoor', '58773:<73', 11.95, 17.65, // 20250112: Adele: Hello, 254407940
+    '53583446', 'U1H1P1=#Orvlqj#P|#Uholjlrq', '5<474969:', 44, 49.4, // 20250113: R.E.M.: Losing My Religion, 291416367
+    '53583447', 'Eh|rqfì=#Mrohqh', '4:;963:4;:', 8.35, 14.25, // 20250114: Beyoncé: Jolene
     '53583448', // 20250115: 
     '53583449', // 20250116: 
     '5358344:', // 20250117: 
