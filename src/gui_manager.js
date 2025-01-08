@@ -1,13 +1,12 @@
 class GUIManager {
 
-    constructor(name, nBoardRows, nBoardCols, songTitle=null, youtubeId=null, testMode=false, debugMode=false) {
+    constructor(name, nBoardRows, nBoardCols, songTitle=null, testMode=false, debugMode=false) {
 
         this.name = name
 
         this.nBoardRows = nBoardRows
         this.nBoardCols = nBoardCols
         this.songTitle = songTitle
-        this.youtubeId = youtubeId
         this.gameDiv = null
         this.controlDiv = null
         this.boardSlots = []
@@ -524,4 +523,41 @@ class GUIManager {
         return endDiv
     }
 
-}    
+    // *** Messages on unsupported platforms or browsers. ***
+
+    showIOSMessage() {
+        this.showNotWorkingDiv('We are still working on optimizing ' + appName + ' for iPhones and iPads.<br>' +
+            'In the mean time, please enjoy it on your desktop or laptop computer using Chrome or Firefox.')
+    }
+
+    showSafariMessage() {
+        this.showNotWorkingDiv('We are still working on optimizing ' + appName + ' for Safari.<br>' +
+            'In the mean time, please enjoy it using Chrome or Firefox.')
+    }
+
+    showNotWorkingDiv(message) {
+        const mainTitleDiv = document.createElement('div')
+        mainTitleDiv.style.fontFamily = font
+        mainTitleDiv.style.fontSize = titleFontSizeEM + 'em'
+        mainTitleDiv.style.fontWeight = 'bold'
+        mainTitleDiv.style.color = darkGray
+        mainTitleDiv.innerHTML = this.name
+
+        const messageDiv = document.createElement('div')
+        messageDiv.style.fontFamily = font
+        messageDiv.style.fontSize = subtitleFontSizeEM + 'em'
+        messageDiv.style.fontWeight = 'bold'
+        messageDiv.style.textAlign = 'center'
+        messageDiv.style.color = lightGray
+        messageDiv.innerHTML = message
+
+        const errorDiv = document.createElement('div')
+        errorDiv.style.display = 'grid'
+        errorDiv.style.placeItems = 'center'
+        errorDiv.appendChild(mainTitleDiv)
+        errorDiv.appendChild(messageDiv)
+
+        document.body.appendChild(errorDiv)
+    }
+
+}
