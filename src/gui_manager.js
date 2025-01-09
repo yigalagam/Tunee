@@ -147,7 +147,7 @@ class GUIManager {
             hammer.on('panstart', () => {
                 if (this.isPiece(slotDiv)) {
                     if (debugMode) {
-                        console.log('Drag start: slot ' + slotDiv.id)
+                        console.log('Drag start, mobile: slot ' + slotDiv.id)
                     }
                     game.slotDrag(slotDiv)
                 }
@@ -156,24 +156,26 @@ class GUIManager {
             hammer.on('panend', (event) => {
                 if (this.isPiece(slotDiv)) {
                     if (debugMode) {
-                        console.log('Drag end: slot ' + slotDiv.id)
-                        const targetSlotDiv = document.elementFromPoint(event.center.x, event.center.y)
-                        if (this.boardSlots.includes(targetSlotDiv)) {
-                            if (this.debugMode) {
-                                console.log('Dropped on slot ' + targetSlotDiv.id)
+                        console.log('Drag end, mobile: slot ' + slotDiv.id)
+                    }
+
+                    const targetSlotDiv = document.elementFromPoint(event.center.x, event.center.y)
+                    if (this.boardSlots.includes(targetSlotDiv)) {
+                        if (this.debugMode) {
+                            console.log('Dropped on slot ' + targetSlotDiv.id)
+                        }
+                        if (targetSlotDiv == slotDiv) {
+                            // Touch and release in the same slot: consider as a click.
+                            if (debugMode) {
+                                console.log('Play: slot ' + slotDiv.id)
                             }
-                            if (targetSlotDiv == slotDiv) {
-                                // Touch and release in the same slot: consider as a click.
-                                if (debugMode) {
-                                    console.log('Play: slot ' + slotDiv.id)
-                                }
-                                game.slotClick(Number(slotDiv.id))
-                            } else {
-                                // Touch ended in a different slot than the origin: drag operation.
-                                game.slotDrop(targetSlotDiv)
-                            }
+                            game.slotClick(Number(slotDiv.id))
+                        } else {
+                            // Touch ended in a different slot than the origin: drag operation.
+                            game.slotDrop(targetSlotDiv)
                         }
                     }
+
                     game.slotDragEnd()
                 }
             })
