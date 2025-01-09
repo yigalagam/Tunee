@@ -24,7 +24,7 @@ const audioDataAll = [
     '53583448', 'Hg#Vkhhudq=#Vkdsh#ri#\\rx', '634494456', 130.25, 135.35, // 20250115: Ed Sheeran: Shape of You, 301161123
     '53583449', 'Pdun#Urqvrq=#Xswrzq#Ixqn#+ihdw1#Euxqr#Pduv,', '59886853;', 15, 21, // 20250116: Mark Ronson: Uptown Funk (feat. Bruno Mars), 265535208
     '5358344:', 'Duhwkd#Iudqnolq=#Uhvshfw', '7::43:9:<', 109, 114.75, // 20250117: Aretha Franklin: Respect
-    '5358344;', // 20250118: 
+    '5358344;', 'V}d=#Nloo#Eloo', '46<9;;37;8', 108.35, 113.9, // 20250118: Sza: Kill Bill
     '5358344<', // 20250119: 
     '53583453', // 20250120: 
     '53583454', // 20250121: 
