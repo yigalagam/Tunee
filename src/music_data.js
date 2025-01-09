@@ -25,7 +25,7 @@ const audioDataAll = [
     '53583449', 'Pdun#Urqvrq=#Xswrzq#Ixqn#+ihdw1#Euxqr#Pduv,', '59886853;', 15, 21, // 20250116: Mark Ronson: Uptown Funk (feat. Bruno Mars), 265535208
     '5358344:', 'Duhwkd#Iudqnolq=#Uhvshfw', '7::43:9:<', 109, 114.75, // 20250117: Aretha Franklin: Respect
     '5358344;', 'V}d=#Nloo#Eloo', '46<9;;37;8', 108.35, 113.9, // 20250118: SZA: Kill Bill
-    '5358344<', // 20250119: 
+    '5358344<', 'Hooh#Nlqj=#H{*v#)#Rk*v', '49;;94;6;', 13.9, 19.4, // 20250119: Elle King: Ex's & Oh's, 168861838
     '53583453', // 20250120: 
     '53583454', // 20250121: 
     '53583455', // 20250122: 
