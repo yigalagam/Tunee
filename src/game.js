@@ -50,16 +50,19 @@ class Game {
         this.gameEnded = false
         this.startGUI()
         this.timer.start()
-        // Generate an audio action triggered by a user interaction due to some browser security features.
-        scWidget.bind(SC.Widget.Events.PAUSE, () => {
-            scWidget.unbind(SC.Widget.Events.PAUSE)
-            this.board.playingInterrupted = false
-            if (this.debugMode) {
-                console.log('SoundCloud widget initiated by a user interaction')
-            }
-        })
-        scWidget.play()
-        scWidget.pause()
+        
+        if (!this.testMode) {
+            // Generate an audio action triggered by a user interaction due to some browser security features.
+            scWidget.bind(SC.Widget.Events.PAUSE, () => {
+                scWidget.unbind(SC.Widget.Events.PAUSE)
+                this.board.playingInterrupted = false
+                if (this.debugMode) {
+                    console.log('SoundCloud widget initiated by a user interaction')
+                }
+            })
+            scWidget.play()
+            scWidget.pause()
+        }
     }
 
     end() {

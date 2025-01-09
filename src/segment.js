@@ -20,10 +20,10 @@ class Segment {
         for (let i = 0; i < nPieces; i += 1) {
             if (i == 0) {
                 // Fade in when playing the first piece.
-                fade = 0//1
+                fade = 1
             } else if (i == nPieces - 1) {
                 // Fade out when playing the last piece.
-                fade = 0//2
+                fade = 2
             } else {
                 fade = 0
             }

@@ -22,7 +22,7 @@ class Board {
         // Properties to control audio conflicts.
         this.playing = false
         this.playingInterrupted = true
-        this.fadeInterval = null
+        this.fadeOutInterval = null
 
     }
 
@@ -79,6 +79,12 @@ class Board {
                 this.baseVolume = volume;
                 this.volumeInterval = this.baseVolume / nFadeSteps
             }.bind(this))
+            
+            // Listen for fadeout events. This is the only instance when we need to restore the volume to baseline.
+            document.addEventListener('fadeOutEnd', () => {
+                this.scWidget.setVolume(this.baseVolume)
+            })
+
         }
 
         this.updateGUI()
@@ -160,7 +166,9 @@ class Board {
         }
 
         // Empty slot.
-        console.log('Click on empty slot: ' + slotIndex)
+        if (this.debugMode) {
+            console.log('Click on empty slot: ' + slotIndex)
+        }
         return null
     }
     
@@ -194,30 +202,30 @@ class Board {
             if (playingPiece.fade == 1) {
                 let currVolume = 0
                 this.scWidget.setVolume(currVolume)
-                this.fadeInterval = setInterval(function() {
+                const fadeInInterval = setInterval(function() {
                     if (currVolume < this.baseVolume) {
                         currVolume += this.volumeInterval
                         this.scWidget.setVolume(currVolume)
                     } else {
-                        clearInterval(this.fadeInterval)
+                        clearInterval(fadeInInterval)
                     }
                 }.bind(this), fadeDuration / nFadeSteps * 1000)
             }
 
             // Fade out if this is the last piece in the solution.
             if (playingPiece.fade == 2) {
-                const fadeOutDelay = playingPiece.endTime - playingPiece.startTime - fadeDuration
+                const timeToFadeOut = playingPiece.endTime - playingPiece.startTime - fadeDuration
                 setTimeout(() => {
                     let currVolume = this.baseVolume
-                    this.fadeInterval = setInterval(function() {
+                    this.fadeOutInterval = setInterval(function() {
                         if (currVolume > 0) {
                             currVolume -= this.volumeInterval
                             this.scWidget.setVolume(currVolume)
                         } else {
-                            clearInterval(this.fadeInterval)
+                            clearInterval(this.fadeOutInterval)
                         }
                     }.bind(this), fadeDuration / nFadeSteps * 1000)
-                }, fadeOutDelay * 1000)
+                }, timeToFadeOut * 1000)
             }
 
             // If this piece is contiguous with the previous one, just keep playing without seeking.
@@ -227,39 +235,49 @@ class Board {
                     console.log('Slot ' + startSlot + ', seeking to ' + playingPiece.startTime)
                 }
                 this.scWidget.seekTo(playingPiece.startTime * 1000)
-
-                // // Restore volume in case previous piece had fade out.
-                // if ((previousPiece == null) || (previousPiece.fade == 2)) {
-                //     if (this.debugMode) {
-                //         console.log('Slot ' + startSlot + ': restoring volume')
-                //     }
-                //     clearInterval(this.fadeInterval)
-                //     this.scWidget.setVolume(this.baseVolume)
-                // }
-
             }
 
             if (previousPiece == null) {
+                // First piece in a sequence.
+
+                // Restore volume in case previous piece had fade out and this one doesn't have fade in.
+                if (playingPiece.fade != 1) {
+                    this.scWidget.setVolume(this.baseVolume)
+                }
+
                 // Set timeout for the duration of the piece, then play the next piece.
                 this.scWidget.bind(SC.Widget.Events.PLAY, () => {
                     this.scWidget.unbind(SC.Widget.Events.PLAY)
+
                     setTimeout(() => {
                         // Remove "playing piece" visualization once playing is done.
                         this.guiManager.setSlotPieceNotPlaying(startSlot)
                         this.playMultipleSlots(startSlot + 1, endSlot, playingPiece)
                     }, (playingPiece.endTime - playingPiece.startTime) * 1000)
                 })
+                
                 if (this.debugMode) {
                     console.log('Slot ' + startSlot + ', calling play()')
                 }
+
                 this.scWidget.play()
-            
+
             } else {
                 // Just keep playing without engaging the widget, but update the visualization.
                 setTimeout(() => {
                     this.guiManager.setSlotPieceNotPlaying(startSlot)
                     this.playMultipleSlots(startSlot + 1, endSlot, playingPiece)
-                }, (playingPiece.endTime - playingPiece.startTime) * 1000)            }
+                }, (playingPiece.endTime - playingPiece.startTime) * 1000)
+
+                // Restore volume in case previous piece had fade out.
+                if (previousPiece.fade == 2 && playingPiece.fade != 1) {
+                    if (this.debugMode) {
+                        console.log('Slot ' + startSlot + ': restoring volume')
+                    }
+                    clearInterval(this.fadeOutInterval)
+                    this.scWidget.setVolume(this.baseVolume)
+                }
+            }
 
         } else {
             // There was a user interaction that interrupted the music, stop playing.

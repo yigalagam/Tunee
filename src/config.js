@@ -4,7 +4,7 @@ const website = 'https://tuneepuzzle.github.io/play'
 const email = 'tuneepuzzle@gmail.com'
 
 // This will generate some console messages.
-const debugMode = false
+const debugMode = true
 
 // Mobile vs. Desktop (this will be overridden by the main app script, but needs to be specified for testing).
 var isMobile = false
@@ -21,8 +21,8 @@ const titleFontSizeEM = 3
 const subtitleFontSizeEM = 1.5
 
 // Fade in and fade out.
-const fadeDuration = 0.3
-const nFadeSteps = 10
+const fadeDuration = 0.4
+const nFadeSteps = 15
 
 // Parameters for setting up the game GUI.
 const baseSizePx = 10
