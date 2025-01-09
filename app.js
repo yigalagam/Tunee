@@ -21,7 +21,10 @@ if (debugMode) {
 
 const guiManager = new GUIManager(appName, nBoardRows[mobileIndex], nBoardCols[mobileIndex], null, false, debugMode)
 
-if (isiOS || isSafari) {
+var params = new URLSearchParams(window.location.search)
+const safariParam = params.get('safari')
+
+if (isiOS || (isSafari && (safariParam == null) )) {
     if (isiOS) {
         guiManager.showIOSMessage()
     } else {
@@ -44,12 +47,11 @@ if (isiOS || isSafari) {
 
     // Check if a specific date passed in URL.
     // If not, use today's data.
-    const params = new URLSearchParams(window.location.search)
     let dateStr = params.get('d')
     if (dateStr == null) {
         dateStr = getTodayDateStr()
     }
-    const gameData = getAudioData(dateStr)
+    var gameData = getAudioData(dateStr)
 
     function startGame() {
         // Start game: Song title, soundcloud link, start time, end time.
