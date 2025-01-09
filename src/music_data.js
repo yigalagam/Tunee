@@ -15,7 +15,7 @@ const audioDataAll = [
     '53583439', 'Frogsod|=#Ylyd#Od#Ylgd', '588::363<', 177.75, 183.15, // 20250106: Coldplay: Viva La Vida, 255770309
     '5358343:', 'Gdylg#Jxhwwd=#Wlwdqlxp#+ihdw1#Vld,', '549873;:8', 71.5, 77.5, // 20250107: David Guetta: Titanium (feat. Sia), 216540875
     '5358343;', 'Euxqr#Pduv=#Frxqw#rq#Ph', '589377;64', 20, 26, // 20250108: Bruno Mars: Count on Me, 256044831
-    '5358343<', 'Wkh#Zklwh#Vwulshv=#Vhyhq#Qdwlrq#Dup|', '5;5877597', 13.75, 19.4, // 20250109: The White Stripes: Seven Nation Army, 282544264
+    '5358343<', 'Wkh#Zklwh#Vwulshv=#Vhyhq#Qdwlrq#Dup|', '5;5877597', 19.6, 25.6, // 20250109: The White Stripes: Seven Nation Army, 282544264
     '53583443', 'GM#Fdvshu#0#Wkh#Fkd#Fkd#Volgh#+M1H1J#Hglw,', '47:89647', 133.25, 139, // 20250110: DJ Casper: The Cha Cha Slide (J.E.G Edit), 14756314
     '53583444', 'Wudylv#Vfrww=#L#NqrzB', '48:9648:;<', 31, 38, // 20250111: Travis Scott: I Know?, 1576315789
     '53583445', 'Dghoh=#Khoor', '58773:<73', 11.95, 17.65, // 20250112: Adele: Hello, 254407940
