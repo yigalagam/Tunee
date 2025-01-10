@@ -55,6 +55,7 @@ if (isiOS || (isSafari && (safariParam == null) )) {
 
     function startGame() {
         // Start game: Song title, soundcloud link, start time, end time.
+        guiManager.setActionButtonText('Loading')
         game.start(gameData[0], gameData[1], gameData[2], gameData[3])
     }
 

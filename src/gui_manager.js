@@ -551,13 +551,21 @@ class GUIManager {
         messageDiv.style.fontWeight = 'bold'
         messageDiv.style.textAlign = 'center'
         messageDiv.style.color = lightGray
+        messageDiv.style.marginTop = baseSizePx + 'px'
         messageDiv.innerHTML = message
+
+        const boardImageImg = document.createElement('img')
+        boardImageImg.src = 'images/tunee_board.png'
+        boardImageImg.style.width = controlDivWidthPx + 'px'
+        boardImageImg.style.height = 'auto'
+        boardImageImg.style.marginTop = baseSizePx + 'px'
 
         const errorDiv = document.createElement('div')
         errorDiv.style.display = 'grid'
         errorDiv.style.placeItems = 'center'
         errorDiv.appendChild(mainTitleDiv)
         errorDiv.appendChild(messageDiv)
+        errorDiv.appendChild(boardImageImg)
 
         document.body.appendChild(errorDiv)
     }
