@@ -27,7 +27,7 @@ var params = new URLSearchParams(window.location.search)
 const safariParam = params.get('safari')
 const iosParam = params.get('ios')
 
-if ((isiOS && (iosParam == null)) || (isSafari && (safariParam == null))) {
+if ((isiOS && (iosParam == null)) || (isSafari && (safariParam == null) && (iosParam == null))) {
     if (isiOS) {
         guiManager.showIOSMessage()
     } else {
