@@ -22,9 +22,12 @@ if (debugMode) {
 const guiManager = new GUIManager(appName, nBoardRows[mobileIndex], nBoardCols[mobileIndex], null, false, debugMode)
 
 var params = new URLSearchParams(window.location.search)
-const safariParam = params.get('safari')
 
-if (isiOS || (isSafari && (safariParam == null) )) {
+// Parameters for testing on unsupported platforms.
+const safariParam = params.get('safari')
+const iosParam = params.get('ios')
+
+if ((isiOS && (iosParam == null)) || (isSafari && (safariParam == null))) {
     if (isiOS) {
         guiManager.showIOSMessage()
     } else {
