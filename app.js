@@ -1,3 +1,22 @@
+// Google analytics.
+
+try {
+    const analyticsScript = document.createElement('script')
+    analyticsScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-KWSBGHWMP3'
+    document.body.appendChild(analyticsScript)
+} catch(error) {
+    console.error("Error loading Google tag manager", error);
+}
+
+try {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+   gtag('config', 'G-KWSBGHWMP3');
+} catch(error) {
+  console.error("Error loading Google Analytics:", error);
+}
+
 document.title = appName
 
 // Icon to appear in browser tab.
