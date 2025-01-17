@@ -465,6 +465,7 @@ class GUIManager {
         songTitleDiv.style.fontWeight = 'bold'
         songTitleDiv.style.color = darkGray
         songTitleDiv.style.whiteSpace = 'pre-wrap'
+        songTitleDiv.style.textAlign = 'center'
         songTitleDiv.innerHTML = this.songTitle
         if (this.debugMode) {
             console.log(this.songTitle)
