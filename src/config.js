@@ -10,8 +10,8 @@ const debugMode = true
 var isMobile = false
 
 // Board dimensions: [desktop, mobile]
-const nBoardRows = [5, 6]
-const nBoardCols = [14, 12]
+const nBoardRows = [5, 5]
+const nBoardCols = [14, 14]
 
 // Number of pieces making up the puzzle.
 const nPieces = 12
