@@ -38,6 +38,8 @@ const audioDataAll = [
     '5358345<', 'Pdgrqqd=#Pdwhuldo#Jluo', '547;3:3::', 50.1, 56.1, // 20250129: Madonna: Material Girl, 214807077
     '53583463',  'Rdvlv=#Zrqghuzdoo', '5;6<:86;;', 113.15, 119.15, // 20250130: Oasis: Wonderwall, 283975388
     '53583464', 'Vdqwdqd=#Pduld#Pduld?euA+ihdw1#Wkh#Surgxfw#J)E,', '5874:44:<', 17.4, 23.4, // 20250131: Santana: Maria Maria<br>(feat. The Product G&B), 254171179
+    '53583534', 'Frogsod|=#\\hoorz', '588::368;', 63, 69, // 20250201 | Coldplay: Yellow | 255770358
+    '53583535', 'Qluydqd=#Vphoov#Olnh#Whhq#Vslulw', '58;<87736', 7.6, 13.6, // 20250202 | Nirvana: Smells Like Teen Spirit | 258954403
 ]
 
 function getAudioData(dateStr) {

@@ -25,11 +25,11 @@ var params = new URLSearchParams(window.location.search)
 
 // Parameters for testing on unsupported platforms.
 const safariParam = params.get('safari')
-const iosParam = params.get('ios')
+const mobileParam = params.get('mobile')
 
-if ((isiOS && (iosParam == null)) || (isSafari && (safariParam == null) && (iosParam == null))) {
+if ((isMobile && (mobileParam == null)) || (isSafari && (safariParam == null) && (mobileParam == null))) {
     if (isiOS) {
-        guiManager.showIOSMessage()
+        guiManager.showMobileMessage()
     } else {
         guiManager.showSafariMessage()
     }

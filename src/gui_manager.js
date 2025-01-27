@@ -528,8 +528,8 @@ class GUIManager {
 
     // *** Messages on unsupported platforms or browsers. ***
 
-    showIOSMessage() {
-        this.showNotWorkingDiv('We are still working on optimizing ' + appName + ' for iPhones and iPads.<br>' +
+    showMobileMessage() {
+        this.showNotWorkingDiv('We are still working on optimizing ' + appName + ' for mobile devices.<br>' +
             'In the mean time, please enjoy it on your desktop or laptop computer using Chrome or Firefox.')
     }
 

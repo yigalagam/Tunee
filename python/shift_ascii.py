@@ -13,7 +13,9 @@ def shift_ascii(string, shift):
 #     print("'%s': [], // %d: " % (shift_ascii(str(date), 3), date))
 
 if __name__ == '__main__':
-    orig_strings = ', '.join(sys.argv[1:])
-    shifted_strings = ', '.join([shift_ascii(arg, 3) for arg in sys.argv[1:]])
-    print(orig_strings)
-    print(shifted_strings)
+    orig_strings = sys.argv[1:]
+    shifted_strings = ''
+    for orig_str in orig_strings:
+        shifted_str = shift_ascii(orig_str, 3).replace('\\', '\\\\').replace('\'', '\\\'')
+        shifted_strings += "'" + shifted_str + "', "
+    print(shifted_strings + '0, 6, // ' + ' | '.join(orig_strings))
