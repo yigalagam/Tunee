@@ -530,12 +530,12 @@ class GUIManager {
 
     showMobileMessage() {
         this.showNotWorkingDiv('We are still working on optimizing ' + appName + ' for mobile devices.<br>' +
-            'In the mean time, please enjoy it on your desktop or laptop computer using Chrome or Firefox.')
+            'In the meantime, please enjoy it on your desktop or laptop computer using Chrome or Firefox.')
     }
 
     showSafariMessage() {
         this.showNotWorkingDiv('We are still working on optimizing ' + appName + ' for Safari.<br>' +
-            'In the mean time, please enjoy it using Chrome or Firefox.')
+            'In the meantime, please enjoy it using Chrome or Firefox.')
     }
 
     showNotWorkingDiv(message) {
