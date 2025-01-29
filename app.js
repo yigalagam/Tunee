@@ -28,7 +28,7 @@ const safariParam = params.get('safari')
 const mobileParam = params.get('mobile')
 
 if ((isMobile && (mobileParam == null)) || (isSafari && (safariParam == null) && (mobileParam == null))) {
-    if (isiOS) {
+    if (isMobile) {
         guiManager.showMobileMessage()
     } else {
         guiManager.showSafariMessage()
