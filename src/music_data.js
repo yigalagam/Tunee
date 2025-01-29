@@ -40,6 +40,9 @@ const audioDataAll = [
     '53583464', 'Vdqwdqd=#Pduld#Pduld?euA+ihdw1#Wkh#Surgxfw#J)E,', '5874:44:<', 17.4, 23.4, // 20250131: Santana: Maria Maria<br>(feat. The Product G&B), 254171179
     '53583534', 'Frogsod|=#\\hoorz', '588::368;', 63, 69, // 20250201 | Coldplay: Yellow | 255770358
     '53583535', 'Qluydqd=#Vphoov#Olnh#Whhq#Vslulw', '58;<87736', 7.6, 13.6, // 20250202 | Nirvana: Smells Like Teen Spirit | 258954403
+    '53583536', 'Zklwqh|#Krxvwrq=#L#Zdqqd#Gdqfh?euAzlwk#Vrpherg|#+Zkr#Oryhv#Ph,', '586:<<:47', 186.25, 192.25, // 20250203 | Whitney Houston: I Wanna Dance<br>with Somebody (Who Loves Me) | 253799714
+    '53583537', 'V}d=#Rshq#Dupv#+ihdw1#Wudylv#Vfrww,', '46<9;;3;<<', 179, 185, // 20250204 | Sza: Open Arms (feat. Travis Scott) | 1396880899
+    '53583538', 'Ohg#]hssholq=#Vwdluzd|#wr#Khdyhq', '58954:;<5', 20, 26, // 20250205 | Led Zeppelin: Stairway to Heaven | 256217892
 ]
 
 function getAudioData(dateStr) {
