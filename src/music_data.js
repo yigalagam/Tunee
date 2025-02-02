@@ -43,6 +43,15 @@ const audioDataAll = [
     '53583536', 'Zklwqh|#Krxvwrq=#L#Zdqqd#Gdqfh?euAzlwk#Vrpherg|#+Zkr#Oryhv#Ph,', '586:<<:47', 186.25, 192.25, // 20250203 | Whitney Houston: I Wanna Dance<br>with Somebody (Who Loves Me) | 253799714
     '53583537', 'V}d=#Rshq#Dupv#+ihdw1#Wudylv#Vfrww,', '46<9;;3;<<', 179, 185, // 20250204 | Sza: Open Arms (feat. Travis Scott) | 1396880899
     '53583538', 'Ohg#]hssholq=#Vwdluzd|#wr#Khdyhq', '58954:;<5', 20, 26, // 20250205 | Led Zeppelin: Stairway to Heaven | 256217892
+    '53583539', 'Oruhq#Doouhg=#Qhyhu#Hqrxjk', '84987664;', 63.5, 69.75, // 20250206 | Loren Allred: Never Enough | 516543318
+    '5358353:', 'Nhqgulfn#Odpdu=#Sulgh', '64:94:555', 8.5, 14.5, // 20250207 | Kendrick Lamar: Pride | 317617222
+    '5358353;', 'Ehh#Jhhv=#Vwd|lq#Dolyh', '588<<6:57', 12.65, 18.65, // 20250208 | Bee Gees: Stayin Alive | 255993724
+    '5358353<', 'Grq#Wrolyhu=#Qr#Lghd', '95;848738', 102.35, 108.35, // 20250209 | Don Toliver: No Idea | 628515405
+    '53583543', 'Txhhq=#Erkhpldq#Ukdsvrg|', '5864995:6', 17.75, 23.75, // 20250210 | Queen: Bohemian Rhapsody | 253166273
+    '53583544', 'Gudnh=#Khdgolqhv', '58:794854', 10, 16, // 20250211 | Drake: Headlines | 257461521
+    '53583545', 'Wdph#Lpsdod=?euAWkh#Ohvv#L#nqrz#Wkh#Ehwwhu', '589574665', 119, 125, // 20250212 | Tame Impala:<br>The Less I know The Better | 256241332
+    '53583546', 'Deed=#Gdqflqj#Txhhq', '5864;:666', 10.75, 16.75, // 20250213 | Abba: Dancing Queen | 253187333
+    '53583547', 'U1H1P1=#Pdq#Rq#Wkh#Prrq', '55397::56', 80, 86, // 20250214 | R.E.M.: Man On The Moon | 220647723
 ]
 
 function getAudioData(dateStr) {
