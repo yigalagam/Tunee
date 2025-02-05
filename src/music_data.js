@@ -43,7 +43,7 @@ const audioDataAll = [
     '53583536', 'Zklwqh|#Krxvwrq=#L#Zdqqd#Gdqfh?euAzlwk#Vrpherg|#+Zkr#Oryhv#Ph,', '586:<<:47', 186.25, 192.25, // 20250203 | Whitney Houston: I Wanna Dance<br>with Somebody (Who Loves Me) | 253799714
     '53583537', 'V}d=#Rshq#Dupv#+ihdw1#Wudylv#Vfrww,', '46<9;;3;<<', 179, 185, // 20250204 | Sza: Open Arms (feat. Travis Scott) | 1396880899
     '53583538', 'Ohg#]hssholq=#Vwdluzd|#wr#Khdyhq', '58954:;<5', 20, 26, // 20250205 | Led Zeppelin: Stairway to Heaven | 256217892
-    '53583539', 'Oruhq#Doouhg=#Qhyhu#Hqrxjk', '84987664;', 63.5, 69.75, // 20250206 | Loren Allred: Never Enough | 516543318
+    '53583539', 'Kduu|#Vw|ohv=#Zdwhuphorq#Vxjdu', '<789:9843', 45.85, 51.95, // 20250206 | Harry Styles: Watermelon Sugar | 945676510
     '5358353:', 'Nhqgulfn#Odpdu=#Sulgh', '64:94:555', 8.5, 14.5, // 20250207 | Kendrick Lamar: Pride | 317617222
     '5358353;', 'Ehh#Jhhv=#Vwd|lq#Dolyh', '588<<6:57', 12.65, 18.65, // 20250208 | Bee Gees: Stayin Alive | 255993724
     '5358353<', 'Grq#Wrolyhu=#Qr#Lghd', '95;848738', 102.35, 108.35, // 20250209 | Don Toliver: No Idea | 628515405
@@ -52,6 +52,33 @@ const audioDataAll = [
     '53583545', 'Wdph#Lpsdod=?euAWkh#Ohvv#L#nqrz#Wkh#Ehwwhu', '589574665', 119, 125, // 20250212 | Tame Impala:<br>The Less I know The Better | 256241332
     '53583546', 'Deed=#Gdqflqj#Txhhq', '5864;:666', 10.75, 16.75, // 20250213 | Abba: Dancing Queen | 253187333
     '53583547', 'U1H1P1=#Pdq#Rq#Wkh#Prrq', '55397::56', 80, 86, // 20250214 | R.E.M.: Man On The Moon | 220647723
+    '53583548', 'Fholqh#Glrq=?euAP|#Khduw#Zloo#Jr#Rq', '5895;4;<;', 20.4, 26.6, // 20250215 | Celine Dion:<br>My Heart Will Go On | 256281898
+    '53583549', 'Frrolr=#Jdqjvwd*v#Sdudglvh', '44;:4767<', 48.5, 54.5, // 20250216 | Coolio: Gangsta's Paradise | 118714349
+    '5358354:', 'Jhrujh#Plfkdho=#Fduhohvv#Zklvshu', '645;4453:', 14.25, 20.25, // 20250217 | George Michael: Careless Whisper | 312811207
+    '5358354;', 'Fkhu=#Eholhyh', '4969934;68', 58.5, 64.5, // 20250218 | Cher: Believe | 1636601835
+    '5358354<', 'Slqn#Ior|g=?euADqrwkhu#Eulfn#lq#wkh#Zdoo/#Sw1#5', '588:78785', 1.2, 7.2, // 20250219 | Pink Floyd:<br>Another Brick in the Wall, Pt. 2 | 255745452
+    '53583553', 'Fduo|#Udh#Mhsvhq=#Fdoo#Ph#Pd|eh', '58696895:', 20.25, 26.15, // 20250220 | Carly Rae Jepsen: Call Me Maybe | 253635627
+    '53583554', 'Pdurrq#8=#Pryhv#Olnh#Mdjjhu?euA+ihdw1#Fkulvwlqd#Djxlohud,', '4<838;55', 43.1, 49.1, // 20250221 | Maroon 5: Moves Like Jagger<br>(feat. Christina Aguilera) | 19505822
+
+    '53583555', 'Nhqgulfn#Odpdu=#Qrw#Olnh#Xv', '4;47:3<4;<', 162.6, 168.6, // 20250222 | Kendrick Lamar: Not Like Us | 1814709189
+    '53583556', 'Pdf#Ploohu=#Frqjudwxodwlrqv#+ihdw1#Elodo,', '5;3<:;:84', 187.25, 193.25, // 20250223 | Mac Miller: Congratulations (feat. Bilal) | 280978751
+    '53583557', 'Vxuylyru=#H|h#ri#wkh#Wljhu', '58746664:', 8, 14, // 20250224 | Survivor: Eye of the Tiger | 254133317
+    '53583558', 'Iohhwzrrg#Pdf=#Olwwoh#Olhv', '<5:<65953', 98.25, 104.25, // 20250225 | Fleetwood Mac: Little Lies | 927932620
+    '53583559', 'Gxudq#Gxudq=#Ruglqdu|#Zruog', '895787676', 17.9, 23.9, // 20250226 | Duran Duran: Ordinary World | 562454343
+    '5358355:', 'Jrw|h=#Vrpherg|#Wkdw#L?euAXvhg#Wr#Nqrz#+ihdw1#Nlpeud,', '4;4<68;:', 91.25, 97.25, // 20250227 | Gotye: Somebody That I<br>Used To Know (feat. Kimbra) | 18193587
+    '5358355;', 'Eh|rqfì=#Wh{dv#Krog#*Hp', '4:77688835', 39.25, 45.25, // 20250228 | Beyoncé: Texas Hold 'Em | 1744355502
+    '53583634', 'Wrwr=#Diulfd', '5863<43;7', 9.25, 15.25, // 20250301 | Toto: Africa | 253091084
+    '53583635', 'Vpdvk#Prxwk=#L*p#D#Eholhyhu', '585:;4:8:', 3.9, 9.9, // 20250302 | Smash Mouth: I'm A Believer | 252781757
+    '53583636', 'Vwlqj=#Hqjolvkpdq#lq#Qhz#\\run', '5864<5887', 70, 76, // 20250303 | Sting: Englishman in New York | 253192554
+    '53583637', 'Wd|oru#Vzliw=#Vkdnh#Lw#Rii?euA+Wd|oru*v#Yhuvlrq,', '4983734;:7', 5, 11, // 20250304 | Taylor Swift: Shake It Off<br>(Taylor's Version) | 1650401874
+    '53583638', 'Fkulvwlqd#Shuul=#D#Wkrxvdqg#\\hduv', '99;43<58', 92, 98, // 20250305 | Christina Perri: A Thousand Years | 66810925
+    '53583639', 'Oruhq#Doouhg=#Qhyhu#Hqrxjk', '84987664;', 63.5, 69.75, // 20250306 | Loren Allred: Never Enough | 516543318
+    '5358363:', 'X5=#Qhz#\\hdu*v#Gd|', '4::399989', 94, 100, // 20250307 | U2: New Year's Day | 177066656
+    '5358363;', 'Hplqhp=#Wkh#Uhdo#Volp#Vkdg|', '589589;;:', 7.75, 13.75, // 20250308 | Eminem: The Real Slim Shady | 256256887
+
+
+
+    '53583734', 'Ulfn#Dvwoh|=#Qhyhu#Jrqqd#Jlyh#\\rx#Xs=?euAP|#Khduw#Zloo#Jr#Rq', '4575;9;948', 42.8, 48.7, // 20250401 | Rick Astley: Never Gonna Give You Up:<br>My Heart Will Go On | 1242868615
 ]
 
 function getAudioData(dateStr) {
