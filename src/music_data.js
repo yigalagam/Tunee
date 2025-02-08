@@ -59,7 +59,6 @@ const audioDataAll = [
     '5358354<', 'Slqn#Ior|g=?euADqrwkhu#Eulfn#lq#wkh#Zdoo/#Sw1#5', '588:78785', 1.2, 7.2, // 20250219 | Pink Floyd:<br>Another Brick in the Wall, Pt. 2 | 255745452
     '53583553', 'Fduo|#Udh#Mhsvhq=#Fdoo#Ph#Pd|eh', '58696895:', 20.25, 26.15, // 20250220 | Carly Rae Jepsen: Call Me Maybe | 253635627
     '53583554', 'Pdurrq#8=#Pryhv#Olnh#Mdjjhu?euA+ihdw1#Fkulvwlqd#Djxlohud,', '4<838;55', 43.1, 49.1, // 20250221 | Maroon 5: Moves Like Jagger<br>(feat. Christina Aguilera) | 19505822
-
     '53583555', 'Nhqgulfn#Odpdu=#Qrw#Olnh#Xv', '4;47:3<4;<', 162.6, 168.6, // 20250222 | Kendrick Lamar: Not Like Us | 1814709189
     '53583556', 'Pdf#Ploohu=#Frqjudwxodwlrqv#+ihdw1#Elodo,', '5;3<:;:84', 187.25, 193.25, // 20250223 | Mac Miller: Congratulations (feat. Bilal) | 280978751
     '53583557', 'Vxuylyru=#H|h#ri#wkh#Wljhu', '58746664:', 8, 14, // 20250224 | Survivor: Eye of the Tiger | 254133317
