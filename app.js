@@ -27,8 +27,8 @@ var params = new URLSearchParams(window.location.search)
 const safariParam = params.get('safari')
 const mobileParam = params.get('mobile')
 
-if ((isMobile && (mobileParam == null)) || (isSafari && (safariParam == null) && (mobileParam == null))) {
-    if (isMobile) {
+if ((isiOS && (mobileParam == null)) || (isSafari && (safariParam == null) && (mobileParam == null))) {
+    if (isiOS) {
         guiManager.showMobileMessage()
     } else {
         guiManager.showSafariMessage()
