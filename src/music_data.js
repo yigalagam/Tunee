@@ -75,7 +75,13 @@ const audioDataAll = [
     '5358363:', 'X5=#Qhz#\\hdu*v#Gd|', '4::399989', 94, 100, // 20250307 | U2: New Year's Day | 177066656
     '5358363;', 'Hplqhp=#Wkh#Uhdo#Volp#Vkdg|', '589589;;:', 7.75, 13.75, // 20250308 | Eminem: The Real Slim Shady | 256256887
 
-
+    
+    '5358363<', 'Ghhs#Eoxh#Vrphwklqj=?euAEuhdnidvw#dw#Wliidq|*v', '4:9569947', 56.5, 62.5, // 20250309 | Deep Blue Something:<br>Breakfast at Tiffany's | 176236614
+    '53583643', 'Pdwdoolfd=#Qrwklqj#Hovh#Pdwwhuv', ':;;3;3<<3', 127.75, 133.75, // 20250310 | Matallica: Nothing Else Matters | 788080990
+    '53583644', 'Qr#Grxew=#Grq*w#Vshdn', '7756846;3', 46.1, 52.1, // 20250311 | No Doubt: Don't Speak | 442351380
+    '53583645', 'Gdylg#Jxhwwd#)#Odg|#Jdjd=?euAEdqj#Edqj#+P|#Ede|#Vkrw#Ph#Grzq,', '549:<6;;7', 53.25, 59.25, // 20250312 | David Guetta & Lady Gaga:<br>Bang Bang (My Baby Shot Me Down) | 216793884
+    '53583646', 'F|suhvv#Kloo=#Lqvdqh#Lq#Wkh#Eudlq', '4<:3:73:3', 58.65, 64.65, // 20250313 | Cypress Hill: Insane In The Brain | 197074070
+    '53583647', 'SV\\=#Jdqjqdp#Vw|oh', '96468536', 66.25, 72.25, // 20250314 | PSY: Gangnam Style | 63135203
 
     '53583734', 'Ulfn#Dvwoh|=#Qhyhu#Jrqqd#Jlyh#\\rx#Xs=?euAP|#Khduw#Zloo#Jr#Rq', '4575;9;948', 42.8, 48.7, // 20250401 | Rick Astley: Never Gonna Give You Up:<br>My Heart Will Go On | 1242868615
 ]
