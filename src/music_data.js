@@ -87,7 +87,16 @@ const audioDataAll = [
     '5358364<', 'Wrqhv#dqg#L=#Gdqfh#Prqnh|', '96598<737', 106, 112, // 20250319 | Tones and I: Dance Monkey | 632659404
     '53583653', 'Fud}|#Wrzq=#Exwwhuio|', '58683;876', 8.35, 14.35, // 20250320 | Crazy Town: Butterfly | 253508543
     '53583654', 'F|qwkld#Hulyr#+ihdw1#Duldqd#Judqgh,=?euAGhi|lqj#Judylw|', '4<97388<4<', 334.6, 340.6, // 20250321 | Cynthia Erivo (feat. Ariana Grande):<br>Defying Gravity | 1964055919
-
+    '53583655', 'Plfkdho#Mdfnvrq=#Eloolh#Mhdq', '5:;83;:45', 20.5, 26.5, // 20250322 | Michael Jackson: Billie Jean | 278508712
+    '53583656', 'Euxqr#Pduv=#Juhqdgh', '46<63353', 170.75, 176.75, // 20250323 | Bruno Mars: Grenade | 13930020
+    '53583657', 'Ere#G|odq=#Eorzlq*#lq#wkh#Zlqg', '58959<563', 1.75, 7.75, // 20250324 | Bob Dylan: Blowin' in the Wind | 256269230
+    '53583658', 'Sulqfh=#Sxusoh#Udlq', '755856474', 176, 182, // 20250325 | Prince: Purple Rain | 422523141
+    '53583659', 'Wkh#Zhhnqg/#Sod|erl#Fduwl=#Wlphohvv', '4<5794<783', 115.5, 121.5, // 20250326 | The Weeknd, Playboi Carti: Timeless | 1924619450
+    '5358365:', 'd0kd=#Wkh#Vxq#Dozd|v#Vklqhv#rq#WY', '4<8743;;8', 131.3, 137.3, // 20250327 | a-ha: The Sun Always Shines on TV | 195410885
+    '5358365;', 'Lpdjlqh#Gudjrqv=#Udglrdfwlyh', '786:887<6', 121, 127, // 20250328 | Imagine Dragons: Radioactive | 453755493
+    '5358365<', 'Txhhq=#Zh#Duh#wkh#Fkdpslrqv', '585847::6', 34.1, 40.1, // 20250329 | Queen: We Are the Champions | 252514773
+    '53583663', 'U1H1P1=#Lw*v#wkh#Hqg#ri#wkh#Zruog?euADv#Zh#Nqrz#Lw#+Dqg#L#Ihho#Ilqh,', '589468835', 2.75, 8.75, // 20250330 | R.E.M.: It's the End of the World<br>As We Know It (And I Feel Fine) | 256135502
+    '53583664', 'Eulwqh|#Vshduv=#111Ede|#Rqh#Pruh#Wlph', '4653:767:6', 40.25, 46.25, // 20250331 | Britney Spears: ...Baby One More Time | 1320743473
     '53583734', 'Ulfn#Dvwoh|=#Qhyhu#Jrqqd#Jlyh#\\rx#Xs=?euAP|#Khduw#Zloo#Jr#Rq', '4575;9;948', 42.8, 48.7, // 20250401 | Rick Astley: Never Gonna Give You Up:<br>My Heart Will Go On | 1242868615
 ]
 
