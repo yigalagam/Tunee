@@ -80,6 +80,13 @@ const audioDataAll = [
     '53583645', 'Gdylg#Jxhwwd#)#Odg|#Jdjd=?euAEdqj#Edqj#+P|#Ede|#Vkrw#Ph#Grzq,', '549:<6;;7', 53.25, 59.25, // 20250312 | David Guetta & Lady Gaga:<br>Bang Bang (My Baby Shot Me Down) | 216793884
     '53583646', 'F|suhvv#Kloo=#Lqvdqh#Lq#Wkh#Eudlq', '4<:3:73:3', 58.65, 64.65, // 20250313 | Cypress Hill: Insane In The Brain | 197074070
     '53583647', 'SV\\=#Jdqjqdp#Vw|oh', '96468536', 66.25, 72.25, // 20250314 | PSY: Gangnam Style | 63135203
+    '53583648', 'Udglrkhdg=#Fuhhs', '43;3<:;334', 106, 112, // 20250315 | Radiohead: Creep | 1080978001
+    '53583649', 'Wdlr#Fux}=#G|qdplwh', '47735:83<8', 24.4, 30.4, // 20250316 | Taio Cruz: Dynamite | 1440275095
+    '5358364:', 'Ndw|#Shuu|=#Iluhzrun', '589583586', 16.25, 22.25, // 20250317 | Katy Perry: Firework | 256250253
+    '5358364;', 'Wkh#Grruv=#Oljkw#P|#Iluh', '4<4<68<:33', 61.5, 67.5, // 20250318 | The Doors: Light My Fire | 1919359700
+    '5358364<', 'Wrqhv#dqg#L=#Gdqfh#Prqnh|', '96598<737', 106, 112, // 20250319 | Tones and I: Dance Monkey | 632659404
+    '53583653', 'Fud}|#Wrzq=#Exwwhuio|', '58683;876', 8.35, 14.35, // 20250320 | Crazy Town: Butterfly | 253508543
+    '53583654', 'F|qwkld#Hulyr#+ihdw1#Duldqd#Judqgh,=?euAGhi|lqj#Judylw|', '4<97388<4<', 334.6, 340.6, // 20250321 | Cynthia Erivo (feat. Ariana Grande):<br>Defying Gravity | 1964055919
 
     '53583734', 'Ulfn#Dvwoh|=#Qhyhu#Jrqqd#Jlyh#\\rx#Xs=?euAP|#Khduw#Zloo#Jr#Rq', '4575;9;948', 42.8, 48.7, // 20250401 | Rick Astley: Never Gonna Give You Up:<br>My Heart Will Go On | 1242868615
 ]
