@@ -98,6 +98,10 @@ const audioDataAll = [
     '53583663', 'U1H1P1=#Lw*v#wkh#Hqg#ri#wkh#Zruog?euADv#Zh#Nqrz#Lw#+Dqg#L#Ihho#Ilqh,', '589468835', 2.75, 8.75, // 20250330 | R.E.M.: It's the End of the World<br>As We Know It (And I Feel Fine) | 256135502
     '53583664', 'Eulwqh|#Vshduv=#111Ede|#Rqh#Pruh#Wlph', '4653:767:6', 40.25, 46.25, // 20250331 | Britney Spears: ...Baby One More Time | 1320743473
     '53583734', 'Ulfn#Dvwoh|=#Qhyhu#Jrqqd#Jlyh#\\rx#Xs=?euAP|#Khduw#Zloo#Jr#Rq', '4575;9;948', 42.8, 48.7, // 20250401 | Rick Astley: Never Gonna Give You Up:<br>My Heart Will Go On | 1242868615
+    '53583735', 'Fxowxuh#Foxe=#Ndupd#Fkdphohrq', '48;593597', 49.25, 55.25, // 20250402 | Culture Club: Karma Chameleon | 158260264
+    '53583736', 'Wkh#8wk#Glphqvlrq=#Dtxdulrxv#2?euAOhw#Wkh#Vxqvklqh#Lq', '586;5:79;', 16.5, 22.5, // 20250403 | The 5th Dimension: Aquarious /<br>Let The Sunshine In | 253827468
+    '53583737', 'Pduldk#Fduh|=#Zh#Ehorqj#Wrjhwkhu', '588:;6653', 181.5, 187.5, // 20250404 | Mariah Carey: We Belong Together | 255783320
+    '53583738', 'Fuhhghqfh#Fohduzdwhu#Uhylydo=?euASurxg#Pdu|', '5865:;846', 10, 16, // 20250405 | Creedence Clearwater Revival:<br>Proud Mary | 253278513
 ]
 
 function getAudioData(dateStr) {
