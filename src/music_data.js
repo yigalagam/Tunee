@@ -97,11 +97,15 @@ const audioDataAll = [
     '5358365<', 'Txhhq=#Zh#Duh#wkh#Fkdpslrqv', '585847::6', 34.1, 40.1, // 20250329 | Queen: We Are the Champions | 252514773
     '53583663', 'U1H1P1=#Lw*v#wkh#Hqg#ri#wkh#Zruog?euADv#Zh#Nqrz#Lw#+Dqg#L#Ihho#Ilqh,', '589468835', 2.75, 8.75, // 20250330 | R.E.M.: It's the End of the World<br>As We Know It (And I Feel Fine) | 256135502
     '53583664', 'Eulwqh|#Vshduv=#111Ede|#Rqh#Pruh#Wlph', '4653:767:6', 40.25, 46.25, // 20250331 | Britney Spears: ...Baby One More Time | 1320743473
-    '53583734', 'Ulfn#Dvwoh|=#Qhyhu#Jrqqd#Jlyh#\\rx#Xs=?euAP|#Khduw#Zloo#Jr#Rq', '4575;9;948', 42.8, 48.7, // 20250401 | Rick Astley: Never Gonna Give You Up:<br>My Heart Will Go On | 1242868615
+    '53583734', 'Ulfn#Dvwoh|=#Qhyhu#Jrqqd#Jlyh#\\rx#Xs', '4575;9;948', 42.8, 48.7, // 20250401 | Rick Astley: Never Gonna Give You Up | 1242868615
     '53583735', 'Fxowxuh#Foxe=#Ndupd#Fkdphohrq', '48;593597', 49.25, 55.25, // 20250402 | Culture Club: Karma Chameleon | 158260264
     '53583736', 'Wkh#8wk#Glphqvlrq=#Dtxdulrxv#2?euAOhw#Wkh#Vxqvklqh#Lq', '586;5:79;', 16.5, 22.5, // 20250403 | The 5th Dimension: Aquarious /<br>Let The Sunshine In | 253827468
     '53583737', 'Pduldk#Fduh|=#Zh#Ehorqj#Wrjhwkhu', '588:;6653', 181.5, 187.5, // 20250404 | Mariah Carey: We Belong Together | 255783320
     '53583738', 'Fuhhghqfh#Fohduzdwhu#Uhylydo=?euASurxg#Pdu|', '5865:;846', 10, 16, // 20250405 | Creedence Clearwater Revival:<br>Proud Mary | 253278513
+    '53583739', 'Uhgqh{=#Frwwrq#H|h#Mrh', '585943:57', 0, 6, // 20250406 | Rednex: Cotton Eye Joe | 252610724
+    '5358373:', 'Shduo#Mdp=#Eodfn', '58<873388', 145.5, 151.5, // 20250407 | Pearl Jam: Black | 259540055
+    '5358373;', 'Vld=#Xqvwrssdeoh', '445:946538', 127, 133, // 20250408 | Sia: Unstoppable | 1127613205
+
 ]
 
 function getAudioData(dateStr) {
