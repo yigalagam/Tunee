@@ -105,6 +105,22 @@ const audioDataAll = [
     '53583739', 'Uhgqh{=#Frwwrq#H|h#Mrh', '585943:57', 0, 6, // 20250406 | Rednex: Cotton Eye Joe | 252610724
     '5358373:', 'Shduo#Mdp=#Eodfn', '58<873388', 145.5, 151.5, // 20250407 | Pearl Jam: Black | 259540055
     '5358373;', 'Vld=#Xqvwrssdeoh', '445:946538', 127, 133, // 20250408 | Sia: Unstoppable | 1127613205
+    '5358373<', 'Wkh#Uroolqj#Vwrqhv=#Uxe|#Wxhvgd|', '588:954;5', 35, 41, // 20250409 | The Rolling Stones: Ruby Tuesday | 255762182
+    '53583743', 'Vdow0Q0Shsd=#Zkdwwd#Pdq', '9344<48<4', 70.1, 76.1, // 20250410 | Salt-N-Pepa: Whatta Man | 601191591
+    '53583744', 'Pxuud|#Khdg=#Rqh#Qljkw#lq#Edqjnrn', '663377796', 28.5, 34.5, // 20250411 | Murray Head: One Night in Bangkok | 330044463
+    '53583745', 'Orv#Gho#Ulr=#Pdfduhqd', '55:47548;', 121, 127, // 20250412 | Los Del Rio: Macarena | 227142158
+    '53583746', 'Zklwh#Wrzq=#\\rxu#Zrpdq', '6<67369', 80.5, 86.5, // 20250413 | White Town: Your Woman | 3934036
+    '53583747', 'Wkh#Dqlpdov=?euAWkh#Krxvh#ri#wkh#Ulvlqj#Vxq', '4<4:859;<', 27.5, 33.5, // 20250414 | The Animals:<br>The House of the Rising Sun | 191752689
+    '53583748', 'Dp|#Zlqhkrxvh=#Edfn#Wr#Eodfn', '57:;6:8;4', 15.25, 21.25, // 20250415 | Amy Winehouse: Back To Black | 247837581
+    '53583749', 'Dfh#Ri#Edvh=#Kdss|#Qdwlrq', '558377:89', 75.5, 81.5, // 20250416 | Ace Of Base: Happy Nation | 225044756
+    '5358374:', 'Gdylg#Erzlh=#Vwdupdq', '79694<99', 54.75, 60.75, // 20250417 | David Bowie: Starman | 46361966
+    '5358374;', 'Gxd#Olsd=#Oryh#Djdlq', ':;49:6<47', 82.8, 88.8, // 20250418 | Dua Lipa: Love Again | 781673914
+    '5358374<', 'Nlvv=#Fud}|#Fud}|#Qljkwv', '5864;3555', 46.5, 52.5, // 20250419 | Kiss: Crazy Crazy Nights | 253180222
+    '53583753', 'Hduwk/#Zlqg#)#Iluh=#Vhswhpehu', '5893645;6', 19, 25, // 20250420 | Earth, Wind & Fire: September | 256031283
+    '53583754', 'Howrq#Mrkq=#Furfrgloh#Urfn', '5846;;798', 15, 21, // 20250421 | Elton John: Crocodile Rock | 251388465
+    '53583755', 'Vhdo=#Fud}|', '54986<<<6', 74.75, 80.75, // 20250422 | Seal: Crazy | 216539993
+
+
 
 ]
 
