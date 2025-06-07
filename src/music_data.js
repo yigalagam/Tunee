@@ -126,10 +126,10 @@ const audioDataAll = [
     '5358375:', 'Wd|oru#Vzliw=#Oryh#Vwru|?euA+Wd|oru*v#Yhuvlrq,', '<;6<;<747', 76.8, 82.8, // 20250427 | Taylor Swift: Love Story<br>(Taylor's Version) | 983989414
     '5358375;', 'Eu|dq#Dgdpv=#Vxpphu#ri#9<', '455338687<', 45.65, 51.65, // 20250428 | Bryan Adams: Summer of 69 | 1220053549
     '5358375<', 'Erq#Mryl=#Lw*v#P|#Olih', '585<3<36;', 32.75, 38.75, // 20250429 | Bon Jovi: It's My Life | 252909038
-     '53583763', 'Vwdugxvw=#Pxvlf#Vrxqgv?euAEhwwhu#Zlwk#\\rx', '976337697', 112.25, 118.25, // 20250430 | Stardust: Music Sounds<br>Better With You | 643004364
+    '53583763', 'Vwdugxvw=#Pxvlf#Vrxqgv?euAEhwwhu#Zlwk#\\rx', '976337697', 112.25, 118.25, // 20250430 | Stardust: Music Sounds<br>Better With You | 643004364
     '53583834', 'Fxwwlqj#Fuhz=?euA+L#Mxvw,#Glhg#lq#\\rxu#Dupv', '5864;8638', 15, 21, // 20250501 | Cutting Crew:<br>(I Just) Died in Your Arms | 253185305
     '53583835', 'Jhuu|#Udiihuw|=#Ednhu#Vwuhhw', '546<6656;', 114.75, 120.75, // 20250502 | Gerry Rafferty: Baker Street | 213933238
-     '53583836', 'Grq#PfOhdq=#Dphulfdq#Slh', '45598:83:8', 300.6, 306.6, // 20250503 | Don McLean: American Pie | 1226575075
+    '53583836', 'Grq#PfOhdq=#Dphulfdq#Slh', '45598:83:8', 300.6, 306.6, // 20250503 | Don McLean: American Pie | 1226575075
     '53583837', 'XVD#Iru#Diulfd=?euAZh#Duh#wkh#Zruog', '4;:4563:3', 215.9, 221.9, // 20250504 | USA For Africa:<br>We Are the World | 187123070
     '53583838', 'Dhurvplwk=#L#Grq*w#Zdqqd#Plvv#d#Wklqj', '579;<69<8', 62.2, 68.2, // 20250505 | Aerosmith: I Don't Wanna Miss a Thing | 246893695
     '53583839', 'Mrkq#Ohjhqg=#Doo#Ri#Ph', '4469959:9', 82.85, 88.85, // 20250506 | John Legend: All Of Me | 113662676
@@ -171,6 +171,34 @@ const audioDataAll = [
     '53583944', 'Vdqwdqd=#Vprrwk#+ihdw1#Ure#Wkrpdv,', '5874:4646', 2.25, 8.25, // 20250611 | Santana: Smooth (feat. Rob Thomas) | 254171313
     '53583945', 'Pdgrqqd=#Sdsd#Grq*w#Suhdfk', '73838874<', 146.65, 152.65, // 20250612 | Madonna: Papa Don't Preach | 405055419
     '53583946', 'Wkh#Fdugljdqv=#Oryhirro', '938489664', 45.35, 51.35, // 20250613 | The Cardigans: Lovefool | 605156331
+    '53583947', 'Ydqfh#Mr|=#Ulswlgh', ':7<8;36:', 29.75, 35.75, // 20250614 | Vance Joy: Riptide | 74958037
+    '53583948', 'Doo070Rqh=#L#Vzhdu', '564:39379', 66.25, 72.25, // 20250615 | All-4-One: I Swear | 231706046
+    '53583949', 'Edfnvwuhhw#Er|v=#Hyhu|erg|', '5895;8:97', 9, 15, // 20250616 | Backstreet Boys: Everybody | 256285764
+    '5358394:', 'Zklwqh|#Krxvwrq=#Krz#Zloo#L#Nqrz', '755<99334', 67.75, 73.75, // 20250617 | Whitney Houston: How Will I Know | 422966001
+    '5358394;', 'Orx#Uhhg=#Shuihfw#Gd|', '5874;863<', 11.75, 17.75, // 20250618 | Lou Reed: Perfect Day | 254185309
+    '5358394<', 'Qlfnhoedfn=#Krz#\\rx#Uhplqg#Ph', '547;3:48:', 16.85, 22.85, // 20250619 | Nickelback: How You Remind Me | 214807157
+    '53583953', 'XE73=#Uhg#Uhg#Zlqh', '58954389<', 20, 26, // 20250620 | UB40: Red Red Wine | 256210569
+    '53583954', 'Fuhhghqfh#Fohduzdwhu#Uhylydo=?euAL#Sxw#D#Vshoo#Rq#\\rx', '58696<775', 14, 20, // 20250621 | Creedence Clearwater Revival:<br>I Put A Spell On You | 253639442
+    '53583955', 'Orqgrqehdw=?euAL*yh#Ehhq#Wklqnlqj#Derxw#\\rx', '4;443;<437', 48.7, 54.7, // 20250622 | Londonbeat:<br>I've Been Thinking About You | 1811089104
+    '53583956', 'Mrdq#Rveruqh=?euAZkdw#Li#Jrg#Zdv#Rqh#Ri#Xv', '8<4685<9', 79.13, 85.13, // 20250623 | Joan Osborne:<br>What If God Was One Of Us | 59135296
+    '53583957', 'Uhg#Krw#Fklol#Shsshuv=?euAXqghu#Wkh#Eulgjh', '5:653659;', 86.3, 92.3, // 20250624 | Red Hot Chili Peppers:<br>Under The Bridge | 273203268
+    '53583958', 'Olqnlq#Sdun=#Lq#wkh#Hqg', '54<3:7;46', 53.35, 59.35, // 20250625 | Linkin Park: In the End | 219074813
+    '53583959', 'Pduldk#Fduh|=#Guhdp#Oryhu', '58:386334', 19.5, 25.5, // 20250626 | Mariah Carey: Dream Lover | 257053001
+    '5358395:', 'Ehuolq=#Wdnh#P|#Euhdwk#Dzd|', '47338956:', 48.2, 54.2, // 20250627 | Berlin: Take My Breath Away | 140056237
+    '5358395;', 'Vwhdp=?euAQd#Qd#Kh|#Kh|#Nlvv#Klp#Jrrge|h', '5868<98:;', 8.9, 14.9, // 20250628 | Steam:<br>Na Na Hey Hey Kiss Him Goodbye | 253596578
+    '5358395<', 'Ghv*uhh=#Olih', '475;8:5968', 38.65, 44.65, // 20250629 | Des'ree: Life | 1428572635
+    '53583963', 'Ilqh#\\rxqj#Fdqqledov=?euAVkh#Gulyhv#Ph#Fud}|', '<763<;49<', 55.75, 61.75, // 20250630 | Fine Young Cannibals:<br>She Drives Me Crazy | 943098169
+    '53583:34', 'Edueud#Vwuhlvdqg=#Zrpdq#Lq#Oryh', '4<:5;8<45', 74.15, 80.15, // 20250701 | Barbra Streisand: Woman In Love | 197285912
+    '53583:35', 'Dghoh=#Vrphrqh#Olnh#\\rx', '53<<46:;87', 74, 80, // 20250702 | Adele: Someone Like You | 2099137854
+    '53583:36', 'Gdylg#Erzlh=#Vsdfh#Rgglw|', '559;<594;', 80.5, 86.5, // 20250703 | David Bowie: Space Oddity | 226892618
+    '53583:37', 'Glfn#Gdoh=#Plvhuorx', '84;<8;94', 25, 31, // 20250704 | Dick Dale: Miserlou | 51895861
+    '53583:38', 'Lvudho#Ndpdndzlzr*roh=?euARyhu#Wkh#Udlqerz', '58688;555', 37.1, 43.1, // 20250705 | Israel Kamakawiwo'ole:<br>Over The Rainbow | 253558222
+    '53583:39', 'Joruld#Jd|qru=#L#Zloo#Vxuylyh', '5864;3:8;', 0, 6, // 20250706 | Gloria Gaynor: I Will Survive | 253180758
+    '53583:3:', 'Uhg#Krw#Fklol#Shsshuv=#Vfdu#Wlvvxh', '5:6536395', 54, 60, // 20250707 | Red Hot Chili Peppers: Scar Tissue | 273203062
+    '53583:3;', 'Qhz#Rughu=#Wuxh#Idlwk', '488377787', 234.9, 240.9, // 20250708 | New Order: True Faith | 905488558
+    '53583:3<', 'Vrxqgjdughq=#Eodfn#Kroh#Vxq', '44;73;7593', 112.75, 118.75, // 20250709 | Soundgarden: Black Hole Sun | 1184084260
+    '53583:43', 'Jxqv#Q*#Urvhv=?euAVzhhw#Fklog#R*#Plqh', '5868<53<5', 14.8, 20.8, // 20250710 | Guns N' Roses:<br>Sweet Child O' Mine | 253592092
+
 
 
 ]
