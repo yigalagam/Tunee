@@ -53,6 +53,10 @@ class Game {
         
         if (!this.testMode) {
             // Generate an audio action triggered by a user interaction due to some browser security features.
+            scWidget.bind(SC.Widget.Events.PLAY, () => {
+                scWidget.unbind(SC.Widget.Events.PLAY)
+                scWidget.pause()
+            })
             scWidget.bind(SC.Widget.Events.PAUSE, () => {
                 scWidget.unbind(SC.Widget.Events.PAUSE)
                 this.board.playingInterrupted = false
@@ -61,7 +65,6 @@ class Game {
                 }
             })
             scWidget.play()
-            scWidget.pause()
         }
     }
 
