@@ -280,6 +280,37 @@ const audioDataAll = [
     '53583<5;', 'Eh|rqfì=#Wh{dv#Krog#*Hp', '4:77688835', 39.25, 45.25, // 20250928 | Beyoncé: Texas Hold 'Em | 1744355502
     '53583<5<', 'Pdgrqqd=#Pdwhuldo#Jluo', '547;3:3::', 50.1, 56.1, // 20250929: Madonna: Material Girl, 214807077
     '53583<63',  'Rdvlv=#Zrqghuzdoo', '5;6<:86;;', 113.15, 119.15, // 20250930: Oasis: Wonderwall, 283975388
+    '53584334', 'Fxwwlqj#Fuhz=?euA+L#Mxvw,#Glhg#lq#\\rxu#Dupv', '5864;8638', 15, 21, // 20251001 | Cutting Crew:<br>(I Just) Died in Your Arms | 253185305
+    '53584335', 'Jhuu|#Udiihuw|=#Ednhu#Vwuhhw', '546<6656;', 114.75, 120.75, // 20251002 | Gerry Rafferty: Baker Street | 213933238
+    '53584336', 'Grq#PfOhdq=#Dphulfdq#Slh', '45598:83:8', 300.6, 306.6, // 20250503 | Don McLean: American Pie | 1226575075
+    '53584337', 'XVD#Iru#Diulfd=?euAZh#Duh#wkh#Zruog', '4;:4563:3', 215.9, 221.9, // 20251004 | USA For Africa:<br>We Are the World | 187123070
+    '53584338', 'Dhurvplwk=#L#Grq*w#Zdqqd#Plvv#d#Wklqj', '579;<69<8', 62.2, 68.2, // 20251005 | Aerosmith: I Don't Wanna Miss a Thing | 246893695
+    '53584339', 'Mrkq#Ohjhqg=#Doo#Ri#Ph', '4469959:9', 82.85, 88.85, // 20251006 | John Legend: All Of Me | 113662676
+    '5358433:', 'Zdon#Wkh#Prrq=?euAVkxw#Xs#dqg#Gdqfh', '49:485:9:', 15, 21, // 20251007 | Walk The Moon:<br>Shut Up and Dance | 167152767
+    '5358433;', 'Mrkq#Ghqyhu=?euAWdnh#Ph#Krph/#Frxqwu|#Urdgv', '67799656<', 30, 36, // 20251008 | John Denver:<br>Take Me Home, Country Roads | 344663239
+    '5358433<', 'Wkh#Srolfh=#Hyhu|#Euhdwk#\\rx#Wdnh', '585943943', 13, 19, // 20251009 | The Police: Every Breath You Take | 252610610
+    '53584343', 'HPI=#Xqeholhydeoh', '<653:3;<8', 38.75, 44.75, // 20251010 | EMF: Unbelievable | 932070895
+    '53584344', 'Dghoh=#Uroolqj#lq#wkh#Ghhs', '58773:<58', 4, 10, // 20251011 | Adele: Rolling in the Deep | 254407925
+    '53584345', 'Sdxo#PfFduwqh|#)#Vwhylh#Zrqghu=?euAHerq|#dqg#Lyru|', '588;3:83;', 11.75, 17.75, // 20251012 | Paul McCartney & Stevie Wonder:<br>Ebony and Ivory | 255807508
+    '53584346', 'Pduf|#Sod|jurxqg=#Vh{#)#Fdqg|', '5857;5373', 11.1, 17.1, // 20251013 | Marcy Playground: Sex & Candy | 252482040
+    '53584347', 'Wkh#Yhuyh=#Elwwhuvzhhw#V|pskrq|', '5596<;;:4', 62.1, 68.1, // 20251014 | The Verve: Bittersweet Symphony | 226398871
+    '53584348', 'Luhqh#Fdud=#Iodvkgdqfh111#Zkdw#d#Ihholqj', '45<:7369;', 69.5, 75.5, // 20251015 | Irene Cara: Flashdance... What a Feeling | 129740368
+    '53584349', 'Skduhoo#Zlooldpv=#Kdss|', '56<556;9;', 32, 38, // 20251016 | Pharell Williams: Happy | 239223868
+    '5358434:', 'Udqg|#Qhzpdq=?euA\\rx*yh#Jrw#d#Iulhqg#lq#Ph', '5893;:675', 8.5, 14.5, // 20251017 | Randy Newman:<br>You've Got a Friend in Me | 256087342
+    '5358434;', 'Sdxod#Degxo=#Vwudljkw#Xs', '58:77966', 60.8, 66.8, // 20251018 | Paula Abdul: Straight Up | 25744633
+    '5358434<', 'Hg#Vkhhudq=#Wklqnlqj#Rxw#Orxg', '5479<6776', 96.15, 102.15, // 20251019 | Ed Sheeran: Thinking Out Loud | 214693443
+    '53584353', 'Wkh#Frppxqdugv=?euAGrq*w#Ohdyh#Ph#Wklv#Zd|', '49:78;6;', 58, 64, // 20251020 | The Communards:<br>Don't Leave Me This Way | 16745838
+    '53584354', 'H{wuhph=#Pruh#Wkdq#Zrugv', '5864;83;<', 20, 26, // 20251021 | Extreme: More Than Words | 253185089
+    '53584355', 'Vlprq#)#Jduixqnho=#Puv1#Urelqvrq', '585;8<637', 10.5, 16.5, // 20251022 | Simon & Garfunkel: Mrs. Robinson | 252859304
+    '53584356', 'Wzhqw|#Rqh#Slorwv=#Vwuhvvhg#Rxw', '5:4554<6:', 109.75, 115.75, // 20251023 | Twenty One Pilots: Stressed Out | 271221937
+    '53584357', 'Gluh#Vwudlwv=#Prqh|#iru#Qrwklqj', '53<784346', 97, 103, // 20251024 | Dire Straits: Money for Nothing | 209451013
+    '53584358', 'ixq1=#Zh#Duh#\\rxqj?euA+ihdw1#Mdqhooh#Prqäh,', '564;956<:', 76.5, 82.5, // 20251025 | fun.: We Are Young<br>(feat. Janelle Monáe) | 231862397
+    '53584359', 'Juhhq#Gd|=#Jrrg#Ulggdqfh?euA+Wlph#ri#\\rxu#Olih,', '5895737;<', 133.75, 139.75, // 20251026 | Green Day: Good Riddance<br>(Time of Your Life) | 256240489
+    '5358435:', 'Odxud#Eudqljdq=#Vhoi#Frqwuro', '44;746737', 101.5, 107.5, // 20251027 | Laura Branigan: Self Control | 118413404
+    '5358435;', 'Glgr=#Wkdqn#\\rx', '44<993746', 2.2, 8.2, // 20251028 | Dido: Thank You | 119660413
+    '5358435<', 'Uroolqj#Vwrqhv=#Sdlqw#Lw#Eodfn', '64::38564', 12.5, 18.5, // 20251029 | Rolling Stones: Paint It Black | 317705231
+    '53584363', 'Wrql#Eud{wrq=#Xq0Euhdn#P|#Khduw', '97875868', 61.6, 67.6, // 20251030 | Toni Braxton: Un-Break My Heart | 64542535
+    '53584364', 'Olssv#Lqf1=#Ixqn|wrzq', '6496<<;;9', 31.5, 37.5, // 20251031 | Lipps Inc.: Funkytown | 316399886
 ]
 
 function getAudioData(dateStr) {
