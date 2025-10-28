@@ -311,6 +311,39 @@ const audioDataAll = [
     '5358435<', 'Uroolqj#Vwrqhv=#Sdlqw#Lw#Eodfn', '64::38564', 12.5, 18.5, // 20251029 | Rolling Stones: Paint It Black | 317705231
     '53584363', 'Wrql#Eud{wrq=#Xq0Euhdn#P|#Khduw', '97875868', 61.6, 67.6, // 20251030 | Toni Braxton: Un-Break My Heart | 64542535
     '53584364', 'Olssv#Lqf1=#Ixqn|wrzq', '6496<<;;9', 31.5, 37.5, // 20251031 | Lipps Inc.: Funkytown | 316399886
+    '53584434', 'Phdw#Ordi=#L*g#Gr#Dq|wklqj#Iru#Oryh?euA+Exw#L#Zrq*w#Gr#Wkdw,', '58:3;5335', 80.5, 86.5, // 20251101 | Meat Loaf: I'd Do Anything For Love<br>(But I Won't Do That) | 257082002
+    '53584435', 'Odv#Nhwfkxs=?euAWkh#Nhwfkxs#Vrqj#+Dvhuhmì,', '<<9395<38', 91.1, 97.1, // 20251102 | Las Ketchup:<br>The Ketchup Song (Aserejé) | 996062905
+    '53584436', 'Txlqf|#Mrqhv=#Vrxo#Ervvd#Qryd', '58<37;465', 14, 20, // 20251103 | Quincy Jones: Soul Bossa Nova | 259048132
+    '53584437', 'Hulf#Fodswrq=#Od|od', '58:3:;85:', 235.75, 241.75, // 20251104 | Eric Clapton: Layla | 257078527
+    '53584438', 'Edkd#Phq=#Zkr#Ohw#Wkh#Grjv#Rxw', '58<399546', 8, 14, // 20251105 | Baha Men: Who Let The Dogs Out | 259066213
+    '53584439', 'MD\\0]=#Hpsluh#Vwdwh#ri#Plqg?euA+ihdw1#Dolfld#Nh|v,', '48<846::3', 294.85, 300.85, // 20251106 | JAY-Z: Empire State of Mind<br>(feat. Alicia Keys) | 159513770
+    '5358443:', 'Hxursh=#Wkh#Ilqdo#Frxqwgrzq', '5<535:4;:', 117.6, 123.6, // 20251107 | Europe: The Final Countdown | 292027187
+    '5358443;', 'Rdvlv=#Fkdpsdjqh#Vxshuqryd', '5<4566844', 244.75, 250.75, // 20251108 | Oasis: Champagne Supernova | 291233511
+    '5358443<', 'Hdjohv=#Krwho#Fdoliruqld', '564;7<7;;', 0.25, 6.25, // 20251109 | Eagles: Hotel California | 231849488
+    '53584443', 'Lpdjlqh#Gudjrqv=#Ghprqv', '5:4557<6;', 113.25, 119.25, // 20251110 | Imagine Dragons: Demons | 271224938
+    '53584444', 'Vdqwdqd=#Vprrwk#+ihdw1#Ure#Wkrpdv,', '5874:4646', 2.25, 8.25, // 20251111 | Santana: Smooth (feat. Rob Thomas) | 254171313
+    '53584445', 'Pdgrqqd=#Sdsd#Grq*w#Suhdfk', '73838874<', 146.65, 152.65, // 20251112 | Madonna: Papa Don't Preach | 405055419
+    '53584446', 'Wkh#Fdugljdqv=#Oryhirro', '938489664', 45.35, 51.35, // 20251113 | The Cardigans: Lovefool | 605156331
+    '53584447', 'Ydqfh#Mr|=#Ulswlgh', ':7<8;36:', 29.75, 35.75, // 20251114 | Vance Joy: Riptide | 74958037
+    '53584448', 'Doo070Rqh=#L#Vzhdu', '564:39379', 66.25, 72.25, // 20251115 | All-4-One: I Swear | 231706046
+    '53584449', 'Edfnvwuhhw#Er|v=#Hyhu|erg|', '5895;8:97', 9, 15, // 20251116 | Backstreet Boys: Everybody | 256285764
+    '5358444:', 'Zklwqh|#Krxvwrq=#Krz#Zloo#L#Nqrz', '755<99334', 67.75, 73.75, // 20251117 | Whitney Houston: How Will I Know | 422966001
+    '5358444;', 'Orx#Uhhg=#Shuihfw#Gd|', '5874;863<', 11.75, 17.75, // 20251118 | Lou Reed: Perfect Day | 254185309
+    '5358444<', 'Qlfnhoedfn=#Krz#\\rx#Uhplqg#Ph', '547;3:48:', 16.85, 22.85, // 20251119 | Nickelback: How You Remind Me | 214807157
+    '53584453', 'XE73=#Uhg#Uhg#Zlqh', '58954389<', 20, 26, // 20251120 | UB40: Red Red Wine | 256210569
+    '53584454', 'Fuhhghqfh#Fohduzdwhu#Uhylydo=?euAL#Sxw#D#Vshoo#Rq#\\rx', '58696<775', 14, 20, // 20251121 | Creedence Clearwater Revival:<br>I Put A Spell On You | 253639442
+    '53584455', 'Orqgrqehdw=?euAL*yh#Ehhq#Wklqnlqj#Derxw#\\rx', '4;443;<437', 48.7, 54.7, // 20251122 | Londonbeat:<br>I've Been Thinking About You | 1811089104
+    '53584456', 'Mrdq#Rveruqh=?euAZkdw#Li#Jrg#Zdv#Rqh#Ri#Xv', '8<4685<9', 79.13, 85.13, // 20251123 | Joan Osborne:<br>What If God Was One Of Us | 59135296
+    '53584457', 'Uhg#Krw#Fklol#Shsshuv=?euAXqghu#Wkh#Eulgjh', '5:653659;', 86.3, 92.3, // 20251124 | Red Hot Chili Peppers:<br>Under The Bridge | 273203268
+    '53584458', 'Olqnlq#Sdun=#Lq#wkh#Hqg', '54<3:7;46', 53.35, 59.35, // 20251125 | Linkin Park: In the End | 219074813
+    '53584459', 'Pduldk#Fduh|=#Guhdp#Oryhu', '58:386334', 19.5, 25.5, // 20251126 | Mariah Carey: Dream Lover | 257053001
+    '5358445:', 'Ehuolq=#Wdnh#P|#Euhdwk#Dzd|', '47338956:', 48.2, 54.2, // 20251127 | Berlin: Take My Breath Away | 140056237
+    '5358445;', 'Vwhdp=?euAQd#Qd#Kh|#Kh|#Nlvv#Klp#Jrrge|h', '5868<98:;', 8.9, 14.9, // 20251128 | Steam:<br>Na Na Hey Hey Kiss Him Goodbye | 253596578
+    '5358445<', 'Ghv*uhh=#Olih', '475;8:5968', 38.65, 44.65, // 20251129 | Des'ree: Life | 1428572635
+    '53584463', 'Ilqh#\\rxqj#Fdqqledov=?euAVkh#Gulyhv#Ph#Fud}|', '<763<;49<', 55.75, 61.75, // 20251130 | Fine Young Cannibals:<br>She Drives Me Crazy | 943098169
+
+
+
 ]
 
 function getAudioData(dateStr) {
