@@ -341,7 +341,38 @@ const audioDataAll = [
     '5358445;', 'Vwhdp=?euAQd#Qd#Kh|#Kh|#Nlvv#Klp#Jrrge|h', '5868<98:;', 8.9, 14.9, // 20251128 | Steam:<br>Na Na Hey Hey Kiss Him Goodbye | 253596578
     '5358445<', 'Ghv*uhh=#Olih', '475;8:5968', 38.65, 44.65, // 20251129 | Des'ree: Life | 1428572635
     '53584463', 'Ilqh#\\rxqj#Fdqqledov=?euAVkh#Gulyhv#Ph#Fud}|', '<763<;49<', 55.75, 61.75, // 20251130 | Fine Young Cannibals:<br>She Drives Me Crazy | 943098169
-
+    '53584534', 'Edueud#Vwuhlvdqg=#Zrpdq#Lq#Oryh', '4<:5;8<45', 74.15, 80.15, // 20251201 | Barbra Streisand: Woman In Love | 197285912
+    '53584535', 'Dghoh=#Vrphrqh#Olnh#\\rx', '53<<46:;87', 74, 80, // 20251202 | Adele: Someone Like You | 2099137854
+    '53584536', 'Gdylg#Erzlh=#Vsdfh#Rgglw|', '559;<594;', 80.5, 86.5, // 20251203 | David Bowie: Space Oddity | 226892618
+    '53584537', 'Glfn#Gdoh=#Plvhuorx', '84;<8;94', 25, 31, // 20251204 | Dick Dale: Miserlou | 51895861
+    '53584538', 'Lvudho#Ndpdndzlzr*roh=?euARyhu#Wkh#Udlqerz', '58688;555', 37.1, 43.1, // 20251205 | Israel Kamakawiwo'ole:<br>Over The Rainbow | 253558222
+    '53584539', 'Joruld#Jd|qru=#L#Zloo#Vxuylyh', '5864;3:8;', 0, 6, // 20251206 | Gloria Gaynor: I Will Survive | 253180758
+    '5358453:', 'Uhg#Krw#Fklol#Shsshuv=#Vfdu#Wlvvxh', '5:6536395', 54, 60, // 20251207 | Red Hot Chili Peppers: Scar Tissue | 273203062
+    '5358453;', 'Qhz#Rughu=#Wuxh#Idlwk', '488377787', 234.9, 240.9, // 20251208 | New Order: True Faith | 905488558
+    '5358453<', 'Vrxqgjdughq=#Eodfn#Kroh#Vxq', '44;73;7593', 112.75, 118.75, // 20251209 | Soundgarden: Black Hole Sun | 1184084260
+    '53584543', 'Jxqv#Q*#Urvhv=?euAVzhhw#Fklog#R*#Plqh', '5868<53<5', 14.8, 20.8, // 20251210 | Guns N' Roses:<br>Sweet Child O' Mine | 253592092
+    '53584544', 'Wudylv#Vfrww=#L#NqrzB', '48:9648:;<', 31, 38, // 20251211: Travis Scott: I Know?, 1576315789
+    '53584545', 'Dghoh=#Khoor', '58773:<73', 11.95, 17.65, // 20251212: Adele: Hello, 254407940
+    '53584546', 'U1H1P1=#Orvlqj#P|#Uholjlrq', '5<474969:', 44, 49.4, // 20251213: R.E.M.: Losing My Religion, 291416367
+    '53584547', 'Eh|rqfì=#Mrohqh', '4:;963:4;:', 8.35, 14.25, // 20251214: Beyoncé: Jolene
+    '53584548', 'Hg#Vkhhudq=#Vkdsh#ri#\\rx', '634494456', 130.25, 135.35, // 20251215: Ed Sheeran: Shape of You, 301161123
+    '53584549', 'Pdun#Urqvrq=?euAXswrzq#Ixqn#+ihdw1#Euxqr#Pduv,', '59886853;', 15, 21, // 20251216: Mark Ronson: Uptown Funk (feat. Bruno Mars), 265535208
+    '5358454:', 'Duhwkd#Iudqnolq=#Uhvshfw', '7::43:9:<', 109, 114.75, // 20251217: Aretha Franklin: Respect
+    '5358454;', 'V}d=#Nloo#Eloo', '46<9;;37;8', 108.35, 113.9, // 20251218: SZA: Kill Bill
+    '5358454<', 'Hooh#Nlqj=#H{*v#)#Rk*v', '49;;94;6;', 13.9, 19.4, // 20251219: Elle King: Ex's & Oh's, 168861838
+    '53584553', 'Wd|oru#Vzliw=?euAZloghvw#Guhdpv#+Wd|oru*v#Yhuvlrq,', '44594<75<;', 99.8, 105.88, // 20251220: Taylor Swift: Wildest Dreams (Taylor's Version), 1126194298
+    '53584554', 'Lpdjlqh#Gudjrqv=#Eholhyhu#+ihdw1#Olo#Zd|qh,', '8888;7586', 183.6, 189.6,// 20251221: Imagine Dragons: Believer (feat. Lil Wayne), 555584253
+    '53584555', 'Dghoh=#Vn|idoo', '5:67;3553', 81.1, 87.1, // 20251222: Adele: Skyfall, 273480220
+    '53584556', 'Hplqhp=?euAWkh#Prqvwhu#+ihdw1#Ulkdqqd,', '589589:<6', 50.6, 56.6, // 20251223: Eminem: The Monster (feat. Rihanna), 256256793
+    '53584557', 'Plfkdho#Mdfnvrq=#Ehdw#Lw', '5:;83<675', 21.5, 27.5, // 20251224: Michael Jackson, Beat It, 278509342
+    '53584558', 'Ol}}r=#Mxlfh', '8858:3<96', 65.7, 71.7, // 20251225: Lizzo: Juice, 552570963
+    '53584559', 'Euxfh#Vsulqjvwhhq=#Eruq#lq#wkh#X1V1D1', '58:36:654', 0, 6,// 20251226: Bruce Springsteen: Born in the U.S.A., 257037321
+    '5358455:', 'Eh|rqfì=#Vlqjoh#Odglhv?euA+Sxw#d#Ulqj#rq#Lw,', '5898597;9', 0.75, 6.75, // 20251227: Beyoncé: Single Ladies<br>(Put a Ring on It), 256526486
+    '5358455;', 'E1r1E=#Qrwklq*#rq#\\rx?euA+ihdw1#Euxqr#Pduv,', '54745:;;4', 91.5, 97.5, // 20251228: B.o.B: Nothin' on You<br>(feat. Bruno Mars), 214127881
+    '5358455<', 'Pdgrqqd=#Pdwhuldo#Jluo', '547;3:3::', 50.1, 56.1, // 20251229: Madonna: Material Girl, 214812077
+    '53584563',  'Rdvlv=#Zrqghuzdoo', '5;6<:86;;', 113.15, 119.15, // 20251230: Oasis: Wonderwall, 283975388
+    '53584564', 'Vdqwdqd=#Pduld#Pduld?euA+ihdw1#Wkh#Surgxfw#J)E,', '5874:44:<', 17.4, 23.4, // 20251231: Santana: Maria Maria<br>(feat. The Product G&B), 254171179
+    
 
 
 ]
