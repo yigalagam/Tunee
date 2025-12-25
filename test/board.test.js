@@ -26,7 +26,7 @@ describe('Board Test', () =>  {
         expect(this.occupiedSlots.length).toBe(4)
     })
 
-    it ('Get maximum number of adjacent pieces', () => {
+    it('Get maximum number of adjacent pieces', () => {
         // Helper for ensuring pieces are sufficiently scattered on the board.
         
         const piece = this.pieces[2]
@@ -99,7 +99,6 @@ describe('Board Test', () =>  {
         fromSlot = this.occupiedSlots[0]
         toSlot = this.occupiedSlots[3]
         expect(() => { this.board.movePiece(fromSlot, toSlot) }).toThrowError('Slot ' + toSlot + ' is already populated, cannot move piece')
-
     })
 
 })
