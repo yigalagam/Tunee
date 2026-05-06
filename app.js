@@ -15,51 +15,45 @@ const isSafari = /safari/i.test(userAgent) && (!isChrome)
 isMobile = isAndroid || isiOS
 const mobileIndex = Number(isMobile)
 
-if (debugMode) {
-    console.log(userAgent)
-}
-
-const guiManager = new GUIManager(appName, nBoardRows[mobileIndex], nBoardCols[mobileIndex], null, false, debugMode)
-
 var params = new URLSearchParams(window.location.search)
 
 // Parameters for testing on unsupported platforms.
 const safariParam = params.get('safari')
 const mobileParam = params.get('mobile')
 
-if ((isiOS && (mobileParam == null)) || (isSafari && (safariParam == null) && (mobileParam == null))) {
-    if (isiOS) {
-        guiManager.showMobileMessage()
-    } else {
-        guiManager.showSafariMessage()
-    }
- } else {
+if (params.has('debug')) {
+    debugMode = true
+}
 
-    // Start a game object.
-    var game = new Game(guiManager, nPieces, [nBoardRows[mobileIndex], nBoardCols[mobileIndex]], false, debugMode)
+if (debugMode) {
+    console.log(userAgent)
+}
 
-    // Set up game container.
-    document.body.appendChild(guiManager.gameDiv)
+const guiManager = new GUIManager(appName, nBoardRows[mobileIndex], nBoardCols[mobileIndex], null, false, debugMode)
 
-    // Set action button to start the game.
-    guiManager.setActionButtonText('Start')
-    guiManager.setActionButtonClick(startGame)
+// Start a game object.
+var game = new Game(guiManager, nPieces, [nBoardRows[mobileIndex], nBoardCols[mobileIndex]], false, debugMode)
 
-    // Image for dragging operations (positioned outside the page).
-    document.body.appendChild(guiManager.dragImage)
+// Set up game container.
+document.body.appendChild(guiManager.gameDiv)
 
-    // Check if a specific date passed in URL.
-    // If not, use today's data.
-    let dateStr = params.get('d')
-    if (dateStr == null) {
-        dateStr = getTodayDateStr()
-    }
-    var gameData = getAudioData(dateStr)
+// Set action button to start the game.
+guiManager.setActionButtonText('Start')
+guiManager.setActionButtonClick(startGame)
 
-    function startGame() {
-        // Start game: Song title, soundcloud link, start time, end time.
-        guiManager.setActionButtonText('Loading')
-        game.start(gameData[0], gameData[1], gameData[2], gameData[3])
-    }
+// Image for dragging operations (positioned outside the page).
+document.body.appendChild(guiManager.dragImage)
 
+// Check if a specific date passed in URL.
+// If not, use today's data.
+let dateStr = params.get('d')
+if (dateStr == null) {
+    dateStr = getTodayDateStr()
+}
+var gameData = getAudioData(dateStr)
+
+function startGame() {
+    // Start game: Song title, soundcloud link, start time, end time.
+    guiManager.setActionButtonText('Loading')
+    game.start(gameData[0], gameData[1], gameData[2], gameData[3])
 }

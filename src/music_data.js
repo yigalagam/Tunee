@@ -380,7 +380,7 @@ const audioDataAll = [
     '53593439', 'Frogsod|=#Ylyd#Od#Ylgd', '588::363<', 177.75, 183.15, // 20260106: Coldplay: Viva La Vida, 255770309
     '5359343:', 'Gdylg#Jxhwwd=#Wlwdqlxp#+ihdw1#Vld,', '549873;:8', 71.5, 77.5, // 20260107: David Guetta: Titanium (feat. Sia), 216540875
     '5359343;', 'Euxqr#Pduv=#Frxqw#rq#Ph', '589377;64', 20, 26, // 20260108: Bruno Mars: Count on Me, 256044831
-    '5359343<', 'Wkh#Zklwh#Vwulshv=#Vhyhq#Qdwlrq#Dup|', '5;5877597', 19.6, 25.6, // 20260109: The White Stripes: Seven Nation Army, 282544264
+    '5359343<', 'Eh|rqfì=#Wh{dv#Krog#*Hp', '4:77688835', 39.25, 45.25, // 20260109 | Beyoncé: Texas Hold 'Em | 1744355502
     '53593443', 'GM#Fdvshu#0#Wkh#Fkd#Fkd#Volgh#+M1H1J#Hglw,', '47:89647', 133.25, 139, // 20260110: DJ Casper: The Cha Cha Slide (J.E.G Edit), 14756314
     '53593444', 'Wudylv#Vfrww=#L#NqrzB', '48:9648:;<', 31, 38, // 20260111: Travis Scott: I Know?, 1576315789
     '53593445', 'Dghoh=#Khoor', '58773:<73', 11.95, 17.65, // 20260112: Adele: Hello, 254407940
@@ -489,9 +489,9 @@ const audioDataAll = [
     '53593758', 'Fxue#\\rxu#Hqwkxvldvp#Wkhph', '58338;3:7', 2, 8, // 20260425 | Curb Your Enthusiasm Theme | 250058074
     '53593759', 'Wkh#Edqjohv=#Hwhuqdo#Iodph', '588<48:93', 5.25, 11.25, // 20260426 | The Bangles: Eternal Flame | 255915760
     '5359375:', 'Wd|oru#Vzliw=#Oryh#Vwru|?euA+Wd|oru*v#Yhuvlrq,', '<;6<;<747', 76.8, 82.8, // 20260427 | Taylor Swift: Love Story<br>(Taylor's Version) | 983989414
-    '5359375;', 'Eu|dq#Dgdpv=#Vxpphu#ri#9<', '455338687<', 45.65, 51.65, // 20260428 | Bryan Adams: Summer of 69 | 1220053549
+    '5359375;', 'Wd|oru#Vzliw=#Oryh#Vwru|?euA+Wd|oru*v#Yhuvlrq,', '<;6<;<747', 76.8, 82.8, // 20260428 | Taylor Swift: Love Story<br>(Taylor's Version) | 983989414
     '5359375<', 'Erq#Mryl=#Lw*v#P|#Olih', '585<3<36;', 32.75, 38.75, // 20260429 | Bon Jovi: It's My Life | 252909038
-    '53593763', 'Vwdugxvw=#Pxvlf#Vrxqgv?euAEhwwhu#Zlwk#\\rx', '976337697', 112.25, 118.25, // 20260430 | Stardust: Music Sounds<br>Better With You | 643004364
+    '53593763', 'Fxwwlqj#Fuhz=?euA+L#Mxvw,#Glhg#lq#\\rxu#Dupv', '5864;8638', 15, 21, // 20260430 | Cutting Crew:<br>(I Just) Died in Your Arms | 253185305
     '53593834', 'Fxwwlqj#Fuhz=?euA+L#Mxvw,#Glhg#lq#\\rxu#Dupv', '5864;8638', 15, 21, // 20260501 | Cutting Crew:<br>(I Just) Died in Your Arms | 253185305
     '53593835', 'Jhuu|#Udiihuw|=#Ednhu#Vwuhhw', '546<6656;', 114.75, 120.75, // 20260502 | Gerry Rafferty: Baker Street | 213933238
     '53593836', 'Grq#PfOhdq=#Dphulfdq#Slh', '45598:83:8', 300.6, 306.6, // 20260503 | Don McLean: American Pie | 1226575075

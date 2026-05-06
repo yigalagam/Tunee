@@ -62,11 +62,17 @@ class GUIManager {
         this.soundcloudDiv = document.createElement('div')
         this.soundcloudDiv.style.width = soundcloudFrameWidthPx + 'px'
         this.soundcloudFrame = document.createElement('iframe')
-        this.soundcloudFrame.allow = 'autoplay'
+        this.soundcloudFrame.allow = 'autoplay; encrypted-media'
         this.soundcloudFrame.width = '100%'
         this.soundcloudDiv.appendChild(this.soundcloudFrame)
         this.soundcloudDiv.style.position = 'absolute'
-        this.soundcloudDiv.style.left = (-2 * soundcloudFrameWidthPx) + 'px'
+        if (!this.debugMode) {
+            // Place outside the screen.
+            this.soundcloudDiv.style.left = (-2 * soundcloudFrameWidthPx) + 'px'
+        } else {
+            // In debug mode the SoundCloud frame is visible.
+            this.soundcloudDiv.style.left = '0px'
+        }
         return this.soundcloudDiv
     }
 

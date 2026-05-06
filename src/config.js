@@ -4,7 +4,7 @@ const website = 'https://tuneepuzzle.github.io/play'
 const email = 'tuneepuzzle@gmail.com'
 
 // This will generate some console messages.
-const debugMode = true
+var debugMode = false
 
 // Mobile vs. Desktop (this will be overridden by the main app script, but needs to be specified for testing).
 var isMobile = false

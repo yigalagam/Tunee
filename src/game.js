@@ -24,6 +24,9 @@ class Game {
         // Properties used to handle moving pieces.
         this.slotBeingMovedFrom = ''
         this.slotBeingMovedElement = null
+
+        // Audio engine.
+        this.activeAudioContext = null
     }
 
     start(songTitle, soundCloudID, startTime, endTime) {
@@ -39,6 +42,33 @@ class Game {
         } else {
             this.soundcloudReady(null, startTime, endTime)
         }
+
+        // This is a hack for making the game work on Apple products: iPhone, iPad, Safari.
+        // It keeps the audio engine open all the time to prevent the delay when starting to play a piece.
+
+        let activeAudioContext
+
+        // Call this on a 'Click' or 'Touch' event before playing the widget
+        const wakeAudioRail = () => {
+            if (activeAudioContext) return
+
+            const AudioContext = window.AudioContext || window.webkitAudioContext
+            this.activeAudioContext = new AudioContext()
+
+            // Create a silent buffer to keep the hardware awake
+            const buffer = this.activeAudioContext.createBuffer(1, 1, 22050)
+            const source = this.activeAudioContext.createBufferSource()
+            source.buffer = buffer
+            source.connect(this.activeAudioContext.destination)
+            
+            // Standard iOS requirement: resume context within user gesture
+            this.activeAudioContext.resume().then(() => {
+                source.start(0)
+                console.log('Audio rail is primed and awake')
+            })
+        }
+
+        wakeAudioRail()
 
     }
 
@@ -71,6 +101,7 @@ class Game {
     end() {
         this.endGUI()
         this.gameEnded = true
+        this.activeAudioContext.close()
     }
 
     movePiece(originIndex, destIndex) {
