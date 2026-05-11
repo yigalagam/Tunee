@@ -6,6 +6,9 @@ const email = 'tuneepuzzle@gmail.com'
 // This will generate some console messages.
 var debugMode = false
 
+// Start the game already solved (but one piece).
+var solved = false
+
 // Mobile vs. Desktop (this will be overridden by the main app script, but needs to be specified for testing).
 var isMobile = false
 

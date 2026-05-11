@@ -2,7 +2,7 @@
 
 class Board {
 
-    constructor(guiManager, nRows, nCols, testMode, debugMode=false) {
+    constructor(guiManager, nRows, nCols, testMode, solved=false, debugMode=false) {
         
         this.nSlots = nRows * nCols
         if (guiManager.boardSlots.length != this.nSlots) {
@@ -18,6 +18,7 @@ class Board {
         this.slots = new Array(this.nSlots).fill(null);
         this.slotsGUI = []
         this.testMode = testMode
+        this.solved = solved
         this.debugMode = debugMode
 
         // Properties to control audio conflicts.
@@ -47,27 +48,36 @@ class Board {
             throw new Error('Board does not have enough space for ' + nPieces + ' pieces')
         }
 
-        let ready = false
-        while (!ready) {
-            this.reset()
-            
-            // Randomly populate slots with pieces.
-            const pieceLocations = Array.from({ length: this.nSlots }, (_, i) => i);
-            for (let i = pieceLocations.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [pieceLocations[i], pieceLocations[j]] = [pieceLocations[j], pieceLocations[i]];
-            }
-            for (let [i, loc] of pieceLocations.entries()) {
-                this.slots[loc] = pieces[i]
-            }
+        if (!this.solved) {
+            let ready = false
+            while (!ready) {
+                this.reset()
+                
+                // Randomly populate slots with pieces.
+                const pieceLocations = Array.from({ length: this.nSlots }, (_, i) => i);
+                for (let i = pieceLocations.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [pieceLocations[i], pieceLocations[j]] = [pieceLocations[j], pieceLocations[i]];
+                }
+                for (let [i, loc] of pieceLocations.entries()) {
+                    this.slots[loc] = pieces[i]
+                }
 
-            // Make sure there are at most two adjacent populated slots.
-            const maxAdjacentCount = this.getMaxAdjacentCount()
-            if (maxAdjacentCount <= 2) {
-                ready = true
-            } else if (this.debugMode) {
-                console.log('Maximum of ' + maxAdjacentCount + ' adjacent pieces, reassigning slots')
+                // Make sure there are at most two adjacent populated slots.
+                const maxAdjacentCount = this.getMaxAdjacentCount()
+                if (maxAdjacentCount <= 2) {
+                    ready = true
+                } else if (this.debugMode) {
+                    console.log('Maximum of ' + maxAdjacentCount + ' adjacent pieces, reassigning slots')
+                }
             }
+        
+        } else {
+            // In debug mode, arrange the pieces so that just one needs to be moved to reach the solution.
+            for (let i = 0; i < nPieces - 1; i++) {
+                this.slots[i] = pieces[i]
+            }
+            this.slots[nPieces] = pieces[nPieces - 1]
         }
 
         // The Youtube API is used to play the puzzle pieces.

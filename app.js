@@ -29,10 +29,14 @@ if (debugMode) {
     console.log(userAgent)
 }
 
+if (params.has('solved')) {
+    solved = true
+}
+
 const guiManager = new GUIManager(appName, nBoardRows[mobileIndex], nBoardCols[mobileIndex], null, false, debugMode)
 
 // Start a game object.
-var game = new Game(guiManager, nPieces, [nBoardRows[mobileIndex], nBoardCols[mobileIndex]], false, debugMode)
+var game = new Game(guiManager, nPieces, [nBoardRows[mobileIndex], nBoardCols[mobileIndex]], false, solved, debugMode)
 
 // Set up game container.
 document.body.appendChild(guiManager.gameDiv)

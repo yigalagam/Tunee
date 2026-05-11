@@ -1,6 +1,6 @@
 class Game {
     
-    constructor(guiManager, nPieces, boardSize, testMode, debugMode=false) {
+    constructor(guiManager, nPieces, boardSize, testMode, solved=false, debugMode=false) {
         // Initialize a game from an audio file.
         // boardSize: [# rows, # columns].
 
@@ -16,7 +16,7 @@ class Game {
 
         // Game board where all the pieces are laid out.
         this.boardSize = boardSize
-        this.board = new Board(this.guiManager, boardSize[0], boardSize[1], this.testMode, this.debugMode)
+        this.board = new Board(this.guiManager, boardSize[0], boardSize[1], this.testMode, solved, this.debugMode)
 
         // Timer that runs until the puzzle is solved.
         this.timer = new Timer(this.guiManager)
