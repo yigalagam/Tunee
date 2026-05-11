@@ -22,7 +22,7 @@ const subtitleFontSizeEM = 1.5
 
 // Fade in and fade out.
 const fadeDuration = 0.4
-const nFadeSteps = 15
+const nFadeSteps = 10
 
 // Parameters for setting up the game GUI.
 const baseSizePx = 10
@@ -47,7 +47,7 @@ const disclaimerFontSizeEM = 0.75
 
 // Parameter for displaying song information.
 const songTitleFontSizeEM = 1.3
-const soundcloudFrameWidthPx = 47.5 * baseSizePx
+const youtubeFrameWidthPx = 47.5 * baseSizePx
 
 // Parameters for the result display.
 const resultDivWidthPx = 47.5 * baseSizePx

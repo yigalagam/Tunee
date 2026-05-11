@@ -22,7 +22,7 @@ describe('Game Test', () =>  {
     })
 
     it('Start', () => {
-        // Start a new game with a song from soundcloud.
+        // Start a new game with a song from Youtube.
         this.game.start('Our Song', '123456789', 15.72, 22.39)
         expect(this.guiManager.songTitle).toBe('Our Song')
         expect(this.game.solution.length).toBe(11)

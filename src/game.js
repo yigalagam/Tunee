@@ -29,21 +29,50 @@ class Game {
         this.activeAudioContext = null
     }
 
-    start(songTitle, soundCloudID, startTime, endTime) {
-        // Initialize a soundcloud widget object with a music track, then start game.
+    waitForYoutubePlayer = (interval = 100) => {
+        return new Promise((resolve) => {
+            const check = () => {
+                if (this.guiManager.youtubePlayer != null) {
+                    resolve(this.guiManager.getYoutubePlayer)
+                } else {
+                    setTimeout(check, interval)
+                }
+            }
+            check()
+        })
+    }
+    
+    start(songTitle, youtubeId, startTime, endTime) {
+        // Initialize a Youtube player with a music track, then start game.
         this.guiManager.setSongTitle(songTitle)
-
+       
         if (!this.testMode) {
-            const scWidget = this.guiManager.getSoundcloudWidget(soundCloudID)
-            scWidget.bind(SC.Widget.Events.READY, () => {
-                scWidget.unbind(SC.Widget.Events.READY)
-                this.soundcloudReady(scWidget, startTime, endTime)
+            this.guiManager.getYoutubePlayer(youtubeId)
+            this.waitForYoutubePlayer().then(() => {
+                this.guiManager.youtubePlayer.addEventListener('onReady', () => {
+                    // Play the first piece silently so the segemnt gets buffered.
+                    const player = this.guiManager.youtubePlayer
+                    player.setVolume(0)
+                    player.seekTo(startTime)
+                    player.playVideo()
+                    setTimeout(doneBuffering, (endTime - startTime) / nPieces * 1000)
+                })
             })
         } else {
-            this.soundcloudReady(null, startTime, endTime)
+            this.youtubeReady(null, startTime, endTime)
+        }
+
+        const doneBuffering = () => {
+            if (this.debugMode) {
+                console.log('Done Buffering')
+            }
+            this.guiManager.youtubePlayer.pauseVideo()
+
+            this.youtubeReady(this.guiManager.youtubePlayer, startTime, endTime)
         }
 
         // This is a hack for making the game work on Apple products: iPhone, iPad, Safari.
+        // They have a 0.5 second delay in playing any audio.
         // It keeps the audio engine open all the time to prevent the delay when starting to play a piece.
 
         let activeAudioContext
@@ -72,30 +101,14 @@ class Game {
 
     }
 
-    soundcloudReady(scWidget, startTime, endTime) {
+    youtubeReady(youtubePlayer, startTime, endTime) {
         this.segment = new Segment(startTime, endTime, this.testMode)
         this.solution = this.segment.divide(this.nPieces)
         this.board.reset()
-        this.board.loadPieces(this.solution, scWidget)
+        this.board.loadPieces(this.solution, youtubePlayer)
         this.gameEnded = false
         this.startGUI()
         this.timer.start()
-        
-        if (!this.testMode) {
-            // Generate an audio action triggered by a user interaction due to some browser security features.
-            scWidget.bind(SC.Widget.Events.PLAY, () => {
-                scWidget.unbind(SC.Widget.Events.PLAY)
-                scWidget.pause()
-            })
-            scWidget.bind(SC.Widget.Events.PAUSE, () => {
-                scWidget.unbind(SC.Widget.Events.PAUSE)
-                this.board.playingInterrupted = false
-                if (this.debugMode) {
-                    console.log('SoundCloud widget initiated by a user interaction')
-                }
-            })
-            scWidget.play()
-        }
     }
 
     end() {
@@ -192,6 +205,7 @@ class Game {
             // Check if puzzle is solved.
             if (this.isSolved()) {
                 const firstIndex = this.board.findPiece(this.solution[0])
+                this.board.isGameOver = true
                 this.board.playSequence(firstIndex)
                 this.end()
             }

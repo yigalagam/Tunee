@@ -9,6 +9,8 @@ class GUIManager {
         this.songTitle = songTitle
         this.gameDiv = null
         this.controlDiv = null
+        this.youtubeDiv = null
+        this.youtubeFinalLoc = null
         this.boardSlots = []
         this.boardActive = true
         this.actionButton = null
@@ -17,6 +19,7 @@ class GUIManager {
         this.disclaimerDiv = null
         this.dragImage = this.getDragImage()
         this.songTitle = ''
+        this.youtubePlayer = null
 
         this.testMode = testMode
         this.debugMode = debugMode
@@ -49,38 +52,50 @@ class GUIManager {
         this.gameDiv.appendChild(this.getTitleDiv())
         this.gameDiv.appendChild(this.getBoardDiv())
         this.gameDiv.appendChild(this.getControlDiv())
-        this.gameDiv.appendChild(this.getSoundcloudDiv())
+        this.youtubeDiv = this.getYoutubeDiv()
+        this.gameDiv.appendChild(this.youtubeDiv)
         this.gameDiv.appendChild(this.getFeedbackButton())
         this.gameDiv.appendChild(this.getDisclaimerDiv())
        
         return this.gameDiv
     }
 
-    getSoundcloudDiv() {
-        // Set up a soundcloud frame to stream music.
+    getYoutubeDiv() {
+        // Set up a Youtube frame to stream music.
         // While the game is played, the frame is not visible.
-        this.soundcloudDiv = document.createElement('div')
-        this.soundcloudDiv.style.width = soundcloudFrameWidthPx + 'px'
-        this.soundcloudFrame = document.createElement('iframe')
-        this.soundcloudFrame.allow = 'autoplay; encrypted-media'
-        this.soundcloudFrame.width = '100%'
-        this.soundcloudDiv.appendChild(this.soundcloudFrame)
-        this.soundcloudDiv.style.position = 'absolute'
+        const youtubeDiv = document.createElement('div')
+        youtubeDiv.id = 'youtube-player'
+        youtubeDiv.style.width = youtubeFrameWidthPx + 'px'
+        youtubeDiv.style.position = 'absolute'
         if (!this.debugMode) {
             // Place outside the screen.
-            this.soundcloudDiv.style.left = (-2 * soundcloudFrameWidthPx) + 'px'
+            youtubeDiv.style.left = (-2 * youtubeFrameWidthPx) + 'px'
         } else {
-            // In debug mode the SoundCloud frame is visible.
-            this.soundcloudDiv.style.left = '0px'
+            // In debug mode the Youtube frame is visible.
+            youtubeDiv.style.left = '0px'
         }
-        return this.soundcloudDiv
+        return youtubeDiv
     }
 
-    getSoundcloudWidget(scUrl) {
-        // Get a widget object to control streaming.
-        this.soundcloudFrame.src = scUrl
-        const scWidget = SC.Widget(this.soundcloudFrame)
-        return scWidget
+    getYoutubePlayer(youtubeID) {
+
+        const tag = document.createElement('script')
+        tag.src = "https://www.youtube.com/iframe_api"
+        const firstScriptTag = document.getElementsByTagName('script')[0]
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+
+        window.onYouTubeIframeAPIReady = () => {
+            this.youtubePlayer = new YT.Player('youtube-player', {
+                height: '360',
+                width: '640',
+                videoId: youtubeID,
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 1,
+                    'rel': 0 // Don't show related videos from other channels
+                },
+            })
+        }
     }
     
     getTitleDiv() {
@@ -428,13 +443,6 @@ class GUIManager {
     getDisclaimerDiv() {
         this.disclaimerDiv = document.createElement('div')
 
-        const scLink = document.createElement('a')
-        scLink.href = 'https://www.soundcloud.com/'
-        scLink.textContent = 'SoundCloud'
-        scLink.target = '_blank'
-        scLink.style.textDecoration = 'none'
-        scLink.style.color = darkGray
-
         const privacyLink = document.createElement('a')
         privacyLink.href = 'privacy.html'
         privacyLink.textContent = 'Privacy Policy'
@@ -447,13 +455,9 @@ class GUIManager {
         this.disclaimerDiv.style.fontWeight = 'bold'
         this.disclaimerDiv.style.color = lightGray
         this.disclaimerDiv.style.textAlign = 'center'
-        this.disclaimerDiv.appendChild(document.createTextNode('Music played using the '))
-        this.disclaimerDiv.appendChild(scLink)
-        this.disclaimerDiv.appendChild(document.createTextNode(' waveform player ("Widget").'))
         const br = document.createElement('br');
-        this.disclaimerDiv.appendChild(br)
         this.disclaimerDiv.appendChild(document.createTextNode('All music used in this game is copyrighted and belongs to its legal owners.'))
-        this.disclaimerDiv.appendChild(br.cloneNode())
+        this.disclaimerDiv.appendChild(br)
         this.disclaimerDiv.appendChild(privacyLink)
         return this.disclaimerDiv
     }
@@ -486,9 +490,10 @@ class GUIManager {
         songDiv.style.placeItems = 'center'
         songDiv.appendChild(this.getSongTitleDiv())
         songDiv.style.gap = baseSizePx + 'px'
-        const resultSoundCloudDiv = this.soundcloudDiv.cloneNode(true)
-        resultSoundCloudDiv.style.position = ''
-        songDiv.appendChild(resultSoundCloudDiv)
+        // Add a placeholder to determine the coordinates to move the youtube player frame into.
+        this.youtubeFinalLoc = document.createElement('div')
+        songDiv.appendChild(this.youtubeFinalLoc)
+
         return songDiv
     }
 
@@ -504,11 +509,12 @@ class GUIManager {
         endDiv.style.marginTop = baseSizePx + 'px'
         endDiv.appendChild(resultDiv)
 
-        // Div with song title and soundcloud player.
+        // Div with song title and youtube player.
         const songDiv = this.getSongDiv()
         endDiv.style.gap = (2 * baseSizePx) + 'px'
         endDiv.appendChild(songDiv)
 
+        // Make the game control fade out before showing the solution.
         this.controlDiv.style.opacity = 1
         this.feedbackButton.style.opacity = 1
         this.disclaimerDiv.style.opacity = 1
@@ -526,55 +532,28 @@ class GUIManager {
                 this.disclaimerDiv.style.opacity = 1
                 this.gameDiv.append(this.feedbackButton)
                 this.gameDiv.append(this.disclaimerDiv)
+
+                // Move the Youtube frame to the placeholder we created in the solution div.
+                // We have to use absolute coordinates because using appendChild will create a new player.
+                const youtubeFrame = this.youtubePlayer.getIframe()
+                const youtubeRect = youtubeFrame.getBoundingClientRect()
+                this.youtubeFinalLoc.style.width = youtubeRect.width + 'px'
+                this.youtubeFinalLoc.style.minWidth = youtubeRect.width + 'px'
+                this.youtubeFinalLoc.style.height = youtubeRect.height + 'px'
+                this.youtubeFinalLoc.style.minHeight = youtubeRect.height + 'px'
+                const rect = this.youtubeFinalLoc.getBoundingClientRect()
+                console.log(rect.top)
+                console.log(rect.left)
+                youtubeFrame.style.position = 'absolute'
+                youtubeFrame.style.top = rect.top + 'px'
+                youtubeFrame.style.left = rect.left + 'px'
+                console.log(youtubeFrame.style.top)
+                console.log(youtubeFrame.style.left)
             }
+
         }, resultFadeoutInterval / 20)
 
         return endDiv
-    }
-
-    // *** Messages on unsupported platforms or browsers. ***
-
-    showMobileMessage() {
-        this.showNotWorkingDiv('We are still working on optimizing ' + appName + ' for iPhones and iPads.<br>' +
-            'In the meantime, please enjoy it on Android or on your computer using Chrome or Firefox.')
-    }
-
-    showSafariMessage() {
-        this.showNotWorkingDiv('We are still working on optimizing ' + appName + ' for Safari.<br>' +
-            'In the meantime, please enjoy it using Chrome or Firefox.')
-    }
-
-    showNotWorkingDiv(message) {
-        const mainTitleDiv = document.createElement('div')
-        mainTitleDiv.style.fontFamily = font
-        mainTitleDiv.style.fontSize = titleFontSizeEM + 'em'
-        mainTitleDiv.style.fontWeight = 'bold'
-        mainTitleDiv.style.color = darkGray
-        mainTitleDiv.innerHTML = this.name
-
-        const messageDiv = document.createElement('div')
-        messageDiv.style.fontFamily = font
-        messageDiv.style.fontSize = subtitleFontSizeEM + 'em'
-        messageDiv.style.fontWeight = 'bold'
-        messageDiv.style.textAlign = 'center'
-        messageDiv.style.color = lightGray
-        messageDiv.style.marginTop = baseSizePx + 'px'
-        messageDiv.innerHTML = message
-
-        const boardImageImg = document.createElement('img')
-        boardImageImg.src = 'images/tunee_board.png'
-        boardImageImg.style.width = controlDivWidthPx + 'px'
-        boardImageImg.style.height = 'auto'
-        boardImageImg.style.marginTop = baseSizePx + 'px'
-
-        const errorDiv = document.createElement('div')
-        errorDiv.style.display = 'grid'
-        errorDiv.style.placeItems = 'center'
-        errorDiv.appendChild(mainTitleDiv)
-        errorDiv.appendChild(messageDiv)
-        errorDiv.appendChild(boardImageImg)
-
-        document.body.appendChild(errorDiv)
     }
 
 }

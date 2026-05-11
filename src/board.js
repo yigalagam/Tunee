@@ -9,8 +9,9 @@ class Board {
             throw new Error('Number of slot GUI elements (' + this.slotsGUI.length + ') does not match the number of slots (' + this.nSlots + ')')
         }
         this.guiManager = guiManager
-        this.scWidget = null
+        this.youtube = null
         this.baseVolume = null
+        this.isGameOver = false
 
         // Initialize with all empty slots.
         this.width = nCols
@@ -21,9 +22,8 @@ class Board {
 
         // Properties to control audio conflicts.
         this.playing = false
-        this.playingInterrupted = true
+        this.playingInterrupted = false
         this.fadeOutInterval = null
-
     }
 
     reset() {
@@ -31,9 +31,8 @@ class Board {
         this.updateGUI()
     }
     
-    loadPieces(pieces, scWidget) {
-        // Load a set of pieces into the board, with a soundcloud widget to play them.
-        
+    loadPieces(pieces, youtube) {
+        // Load a set of pieces into the board, with a Youtube player to play them.
         const nPieces = pieces.length
         
         if (this.debugMode) {
@@ -47,7 +46,7 @@ class Board {
         if (this.nSlots < 2* nPieces) {
             throw new Error('Board does not have enough space for ' + nPieces + ' pieces')
         }
-        
+
         let ready = false
         while (!ready) {
             this.reset()
@@ -71,20 +70,18 @@ class Board {
             }
         }
 
-        // The soundcloud widget is used to play the puzzle pieces.
-        this.scWidget = scWidget
+        // The Youtube API is used to play the puzzle pieces.
+        this.youtube = youtube
         if (!this.testMode) {
-            this.scWidget.getVolume(function(volume) {
-                // Record soundcloud player volume for fade-in and fade-out.
-                this.baseVolume = volume;
-                this.volumeInterval = this.baseVolume / nFadeSteps
-            }.bind(this))
+            // Record youtube player volume for fade-in and fade-out.
+            this.baseVolume = 100 //this.youtube.getVolume();
+            this.youtube.setVolume(this.baseVolume)
+            this.volumeInterval = this.baseVolume / nFadeSteps
             
             // Listen for fadeout events. This is the only instance when we need to restore the volume to baseline.
             document.addEventListener('fadeOutEnd', () => {
-                this.scWidget.setVolume(this.baseVolume)
+                this.youtube.setVolume(this.baseVolume)
             })
-
         }
 
         this.updateGUI()
@@ -143,7 +140,7 @@ class Board {
         // Play the content of a player from a slot to the nearest gap or to the right edge of the board.
         
         if (this.playing) {
-        // Any click on a piece or on an empty slot during playing should stop the audio playing but not play.
+            // Any click on a piece or on an empty slot during playing should stop the audio playing but not play.
             this.stopPlaying()
             return null
         }
@@ -177,12 +174,7 @@ class Board {
 
         if (startSlot > endSlot) {
             // Reached the end of the played piece set.
-            this.scWidget.bind(SC.Widget.Events.PAUSE, () => {
-                this.scWidget.unbind(SC.Widget.Events.PAUSE)
-                this.playing = false
-                this.playingInterrupted = false
-            })
-            this.scWidget.pause()
+            this.pausePlaying()
             return
         }
 
@@ -201,11 +193,14 @@ class Board {
             // Fade in if this is the first piece in the solution.
             if (playingPiece.fade == 1) {
                 let currVolume = 0
-                this.scWidget.setVolume(currVolume)
+                this.youtube.setVolume(currVolume)
                 const fadeInInterval = setInterval(function() {
                     if (currVolume < this.baseVolume) {
                         currVolume += this.volumeInterval
-                        this.scWidget.setVolume(currVolume)
+                        this.youtube.setVolume(currVolume)
+                        if (this.debugMode) {
+                            console.log('Fade in, volume: ' + currVolume)
+                        }
                     } else {
                         clearInterval(fadeInInterval)
                     }
@@ -218,9 +213,12 @@ class Board {
                 setTimeout(() => {
                     let currVolume = this.baseVolume
                     this.fadeOutInterval = setInterval(function() {
-                        if (currVolume > 0) {
+                        if (currVolume > 0 && this.playing) {
                             currVolume -= this.volumeInterval
-                            this.scWidget.setVolume(currVolume)
+                            this.youtube.setVolume(currVolume)
+                            if (this.debugMode) {
+                                console.log('Fade out, volume: ' + currVolume)
+                            }
                         } else {
                             clearInterval(this.fadeOutInterval)
                         }
@@ -234,7 +232,7 @@ class Board {
                 if (this.debugMode) {
                     console.log('Slot ' + startSlot + ', seeking to ' + playingPiece.startTime)
                 }
-                this.scWidget.seekTo(playingPiece.startTime * 1000)
+                this.youtube.seekTo(playingPiece.startTime, true)
             }
 
             if (previousPiece == null) {
@@ -242,25 +240,19 @@ class Board {
 
                 // Restore volume in case previous piece had fade out and this one doesn't have fade in.
                 if (playingPiece.fade != 1) {
-                    this.scWidget.setVolume(this.baseVolume)
+                    this.youtube.setVolume(this.baseVolume)
                 }
 
                 // Set timeout for the duration of the piece, then play the next piece.
-                this.scWidget.bind(SC.Widget.Events.PLAY, () => {
-                    this.scWidget.unbind(SC.Widget.Events.PLAY)
-
-                    setTimeout(() => {
-                        // Remove "playing piece" visualization once playing is done.
-                        this.guiManager.setSlotPieceNotPlaying(startSlot)
-                        this.playMultipleSlots(startSlot + 1, endSlot, playingPiece)
-                    }, (playingPiece.endTime - playingPiece.startTime) * 1000)
-                })
-                
                 if (this.debugMode) {
                     console.log('Slot ' + startSlot + ', calling play()')
                 }
-
-                this.scWidget.play()
+                this.youtube.playVideo()
+                setTimeout(() => {
+                    // Remove "playing piece" visualization once playing is done.
+                    this.guiManager.setSlotPieceNotPlaying(startSlot)
+                    this.playMultipleSlots(startSlot + 1, endSlot, playingPiece)
+                }, (playingPiece.endTime - playingPiece.startTime) * 1000)
 
             } else {
                 // Just keep playing without engaging the widget, but update the visualization.
@@ -275,7 +267,7 @@ class Board {
                         console.log('Slot ' + startSlot + ': restoring volume')
                     }
                     clearInterval(this.fadeOutInterval)
-                    this.scWidget.setVolume(this.baseVolume)
+                    this.youtube.setVolume(this.baseVolume)
                 }
             }
 
@@ -287,14 +279,7 @@ class Board {
             }
 
             this.guiManager.setSlotPieceNotPlaying(startSlot)
-            this.scWidget.bind(SC.Widget.Events.PAUSE, () => {
-                this.scWidget.unbind(SC.Widget.Events.PAUSE)
-                this.playing = false
-                this.playingInterrupted = false
-            })
-            this.scWidget.pause()
-            this.playing = false
-            this.playingInterrupted = false
+            this.pausePlaying()
         }
     }
 
@@ -305,6 +290,18 @@ class Board {
             }
             this.playing = false
             this.playingInterrupted = true
+        }
+    }
+
+    pausePlaying() {
+        this.youtube.pauseVideo()
+        this.playing = false
+        this.playingInterrupted = false
+        this.youtube.setVolume(this.baseVolume)
+
+        // If game is over, reset to start of video.
+        if (this.isGameOver) {
+            this.youtube.seekTo(0, true)
         }
     }
 
@@ -365,4 +362,4 @@ class Board {
         })
     }
 
-}
+} // class board
