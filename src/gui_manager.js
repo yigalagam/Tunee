@@ -542,13 +542,9 @@ class GUIManager {
                 this.youtubeFinalLoc.style.height = youtubeRect.height + 'px'
                 this.youtubeFinalLoc.style.minHeight = youtubeRect.height + 'px'
                 const rect = this.youtubeFinalLoc.getBoundingClientRect()
-                console.log(rect.top)
-                console.log(rect.left)
                 youtubeFrame.style.position = 'absolute'
                 youtubeFrame.style.top = rect.top + 'px'
                 youtubeFrame.style.left = rect.left + 'px'
-                console.log(youtubeFrame.style.top)
-                console.log(youtubeFrame.style.left)
             }
 
         }, resultFadeoutInterval / 20)

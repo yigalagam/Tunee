@@ -93,7 +93,9 @@ class Game {
             // Standard iOS requirement: resume context within user gesture
             this.activeAudioContext.resume().then(() => {
                 source.start(0)
-                console.log('Audio rail is primed and awake')
+                if (this.debugMode) {
+                    console.log('Audio rail is primed and awake')
+                }
             })
         }
 
@@ -152,7 +154,9 @@ class Game {
                 return false
             }
         }
-        console.log('Solution check: solved')
+        if (this.debugMode) {
+            console.log('Solution check: solved')
+        }
         return true
     }
 
