@@ -1,4 +1,4 @@
-// Audio data: every date is associated with a song title, Youtube video ID, start time and end time.
+// Audio data (6 second segments): every date is associated with a song title, Youtube video ID, start time.
 
 function getTodayDateStr() {
     const today = new Date()
@@ -10,17 +10,15 @@ function getTodayDateStr() {
 }
 
 const audioDataAll = [
-    '20260510', 'Coldplay: Viva La Vida', 'dvgZkm1xWPE', 177.6, 183.6,
-    '20260511', 'Coldplay: Viva La Vida', 'dvgZkm1xWPE', 177.6, 183.6,
-    '20260512', 'Coldplay: Viva La Vida', 'dvgZkm1xWPE', 177.6, 183.6,
-    '20260513', 'Coldplay: Viva La Vida', 'dvgZkm1xWPE', 177.6, 183.6,
-    '20260514', 'Coldplay: Viva La Vida', 'dvgZkm1xWPE', 177.6, 183.6,
-    '20260515', 'Coldplay: Viva La Vida', 'dvgZkm1xWPE', 177.6, 183.6,
+    '20260510', 'Coldplay: Viva La Vida', 'dvgZkm1xWPE', 177.6,
+    '20260511', 'David Guetta: Titanium (feat. Sia)', 'JRfuAukYTKg', 71.5,
+    '20260512', 'The White Stripes: Seven Nation Army', '0J2QdDbelmY', 19.6,
+    '20260513', '20250110: DJ Casper: The Cha Cha Slide (J.E.G Edit), 14756314', 'wZv62ShoStY', 149.4,
+    '20260514', 'Travis Scott: I Know?', 'X7aF3nZOS98', 33,
+    '20260515', 'Adele: Hello', 'YQHsXMglC9A', 141.5,
 
 
 
-
-    '53583445', 'Dghoh=#Khoor', '58773:<73', 11.95, 17.65, // 20250112: Adele: Hello, 254407940
     '53583446', 'U1H1P1=#Orvlqj#P|#Uholjlrq', '5<474969:', 44, 49.4, // 20250113: R.E.M.: Losing My Religion, 291416367
     '53583447', 'Eh|rqfì=#Mrohqh', '4:;963:4;:', 8.35, 14.25, // 20250114: Beyoncé: Jolene
     '53583448', 'Hg#Vkhhudq=#Vkdsh#ri#\\rx', '634494456', 130.25, 135.35, // 20250115: Ed Sheeran: Shape of You, 301161123
@@ -386,6 +384,6 @@ function getAudioData(dateStr) {
     const songTitle = audioDataAll[audioIndex + 1]
     const youtubeId = audioDataAll[audioIndex + 2]
     const startTime = audioDataAll[audioIndex + 3]
-    const endTime = audioDataAll[audioIndex + 4]
+    const endTime = startTime + 6
     return [songTitle, youtubeId, startTime, endTime]
 }

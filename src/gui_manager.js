@@ -52,8 +52,6 @@ class GUIManager {
         this.gameDiv.appendChild(this.getTitleDiv())
         this.gameDiv.appendChild(this.getBoardDiv())
         this.gameDiv.appendChild(this.getControlDiv())
-        this.youtubeDiv = this.getYoutubeDiv()
-        this.gameDiv.appendChild(this.youtubeDiv)
         this.gameDiv.appendChild(this.getFeedbackButton())
         this.gameDiv.appendChild(this.getDisclaimerDiv())
        
@@ -65,6 +63,7 @@ class GUIManager {
         // While the game is played, the frame is not visible.
         const youtubeDiv = document.createElement('div')
         youtubeDiv.id = 'youtube-player'
+        youtubeDiv.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture')
         youtubeDiv.style.width = youtubeFrameWidthPx + 'px'
         youtubeDiv.style.position = 'absolute'
         if (!this.debugMode) {
@@ -77,25 +76,72 @@ class GUIManager {
         return youtubeDiv
     }
 
-    getYoutubePlayer(youtubeID) {
+    getYoutubePlayer(youtubeId) {
 
-        const tag = document.createElement('script')
-        tag.src = "https://www.youtube.com/iframe_api"
-        const firstScriptTag = document.getElementsByTagName('script')[0]
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+        const injectScript = () => {
+            if (!document.getElementById('yt-api-script')) {
+                const tag = document.createElement('script');
+                tag.id = 'yt-api-script';
+                tag.src = "https://www.youtube.com/iframe_api";
+                document.head.appendChild(tag);
+            }
+        };
 
-        window.onYouTubeIframeAPIReady = () => {
-            this.youtubePlayer = new YT.Player('youtube-player', {
-                height: '360',
-                width: '640',
-                videoId: youtubeID,
-                playerVars: {
-                    'autoplay': 0,
-                    'controls': 1,
-                    'rel': 0 // Don't show related videos from other channels
-                },
-            })
+        // Poll for the YT object every 100ms
+        const checkAPI = setInterval(() => {
+            if (window.YT && window.YT.Player) {
+                console.log('API detected via polling');
+                clearInterval(checkAPI);
+                if (this.debugMode) {
+                    console.log('Initializing with ID:', youtubeId)
+                }
+                this.initYTPlayer(youtubeId);
+                
+                // This addresses a mysterious issue on the GitHub server, where the video ID is not populated in the frame src.
+                const youtubeFrame = this.youtubePlayer.getIframe()
+                const youtubeSrc = this.youtubePlayer.g.src
+                if (youtubeSrc.includes('/embed/?')) {
+                    // Set video ID manually if it's missing.
+                    this.youtubePlayer.g.src = youtubeSrc.replace('/embed/?', `/embed/${youtubeId}/?`)
+                }
+            }
+        }, 100);
+
+        injectScript();
+    }
+
+    initYTPlayer(youtubeID) {
+        this.youtubeDiv = document.createElement('div')
+        this.youtubeDiv.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture')
+        this.youtubeDiv.id = 'youtube-player'
+        this.youtubeDiv.style.width = youtubeFrameWidthPx + 'px'
+        this.youtubeDiv.style.position = 'absolute'
+        if (!this.debugMode) {
+            // Place outside the screen.
+            this.youtubeDiv.style.left = (-2 * youtubeFrameWidthPx) + 'px'
+        } else {
+            // In debug mode the Youtube frame is visible.
+            this.youtubeDiv.style.left = '0px'
         }
+        this.gameDiv.appendChild(this.youtubeDiv)
+
+        this.youtubePlayer = new YT.Player('youtube-player', {
+            host: 'https://www.youtube.com',
+            width: youtubeFrameWidthPx + 'px',
+            videoId: youtubeID,
+            playerVars: {
+                'widget_referrer': window.location.href, // This helps YouTube verify the exact page
+                'enablejsapi': 1,
+                'autoplay': 0,
+                'controls': 1,
+                'rel': 0 // Don't show related videos from other channels
+            },
+            events: {
+                'onError': (event) => {
+                    console.error('YouTube Player Error:', event.data)
+                }
+            }
+        })
     }
     
     getTitleDiv() {

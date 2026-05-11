@@ -67,7 +67,6 @@ class Game {
                 console.log('Done Buffering')
             }
             this.guiManager.youtubePlayer.pauseVideo()
-
             this.youtubeReady(this.guiManager.youtubePlayer, startTime, endTime)
         }
 
