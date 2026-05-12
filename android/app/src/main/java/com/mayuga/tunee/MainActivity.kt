@@ -1,35 +1,75 @@
-import android.net.Uri
+// No semicolons, 4 character indent
+package com.mayuga.tunee
 import android.os.Bundle
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-import androidx.browser.customtabs.CustomTabsIntent
+import android.os.Build
+import android.view.View
+import android.webkit.CookieManager
+import android.media.AudioManager
+import android.media.AudioAttributes
+import android.media.AudioFocusRequest
+import android.webkit.WebSettings
+
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var myWebView: WebView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-        val url = "https://tuneepuzzle.github.io/play"
+        myWebView = findViewById(R.id.webview)
 
-        // 1. Initialize the CustomTabsIntent.Builder
-        val builder = CustomTabsIntent.Builder()
-
-        // 2. Optional: Customize the look (e.g., set toolbar color)
-        // builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
-
-        // 3. Optional: Show the title of the webpage
-        builder.setShowTitle(true)
-
-        // 4. Build the intent
-        val customTabsIntent = builder.build()
-
-        try {
-            // 5. Launch the URL
-            customTabsIntent.launchUrl(this, Uri.parse(url))
-        } catch (e: Exception) {
-            // Fallback: If no browser is installed, handle it gracefully
+        myWebView.settings.apply {
+            javaScriptEnabled = true
+            domStorageEnabled = true
+            loadWithOverviewMode = true
+            useWideViewPort = true
+            mediaPlaybackRequiresUserGesture = false
+            cacheMode = WebSettings.LOAD_DEFAULT
         }
 
-        // Note: Do not call finish() immediately here if you want
-        // the user to return to your app when they close the tab.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // Force Hardware Layer
+            myWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        }
+
+        myWebView.clearCache(true);
+        CookieManager.getInstance().removeAllCookies(null);
+        CookieManager.getInstance().flush();
+
+        myWebView.webViewClient = WebViewClient()
+        myWebView.loadUrl("https://tuneepuzzle.github.io/play?solved")
+
+        val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val playbackAttributes = AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_MEDIA)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                .build()
+
+            val focusRequest = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
+                .setAudioAttributes(playbackAttributes)
+                .setAcceptsDelayedFocusGain(true)
+                .setOnAudioFocusChangeListener { } // Handle changes if needed
+                .build()
+
+            audioManager.requestAudioFocus(focusRequest)
+        } else {
+            // Fallback for very old devices (the one with the strikethrough)
+            audioManager.requestAudioFocus(null, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
+        }
+
+    }
+
+    override fun onBackPressed() {
+        if (myWebView.canGoBack()) {
+            myWebView.goBack()
+        } else {
+            super.onBackPressed()
+        }
     }
 }

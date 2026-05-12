@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.yigalagam.tunee"
+    namespace = "com.mayuga.tunee"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.yigalagam.tunee"
+        applicationId = "com.mayuga.tunee"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
