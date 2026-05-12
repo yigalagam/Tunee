@@ -127,9 +127,15 @@ class GUIManager {
 
         // Create a player object.
         // Keep the width to a minimum during playing to minimize buffering.
+        let playerWidth
+        if (!this.debugMode) {
+            playerWidth = '1'
+        } else {
+            playerWidth = youtubeFrameWidthPx.toString()
+        }
         this.youtubePlayer = new YT.Player('youtube-player', {
             host: 'https://www.youtube.com',
-            width: '1',
+            width: playerWidth,
             videoId: youtubeID,
             playerVars: {
                 'widget_referrer': window.location.href, // This helps YouTube verify the exact page
