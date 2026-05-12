@@ -238,6 +238,7 @@ class Board {
 
             // If this piece is contiguous with the previous one, just keep playing without seeking.
             // This avoids an audible hiccup from the player.
+            // Otherwise, seek to the beginning of the piece.
             if ((previousPiece == null) || (playingPiece.index != previousPiece.index + 1)) {
                 if (this.debugMode) {
                     console.log('Slot ' + startSlot + ', seeking to ' + playingPiece.startTime)
