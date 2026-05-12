@@ -64,14 +64,15 @@ class GUIManager {
         const youtubeDiv = document.createElement('div')
         youtubeDiv.id = 'youtube-player'
         youtubeDiv.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture')
-        youtubeDiv.style.width = youtubeFrameWidthPx + 'px'
         youtubeDiv.style.position = 'absolute'
         if (!this.debugMode) {
             // Place outside the screen.
-            youtubeDiv.style.left = (-2 * youtubeFrameWidthPx) + 'px'
+            youtubeDiv.style.left = (-youtubeFrameWidthPx) + 'px'
+            youtubeDiv.style.top = (-youtubeFrameWidthPx) + 'px'
         } else {
             // In debug mode the Youtube frame is visible.
             youtubeDiv.style.left = '0px'
+            youtubeDiv.style.top = '0px'
         }
         return youtubeDiv
     }
@@ -114,7 +115,6 @@ class GUIManager {
         this.youtubeDiv = document.createElement('div')
         this.youtubeDiv.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture')
         this.youtubeDiv.id = 'youtube-player'
-        this.youtubeDiv.style.width = youtubeFrameWidthPx + 'px'
         this.youtubeDiv.style.position = 'absolute'
         if (!this.debugMode) {
             // Place outside the screen.
@@ -125,13 +125,15 @@ class GUIManager {
         }
         this.gameDiv.appendChild(this.youtubeDiv)
 
+        // Create a player object.
+        // Keep the width to a minimum during playing to minimize buffering.
         this.youtubePlayer = new YT.Player('youtube-player', {
             host: 'https://www.youtube.com',
-            width: youtubeFrameWidthPx + 'px',
+            width: '1',
             videoId: youtubeID,
             playerVars: {
                 'widget_referrer': window.location.href, // This helps YouTube verify the exact page
-                'enablejsapi': 1,
+                'enablejsapi': 0,
                 'autoplay': 0,
                 'controls': 1,
                 'rel': 0 // Don't show related videos from other channels
@@ -582,6 +584,7 @@ class GUIManager {
                 // Move the Youtube frame to the placeholder we created in the solution div.
                 // We have to use absolute coordinates because using appendChild will create a new player.
                 const youtubeFrame = this.youtubePlayer.getIframe()
+                this.youtubePlayer.setSize(youtubeFrameWidthPx, youtubeFrame.height)
                 const youtubeRect = youtubeFrame.getBoundingClientRect()
                 this.youtubeFinalLoc.style.width = youtubeRect.width + 'px'
                 this.youtubeFinalLoc.style.minWidth = youtubeRect.width + 'px'
