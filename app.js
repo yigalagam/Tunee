@@ -33,31 +33,47 @@ if (params.has('solved')) {
     solved = true
 }
 
-const guiManager = new GUIManager(appName, nBoardRows[mobileIndex], nBoardCols[mobileIndex], null, false, debugMode)
+var guiManager
+var game
 
-// Start a game object.
-var game = new Game(guiManager, nPieces, [nBoardRows[mobileIndex], nBoardCols[mobileIndex]], false, solved, debugMode)
+function startApp() {
+    
+    if (debugMode) {
+        console.log('Starting app')
+    }
 
-// Set up game container.
-document.body.appendChild(guiManager.gameDiv)
+    if (guiManager != null) {
+        guiManager.gameDiv.remove()
+    }
 
-// Set action button to start the game.
-guiManager.setActionButtonText('Start')
-guiManager.setActionButtonClick(startGame)
+    guiManager = new GUIManager(appName, nBoardRows[mobileIndex], nBoardCols[mobileIndex], null, false, debugMode)
+    // Start a game object.
+    game = new Game(guiManager, nPieces, [nBoardRows[mobileIndex], nBoardCols[mobileIndex]], false, solved, debugMode)
 
-// Image for dragging operations (positioned outside the page).
-document.body.appendChild(guiManager.dragImage)
+    // Set up game container.
+    document.body.appendChild(guiManager.gameDiv)
 
-// Check if a specific date passed in URL.
-// If not, use today's data.
-let dateStr = params.get('d')
-if (dateStr == null) {
-    dateStr = getTodayDateStr()
+    // Set reset button callback to restart the whole GUI.
+    guiManager.setResetButtonClick(startApp)
+    
+    // Set action button to start the game.
+    guiManager.setActionButtonClick(startGame)
 }
-var gameData = getAudioData(dateStr)
 
 function startGame() {
+    guiManager.setActionButtonClick(null)
+
+    // Check if a specific date passed in URL.
+    // If not, use today's data.
+    let dateStr = params.get('d')
+    if (dateStr == null) {
+        dateStr = getTodayDateStr()
+    }
+    var gameData = getAudioData(dateStr)
+
     // Start game: Song title, Youtube link, start time, end time.
     guiManager.setActionButtonText('Loading')
     game.start(gameData[0], gameData[1], gameData[2], gameData[3])
 }
+
+startApp()

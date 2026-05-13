@@ -9,6 +9,7 @@ class GUIManager {
         this.songTitle = songTitle
         this.gameDiv = null
         this.controlDiv = null
+        this.resetButton = null
         this.youtubeDiv = null
         this.youtubeFinalLoc = null
         this.boardSlots = []
@@ -50,6 +51,7 @@ class GUIManager {
         
         // Add game elements.
         this.gameDiv.appendChild(this.getTitleDiv())
+        this.gameDiv.appendChild(this.getResetButton())
         this.gameDiv.appendChild(this.getBoardDiv())
         this.gameDiv.appendChild(this.getControlDiv())
         this.gameDiv.appendChild(this.getFeedbackButton())
@@ -176,6 +178,22 @@ class GUIManager {
         return titleDiv
     }
     
+    getResetButton() {
+        // Mailto link for feedback.
+        this.resetButton = document.createElement('div')
+        this.resetButton.style.backgroundImage = 'url("images/reset.png")'
+        this.resetButton.style.backgroundSize = 'cover'
+        this.resetButton.style.width = resetButtonSizePx + 'px'
+        this.resetButton.style.height = resetButtonSizePx + 'px'
+        this.resetButton.style.marginTop = baseSizePx + 'px'
+        this.resetButton.style.cursor = 'pointer'
+        return this.resetButton
+    }
+
+    setResetButtonClick(func) {
+        this.resetButton.onclick = func
+    }
+
     getBoardDiv() {
         const boardDiv = document.createElement('div')
         boardDiv.style.backgroundColor = lightGray
@@ -393,7 +411,7 @@ class GUIManager {
 
     // *** Button to start the game and share after you win ***
     
-    getActionButton() {
+    getActionButton(text) {
         this.actionButton = document.createElement('div')
         this.actionButton.classList.add('action-button')
         this.actionButton.style.backgroundColor = yellow
@@ -409,6 +427,7 @@ class GUIManager {
         this.actionButton.style.alignItems = 'center'
         this.actionButton.style.justifyContent = 'center'
         this.actionButton.style.userSelect = 'none'
+        this.actionButton.innerHTML = text
         return this.actionButton
     }
 
@@ -426,9 +445,9 @@ class GUIManager {
     }
 
     setActionButtonGameOn() {
+        this.setActionButtonClick(null)
         this.setActionButtonText('')
         this.setActionButtonImage("url('images/game_on.png')")
-        this.setActionButtonClick(null)
     }
 
     // *** Timer display ***
@@ -472,7 +491,7 @@ class GUIManager {
         controlDiv.style.display = 'flex'
         controlDiv.style.justifyContent = 'space-around'
         controlDiv.style.alignItems = 'center'
-        controlDiv.appendChild(this.getActionButton())
+        controlDiv.appendChild(this.getActionButton('Start'))
         controlDiv.appendChild(this.getTimer())
         this.controlDiv = controlDiv
         return controlDiv

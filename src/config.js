@@ -38,6 +38,9 @@ const yellow = '#FFC000'
 const borderWidth = 3
 const borderRadius = '10px'
 
+// Reset (restart) button.
+const resetButtonSizePx = 3 * baseSizePx
+
 // Bottom div outside the board with button and timer.
 const controlDivWidthPx = 50 * baseSizePx
 const controlDivHeightPx = 19 * baseSizePx
