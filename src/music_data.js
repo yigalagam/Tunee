@@ -10,25 +10,38 @@ function getTodayDateStr() {
 }
 
 const audioDataAll = [
-    '20260510', 'Coldplay: Viva La Vida', 'dvgZkm1xWPE', 177.6,
-    '20260511', 'David Guetta: Titanium (feat. Sia)', 'JRfuAukYTKg', 71.5,
-    '20260512', 'The White Stripes: Seven Nation Army', '0J2QdDbelmY', 19.6,
-    '20260513', '20250110: DJ Casper: The Cha Cha Slide (J.E.G Edit), 14756314', 'wZv62ShoStY', 149.4,
+    '20260513', '20250110: DJ Casper:<br>The Cha Cha Slide (J.E.G Edit)', 'wZv62ShoStY', 149.4,
     '20260514', 'Travis Scott: I Know?', 'X7aF3nZOS98', 33,
     '20260515', 'Adele: Hello', 'YQHsXMglC9A', 141.5,
+    '20260516', 'R.E.M.: Losing My Religion', 'xwtdhWltSIg', 199,
+    '20260517', 'Ed Sheeran: Shape of You', 'JGwWNGJdvx8', 136,
+    '20260518', 'Mark Ronson: Uptown Funk<br>(feat. Bruno Mars)', 'OPf0YbXqDm0', 15,
+    '20260519', "Coolio: Gangsta's Paradise", 'fPO76Jlnz6c', 62.5,
+    '20260520', 'SZA: Kill Bill', 'MSRcC626prw', 167.5,
+    '20260521', 'Imagine Dragons: Believer', '7wtfhZwyrcc', 179.85,
+    '20260522', 'Taylor Swift: Wildest Dreams', 'IdneKLhsWOQ', 99.65,
+    '20260523', 'Led Zeppelin: Stairway to Heaven', 'X791IzOwt3Q', 192.4,
+    '20260524', 'Coldplay: Viva La Vida', 'dvgZkm1xWPE', 177.6,
+    '20260525', 'David Guetta: Titanium (feat. Sia)', 'JRfuAukYTKg', 71.5,    
+    '20260526', 'Survivor: Eye of the Tiger', 'btPJPFnesV4', 8.5,
+    '20260527', 'Queen: Bohemian Rhapsody', 'fJ9rUzIMcZQ', 84.5,
+    '20260528', 'Dua Lipa: Love Again', 'BC19kwABFwc', 89.5,
+    '20260', 'SongTitle', 'videoID', 'startTime',
+    '20260', 'SongTitle', 'videoID', 'startTime',
+    '20260', 'SongTitle', 'videoID', 'startTime',
+    '20260', 'SongTitle', 'videoID', 'startTime',
+    '20260', 'SongTitle', 'videoID', 'startTime',
+    '20260', 'SongTitle', 'videoID', 'startTime',
+    '20260', 'SongTitle', 'videoID', 'startTime',
+    '20260', 'SongTitle', 'videoID', 'startTime',
+    '20260', 'SongTitle', 'videoID', 'startTime',
 
 
 
-    '53583446', 'U1H1P1=#Orvlqj#P|#Uholjlrq', '5<474969:', 44, 49.4, // 20250113: R.E.M.: Losing My Religion, 291416367
+
+
     '53583447', 'Eh|rqfì=#Mrohqh', '4:;963:4;:', 8.35, 14.25, // 20250114: Beyoncé: Jolene
-    '53583448', 'Hg#Vkhhudq=#Vkdsh#ri#\\rx', '634494456', 130.25, 135.35, // 20250115: Ed Sheeran: Shape of You, 301161123
-    '53583449', 'Pdun#Urqvrq=?euAXswrzq#Ixqn#+ihdw1#Euxqr#Pduv,', '59886853;', 15, 21, // 20250116: Mark Ronson: Uptown Funk (feat. Bruno Mars), 265535208
-    '5358344:', 'Duhwkd#Iudqnolq=#Uhvshfw', '7::43:9:<', 109, 114.75, // 20250117: Aretha Franklin: Respect
-    '5358344;', 'V}d=#Nloo#Eloo', '46<9;;37;8', 108.35, 113.9, // 20250118: SZA: Kill Bill
-    '5358344<', 'Hooh#Nlqj=#H{*v#)#Rk*v', '49;;94;6;', 13.9, 19.4, // 20250119: Elle King: Ex's & Oh's, 168861838
-    '53583453', 'Wd|oru#Vzliw=?euAZloghvw#Guhdpv#+Wd|oru*v#Yhuvlrq,', '44594<75<;', 99.8, 105.88, // 20250120: Taylor Swift: Wildest Dreams (Taylor's Version), 1126194298
-    '53583454', 'Lpdjlqh#Gudjrqv=#Eholhyhu#+ihdw1#Olo#Zd|qh,', '8888;7586', 183.6, 189.6,// 20250121: Imagine Dragons: Believer (feat. Lil Wayne), 555584253
-    '53583455', 'Dghoh=#Vn|idoo', '5:67;3553', 81.1, 87.1, // 20250122: Adele: Skyfall, 273480220
+     '53583455', 'Dghoh=#Vn|idoo', '5:67;3553', 81.1, 87.1, // 20250122: Adele: Skyfall, 273480220
     '53583456', 'Hplqhp=?euAWkh#Prqvwhu#+ihdw1#Ulkdqqd,', '589589:<6', 50.6, 56.6, // 20250123: Eminem: The Monster (feat. Rihanna), 256256793
     '53583457', 'Plfkdho#Mdfnvrq=#Ehdw#Lw', '5:;83<675', 21.5, 27.5, // 20250124: Michael Jackson, Beat It, 278509342
     '53583458', 'Ol}}r=#Mxlfh', '8858:3<96', 65.7, 71.7, // 20250125: Lizzo: Juice, 552570963
@@ -42,7 +55,6 @@ const audioDataAll = [
     '53583535', 'Qluydqd=#Vphoov#Olnh#Whhq#Vslulw', '58;<87736', 7.6, 13.6, // 20250202 | Nirvana: Smells Like Teen Spirit | 258954403
     '53583536', 'Zklwqh|#Krxvwrq=#L#Zdqqd#Gdqfh?euAzlwk#Vrpherg|#+Zkr#Oryhv#Ph,', '586:<<:47', 186.25, 192.25, // 20250203 | Whitney Houston: I Wanna Dance<br>with Somebody (Who Loves Me) | 253799714
     '53583537', 'V}d=#Rshq#Dupv#+ihdw1#Wudylv#Vfrww,', '46<9;;3;<<', 179, 185, // 20250204 | Sza: Open Arms (feat. Travis Scott) | 1396880899
-    '53583538', 'Ohg#]hssholq=#Vwdluzd|#wr#Khdyhq', '58954:;<5', 20, 26, // 20250205 | Led Zeppelin: Stairway to Heaven | 256217892
     '53583539', 'Kduu|#Vw|ohv=#Zdwhuphorq#Vxjdu', '<789:9843', 45.85, 51.95, // 20250206 | Harry Styles: Watermelon Sugar | 945676510
     '5358353:', 'Nhqgulfn#Odpdu=#Sulgh', '64:94:555', 8.5, 14.5, // 20250207 | Kendrick Lamar: Pride | 317617222
     '5358353;', 'Ehh#Jhhv=#Vwd|lq#Dolyh', '588<<6:57', 12.65, 18.65, // 20250208 | Bee Gees: Stayin Alive | 255993724
@@ -53,7 +65,6 @@ const audioDataAll = [
     '53583546', 'Deed=#Gdqflqj#Txhhq', '5864;:666', 10.75, 16.75, // 20250213 | Abba: Dancing Queen | 253187333
     '53583547', 'U1H1P1=#Pdq#Rq#Wkh#Prrq', '55397::56', 80, 86, // 20250214 | R.E.M.: Man On The Moon | 220647723
     '53583548', 'Fholqh#Glrq=?euAP|#Khduw#Zloo#Jr#Rq', '5895;4;<;', 20.4, 26.6, // 20250215 | Celine Dion:<br>My Heart Will Go On | 256281898
-    '53583549', 'Frrolr=#Jdqjvwd*v#Sdudglvh', '44;:4767<', 48.5, 54.5, // 20250216 | Coolio: Gangsta's Paradise | 118714349
     '5358354:', 'Jhrujh#Plfkdho=#Fduhohvv#Zklvshu', '645;4453:', 14.25, 20.25, // 20250217 | George Michael: Careless Whisper | 312811207
     '5358354;', 'Fkhu=#Eholhyh', '4969934;68', 58.5, 64.5, // 20250218 | Cher: Believe | 1636601835
     '5358354<', 'Slqn#Ior|g=?euADqrwkhu#Eulfn#lq#wkh#Zdoo/#Sw1#5', '588:78785', 1.2, 7.2, // 20250219 | Pink Floyd:<br>Another Brick in the Wall, Pt. 2 | 255745452
@@ -61,7 +72,6 @@ const audioDataAll = [
     '53583554', 'Pdurrq#8=#Pryhv#Olnh#Mdjjhu?euA+ihdw1#Fkulvwlqd#Djxlohud,', '4<838;55', 43.1, 49.1, // 20250221 | Maroon 5: Moves Like Jagger<br>(feat. Christina Aguilera) | 19505822
     '53583555', 'Nhqgulfn#Odpdu=#Qrw#Olnh#Xv', '4;47:3<4;<', 162.6, 168.6, // 20250222 | Kendrick Lamar: Not Like Us | 1814709189
     '53583556', 'Pdf#Ploohu=#Frqjudwxodwlrqv#+ihdw1#Elodo,', '5;3<:;:84', 187.25, 193.25, // 20250223 | Mac Miller: Congratulations (feat. Bilal) | 280978751
-    '53583557', 'Vxuylyru=#H|h#ri#wkh#Wljhu', '58746664:', 8, 14, // 20250224 | Survivor: Eye of the Tiger | 254133317
     '53583558', 'Iohhwzrrg#Pdf=#Olwwoh#Olhv', '<5:<65953', 98.25, 104.25, // 20250225 | Fleetwood Mac: Little Lies | 927932620
     '53583559', 'Gxudq#Gxudq=#Ruglqdu|#Zruog', '895787676', 17.9, 23.9, // 20250226 | Duran Duran: Ordinary World | 562454343
     '5358355:', 'Jrw|h=#Vrpherg|#Wkdw#L?euAXvhg#Wr#Nqrz#+ihdw1#Nlpeud,', '4;4<68;:', 91.25, 97.25, // 20250227 | Gotye: Somebody That I<br>Used To Know (feat. Kimbra) | 18193587
@@ -223,7 +233,6 @@ const audioDataAll = [
     '53583;35', 'Qluydqd=#Vphoov#Olnh#Whhq#Vslulw', '58;<87736', 7.6, 13.6, // 20250802 | Nirvana: Smells Like Teen Spirit | 258954403
     '53583;36', 'Zklwqh|#Krxvwrq=#L#Zdqqd#Gdqfh?euAzlwk#Vrpherg|#+Zkr#Oryhv#Ph,', '586:<<:47', 186.25, 192.25, // 20250803 | Whitney Houston: I Wanna Dance<br>with Somebody (Who Loves Me) | 253799714
     '53583;37', 'V}d=#Rshq#Dupv#+ihdw1#Wudylv#Vfrww,', '46<9;;3;<<', 179, 185, // 20250804 | Sza: Open Arms (feat. Travis Scott) | 1396880899
-    '53583;38', 'Ohg#]hssholq=#Vwdluzd|#wr#Khdyhq', '58954:;<5', 20, 26, // 20250805 | Led Zeppelin: Stairway to Heaven | 256217892
     '53583;39', 'Kduu|#Vw|ohv=#Zdwhuphorq#Vxjdu', '<789:9843', 45.85, 51.95, // 20250206 | Harry Styles: Watermelon Sugar | 945676510
     '53583;3:', 'Nhqgulfn#Odpdu=#Sulgh', '64:94:555', 8.5, 14.5, // 20250807 | Kendrick Lamar: Pride | 317617222
     '53583;3;', 'Ehh#Jhhv=#Vwd|lq#Dolyh', '588<<6:57', 12.65, 18.65, // 20250808 | Bee Gees: Stayin Alive | 255993724
@@ -242,7 +251,6 @@ const audioDataAll = [
     '53583;54', 'Pdurrq#8=#Pryhv#Olnh#Mdjjhu?euA+ihdw1#Fkulvwlqd#Djxlohud,', '4<838;55', 43.1, 49.1, // 20250821 | Maroon 5: Moves Like Jagger<br>(feat. Christina Aguilera) | 19505822
     '53583;55', 'Nhqgulfn#Odpdu=#Qrw#Olnh#Xv', '4;47:3<4;<', 162.6, 168.6, // 20250822 | Kendrick Lamar: Not Like Us | 1814709189
     '53583;56', 'Pdf#Ploohu=#Frqjudwxodwlrqv#+ihdw1#Elodo,', '5;3<:;:84', 187.25, 193.25, // 20250823 | Mac Miller: Congratulations (feat. Bilal) | 280978751
-    '53583;57', 'Vxuylyru=#H|h#ri#wkh#Wljhu', '58746664:', 8, 14, // 20250824 | Survivor: Eye of the Tiger | 254133317
     '53583;58', 'Iohhwzrrg#Pdf=#Olwwoh#Olhv', '<5:<65953', 98.25, 104.25, // 20250825 | Fleetwood Mac: Little Lies | 927932620
     '53583;59', 'Gxudq#Gxudq=#Ruglqdu|#Zruog', '895787676', 17.9, 23.9, // 20250826 | Duran Duran: Ordinary World | 562454343
     '53583;5:', 'Jrw|h=#Vrpherg|#Wkdw#L?euAXvhg#Wr#Nqrz#+ihdw1#Nlpeud,', '4;4<68;:', 91.25, 97.25, // 20250827 | Gotye: Somebody That I<br>Used To Know (feat. Kimbra) | 18193587
@@ -254,7 +262,6 @@ const audioDataAll = [
     '53583<35', 'Qluydqd=#Vphoov#Olnh#Whhq#Vslulw', '58;<87736', 7.6, 13.6, // 20250902 | Nirvana: Smells Like Teen Spirit | 258954403
     '53583<36', 'Zklwqh|#Krxvwrq=#L#Zdqqd#Gdqfh?euAzlwk#Vrpherg|#+Zkr#Oryhv#Ph,', '586:<<:47', 186.25, 192.25, // 20250903 | Whitney Houston: I Wanna Dance<br>with Somebody (Who Loves Me) | 253799714
     '53583<37', 'V}d=#Rshq#Dupv#+ihdw1#Wudylv#Vfrww,', '46<9;;3;<<', 179, 185, // 20250904 | Sza: Open Arms (feat. Travis Scott) | 1396880899
-    '53583<38', 'Ohg#]hssholq=#Vwdluzd|#wr#Khdyhq', '58954:;<5', 20, 26, // 20250905 | Led Zeppelin: Stairway to Heaven | 256217892
     '53583<39', 'Kduu|#Vw|ohv=#Zdwhuphorq#Vxjdu', '<789:9843', 45.85, 51.95, // 20250906 | Harry Styles: Watermelon Sugar | 945676510
     '53583<3:', 'Nhqgulfn#Odpdu=#Sulgh', '64:94:555', 8.5, 14.5, // 20250907 | Kendrick Lamar: Pride | 317617222
     '53583<3;', 'Ehh#Jhhv=#Vwd|lq#Dolyh', '588<<6:57', 12.65, 18.65, // 20250908 | Bee Gees: Stayin Alive | 255993724
@@ -354,12 +361,6 @@ const audioDataAll = [
     '53584544', 'Wudylv#Vfrww=#L#NqrzB', '48:9648:;<', 31, 38, // 20251211: Travis Scott: I Know?, 1576315789
     '53584545', 'Dghoh=#Khoor', '58773:<73', 11.95, 17.65, // 20251212: Adele: Hello, 254407940
     '53584546', 'U1H1P1=#Orvlqj#P|#Uholjlrq', '5<474969:', 44, 49.4, // 20251213: R.E.M.: Losing My Religion, 291416367
-    '53584547', 'Eh|rqfì=#Mrohqh', '4:;963:4;:', 8.35, 14.25, // 20251214: Beyoncé: Jolene
-    '53584548', 'Hg#Vkhhudq=#Vkdsh#ri#\\rx', '634494456', 130.25, 135.35, // 20251215: Ed Sheeran: Shape of You, 301161123
-    '53584549', 'Pdun#Urqvrq=?euAXswrzq#Ixqn#+ihdw1#Euxqr#Pduv,', '59886853;', 15, 21, // 20251216: Mark Ronson: Uptown Funk (feat. Bruno Mars), 265535208
-    '5358454:', 'Duhwkd#Iudqnolq=#Uhvshfw', '7::43:9:<', 109, 114.75, // 20251217: Aretha Franklin: Respect
-    '5358454;', 'V}d=#Nloo#Eloo', '46<9;;37;8', 108.35, 113.9, // 20251218: SZA: Kill Bill
-    '5358454<', 'Hooh#Nlqj=#H{*v#)#Rk*v', '49;;94;6;', 13.9, 19.4, // 20251219: Elle King: Ex's & Oh's, 168861838
     '53584553', 'Wd|oru#Vzliw=?euAZloghvw#Guhdpv#+Wd|oru*v#Yhuvlrq,', '44594<75<;', 99.8, 105.88, // 20251220: Taylor Swift: Wildest Dreams (Taylor's Version), 1126194298
     '53584554', 'Lpdjlqh#Gudjrqv=#Eholhyhu#+ihdw1#Olo#Zd|qh,', '8888;7586', 183.6, 189.6,// 20251221: Imagine Dragons: Believer (feat. Lil Wayne), 555584253
     '53584555', 'Dghoh=#Vn|idoo', '5:67;3553', 81.1, 87.1, // 20251222: Adele: Skyfall, 273480220
