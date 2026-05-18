@@ -24,7 +24,7 @@ const titleFontSizeEM = 3
 const subtitleFontSizeEM = 1.5
 
 // Fade in and fade out.
-const fadeDuration = 0.4
+const fadeDuration = 0.5
 const nFadeSteps = 10
 
 // Parameters for setting up the game GUI.
