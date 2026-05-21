@@ -1,6 +1,7 @@
 const appName = 'Tunee'
 const subtitle = "Click on the puzzle pieces, put them in order, hear today's music!"
 const website = 'https://tuneepuzzle.github.io/play'
+const playstore = 'https://play.google.com/store/apps/details?id=com.mayuga.tunee'
 const email = 'tuneepuzzle@gmail.com'
 
 // This will generate some console messages.
@@ -45,8 +46,8 @@ const resetButtonSizePx = 3 * baseSizePx
 const controlDivWidthPx = 50 * baseSizePx
 const controlDivHeightPx = 19 * baseSizePx
 
-// Feedback button.
-const feedbackButtonSizePx = 7 * baseSizePx
+// email and app buttons.
+const linkButtonSizePx = 7 * baseSizePx
 
 // Dislaimer statement.
 const disclaimerFontSizeEM = 0.75

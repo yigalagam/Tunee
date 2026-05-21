@@ -16,7 +16,7 @@ class GUIManager {
         this.boardActive = true
         this.actionButton = null
         this.timer = null
-        this.feedbackButton = null
+        this.linksDiv = null
         this.disclaimerDiv = null
         this.dragImage = this.getDragImage()
         this.songTitle = ''
@@ -54,7 +54,7 @@ class GUIManager {
         this.gameDiv.appendChild(this.getResetButton())
         this.gameDiv.appendChild(this.getBoardDiv())
         this.gameDiv.appendChild(this.getControlDiv())
-        this.gameDiv.appendChild(this.getFeedbackButton())
+        this.gameDiv.appendChild(this.getLinksDiv())
         this.gameDiv.appendChild(this.getDisclaimerDiv())
        
         return this.gameDiv
@@ -179,7 +179,6 @@ class GUIManager {
     }
     
     getResetButton() {
-        // Mailto link for feedback.
         this.resetButton = document.createElement('div')
         this.resetButton.style.backgroundImage = 'url("images/reset.png")'
         this.resetButton.style.backgroundSize = 'cover'
@@ -497,20 +496,47 @@ class GUIManager {
         return controlDiv
     }
 
+    getLinksDiv() {
+        // Div for email and app downloads.
+        this.linksDiv = document.createElement('div')
+        this.linksDiv.style.display = 'flex'
+        this.linksDiv.style.flexDirection = 'horizontal'
+        this.linksDiv.style.gap = (3 * baseSizePx) + 'px'
+        this.linksDiv.append(this.getFeedbackButton())
+        this.linksDiv.append(this.getPlaystoreButton())
+        return this.linksDiv
+    }
+
     getFeedbackButton() {
         // Mailto link for feedback.
-        this.feedbackButton = document.createElement('div')
-        this.feedbackButton.style.backgroundImage = 'url("images/feedback.png")'
-        this.feedbackButton.style.backgroundSize = 'cover'
-        this.feedbackButton.style.width = feedbackButtonSizePx + 'px'
-        this.feedbackButton.style.height = feedbackButtonSizePx + 'px'
-        this.feedbackButton.style.marginTop = baseSizePx + 'px'
-        this.feedbackButton.title = email
-        this.feedbackButton.style.cursor = 'pointer'
-        this.feedbackButton.onclick = () => {
+        const feedbackButton = document.createElement('div')
+        feedbackButton.style.backgroundImage = 'url("images/feedback.png")'
+        feedbackButton.style.backgroundSize = 'cover'
+        feedbackButton.style.width = linkButtonSizePx + 'px'
+        feedbackButton.style.height = linkButtonSizePx + 'px'
+        feedbackButton.style.marginTop = baseSizePx + 'px'
+        feedbackButton.title = email
+        feedbackButton.style.cursor = 'pointer'
+        feedbackButton.onclick = () => {
             window.open('mailto:' + email, '_blank')
         }
-        return this.feedbackButton
+        return feedbackButton
+    }
+
+    getPlaystoreButton() {
+        // Link to Android app download.
+        const playstoreButton = document.createElement('div')
+        playstoreButton.style.backgroundImage = 'url("images/playstore.png")'
+        playstoreButton.style.backgroundSize = 'cover'
+        playstoreButton.style.width = linkButtonSizePx + 'px'
+        playstoreButton.style.height = linkButtonSizePx + 'px'
+        playstoreButton.style.marginTop = baseSizePx + 'px'
+        playstoreButton.title = playstore
+        playstoreButton.style.cursor = 'pointer'
+        playstoreButton.onclick = () => {
+            window.open(playstore)
+        }
+        return playstoreButton
     }
 
     getDisclaimerDiv() {
@@ -589,21 +615,21 @@ class GUIManager {
 
         // Make the game control fade out before showing the solution.
         this.controlDiv.style.opacity = 1
-        this.feedbackButton.style.opacity = 1
+        this.linksDiv.style.opacity = 1
         this.disclaimerDiv.style.opacity = 1
         const fadeOutInterval = setInterval(() => {
             if (this.controlDiv.style.opacity > 0) {
                 this.controlDiv.style.opacity -= 0.05
-                this.feedbackButton.style.opacity -= 0.05
+                this.linksDiv.style.opacity -= 0.05
                 this.disclaimerDiv.style.opacity -= 0.05
             } else {
                 this.controlDiv.remove()
                 this.controlDiv.remove()
                 clearInterval(fadeOutInterval)
                 this.gameDiv.append(endDiv)
-                this.feedbackButton.style.opacity = 1
+                this.linksDiv.style.opacity = 1
                 this.disclaimerDiv.style.opacity = 1
-                this.gameDiv.append(this.feedbackButton)
+                this.gameDiv.append(this.linksDiv)
                 this.gameDiv.append(this.disclaimerDiv)
 
                 // Move the Youtube frame to the placeholder we created in the solution div.
