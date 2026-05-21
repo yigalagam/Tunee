@@ -131,7 +131,7 @@ class GUIManager {
         // Keep the width to a minimum during playing to minimize buffering.
         let playerWidth
         if (!this.debugMode) {
-            playerWidth = '1'
+            playerWidth = '0'
         } else {
             playerWidth = youtubeFrameWidthPx.toString()
         }

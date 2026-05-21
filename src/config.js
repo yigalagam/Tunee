@@ -14,7 +14,7 @@ const isMobile = isAndroid || isiOS
 
 // Make everything slightly larget on mobile.
 mobileScale = isMobile ? 1.12 : 1
-mobileFontScale = isMobile ? 1.25 : 1
+mobileFontScale = isMobile ? 1.3 : 1
 
 // This will generate some console messages.
 var debugMode = false
@@ -50,17 +50,17 @@ const borderRadius = (10 * mobileScale ) + 'px'
 const boardWidth = nBoardCols * slotSizePx + borderWidth
 
 // Reset (restart) button.
-const resetButtonSizePx = 3 * baseSizePx
+const resetButtonSizePx = 3.5 * baseSizePx
 
 // Bottom div outside the board with button and timer.
 const controlDivWidthPx = 50 * baseSizePx
 const controlDivHeightPx = 19 * baseSizePx
 
 // email and app buttons.
-const linkButtonSizePx = 7 * baseSizePx
+const linkButtonSizePx = 9 * baseSizePx
 
 // Dislaimer statement.
-const disclaimerFontSizeEM = 0.75 * mobileFontScale
+const disclaimerFontSizeEM = 1 * mobileFontScale
 
 // Parameter for displaying song information.
 const songTitleFontSizeEM = 1.3 * mobileFontScale
