@@ -203,7 +203,7 @@ class GUIManager {
         boardDiv.style.display = 'flex'
         boardDiv.style.flexWrap = 'wrap'
         for (let i = 0; i < this.nBoardRows * this.nBoardCols; i++) {
-            const slotDiv = this.getBoardSlotDiv(i, isMobile)
+            const slotDiv = this.getBoardSlotDiv(i)
             boardDiv.appendChild(slotDiv)
             this.boardSlots.push(slotDiv)
         }

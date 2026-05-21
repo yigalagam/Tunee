@@ -9,6 +9,7 @@ function getTodayDateStr() {
     return dateStr
 }
 
+// Note: Approximately 36 characters can fit in one horizonal line in the song name div.
 const audioDataAll = [
     '20260521', 'Imagine Dragons: Believer', '7wtfhZwyrcc', 179.85,
     '20260522', 'Taylor Swift: Wildest Dreams', 'IdneKLhsWOQ', 99.65,

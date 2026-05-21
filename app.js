@@ -6,15 +6,6 @@ icon.setAttribute('rel', 'shortcut icon');
 icon.setAttribute('href', 'images/piece_mouseover.png');
 document.head.appendChild(icon);
 
-// Check if operating in a desktop or mobile environment.
-const userAgent = navigator.userAgent.toLowerCase()
-const isAndroid = /android/i.test(userAgent)
-const isiOS = /iphone|ipad|ipod/i.test(userAgent)
-const isChrome = /chrome/i.test(userAgent)
-const isSafari = /safari/i.test(userAgent) && (!isChrome)
-isMobile = isAndroid || isiOS
-const mobileIndex = Number(isMobile)
-
 var params = new URLSearchParams(window.location.search)
 
 // Parameters for testing on unsupported platforms.
@@ -46,9 +37,9 @@ function startApp() {
         guiManager.gameDiv.remove()
     }
 
-    guiManager = new GUIManager(appName, nBoardRows[mobileIndex], nBoardCols[mobileIndex], null, false, debugMode)
+    guiManager = new GUIManager(appName, nBoardRows, nBoardCols, null, false, debugMode)
     // Start a game object.
-    game = new Game(guiManager, nPieces, [nBoardRows[mobileIndex], nBoardCols[mobileIndex]], false, solved, debugMode)
+    game = new Game(guiManager, nPieces, [nBoardRows, nBoardCols], false, solved, debugMode)
 
     // Set up game container.
     document.body.appendChild(guiManager.gameDiv)
