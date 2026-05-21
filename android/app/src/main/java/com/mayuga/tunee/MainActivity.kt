@@ -44,7 +44,8 @@ class MainActivity : AppCompatActivity() {
         CookieManager.getInstance().flush();
 
         myWebView.webViewClient = WebViewClient()
-        myWebView.loadUrl("https://tuneepuzzle.github.io/play")
+        myWebView.loadUrl("http://10.0.2.2:8000?solved")
+//        myWebView.loadUrl("http://tuneepuzzle.github.io/play?solved")
 
         myWebView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
