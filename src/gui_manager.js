@@ -141,7 +141,7 @@ class GUIManager {
             videoId: youtubeID,
             playerVars: {
                 'widget_referrer': window.location.href, // This helps YouTube verify the exact page
-                'enablejsapi': 0,
+                'enablejsapi': 1,
                 'autoplay': 0,
                 'controls': 1,
                 'rel': 0 // Don't show related videos from other channels
@@ -635,6 +635,7 @@ class GUIManager {
                 // Move the Youtube frame to the placeholder we created in the solution div.
                 // We have to use absolute coordinates because using appendChild will create a new player.
                 const youtubeFrame = this.youtubePlayer.getIframe()
+                youtubeFrame.style.display = ''
                 this.youtubePlayer.setSize(youtubeFrameWidthPx, youtubeFrame.height)
                 const youtubeRect = youtubeFrame.getBoundingClientRect()
                 this.youtubeFinalLoc.style.width = youtubeRect.width + 'px'

@@ -50,12 +50,15 @@ class Game {
             this.guiManager.getYoutubePlayer(youtubeId)
             this.waitForYoutubePlayer().then(() => {
                 this.guiManager.youtubePlayer.addEventListener('onReady', () => {
-                    // Play the first piece silently so the segemnt gets buffered.
+                    // Play the segment silently so it gets buffered.
                     const player = this.guiManager.youtubePlayer
+                    if (!this.debugMode) {
+                        player.getIframe().style.display = 'none'
+                    }
                     player.setVolume(0)
                     player.seekTo(startTime)
                     player.playVideo()
-                    setTimeout(doneBuffering, (endTime - startTime) / nPieces * 1000)
+                    setTimeout(doneBuffering, (endTime - startTime) * 1000)
                 })
             })
         } else {
