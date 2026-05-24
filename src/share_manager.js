@@ -51,6 +51,8 @@ class ShareManager {
         copyButtonDiv.style.backgroundSize = 'cover'
         copyButtonDiv.style.width = copyButtonSizePx + 'px'
         copyButtonDiv.style.height = copyButtonSizePx + 'px'
+        copyButtonDiv.title = 'Copy to Clipboard'
+        copyButtonDiv.style.cursor = 'pointer'
         copyButtonDiv.onclick = this.copyResult.bind(this)
  
         // The full result div contains the top row, timer result and copy button.

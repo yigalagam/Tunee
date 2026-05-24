@@ -515,7 +515,7 @@ class GUIManager {
         feedbackButton.style.width = linkButtonSizePx + 'px'
         feedbackButton.style.height = linkButtonSizePx + 'px'
         feedbackButton.style.marginTop = baseSizePx + 'px'
-        feedbackButton.title = email
+        feedbackButton.title = 'Send Feedback'
         feedbackButton.style.cursor = 'pointer'
         feedbackButton.onclick = () => {
             window.open('mailto:' + email, '_blank')
@@ -531,7 +531,7 @@ class GUIManager {
         playstoreButton.style.width = linkButtonSizePx + 'px'
         playstoreButton.style.height = linkButtonSizePx + 'px'
         playstoreButton.style.marginTop = baseSizePx + 'px'
-        playstoreButton.title = playstore
+        playstoreButton.title = 'Google Play'
         playstoreButton.style.cursor = 'pointer'
         playstoreButton.onclick = () => {
             window.open(playstore)
