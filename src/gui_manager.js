@@ -102,10 +102,10 @@ class GUIManager {
                 
                 // This addresses a mysterious issue on the GitHub server, where the video ID is not populated in the frame src.
                 const youtubeFrame = this.youtubePlayer.getIframe()
-                const youtubeSrc = this.youtubePlayer.g.src
+                const youtubeSrc = this.youtubePlayer.h.src
                 if (youtubeSrc.includes('/embed/?')) {
                     // Set video ID manually if it's missing.
-                    this.youtubePlayer.g.src = youtubeSrc.replace('/embed/?', `/embed/${youtubeId}/?`)
+                    this.youtubePlayer.h.src = youtubeSrc.replace('/embed/?', `/embed/${youtubeId}/?`)
                 }
             }
         }, 100);
